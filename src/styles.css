@@ -2,3 +2,11 @@
 .container-margin{
     margin: 10px;
 }
+
+.imput-height{
+    height: 60px;
+}
+
+.input-margin{
+    margin: 10px auto;
+}

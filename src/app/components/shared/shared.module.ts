@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { AppComponent } from "src/app/app.component";
+import { AccountsModule } from "../featured/accounts/accounts.module";
+import { FeaturedModule } from "../featured/featured.module";
 import { BodyComponent } from "./body/body.component";
 import { FooterComponent } from "./footer/footer.component";
 import { NavComponent } from "./nav/nav.component";
@@ -13,7 +15,7 @@ import { NavComponent } from "./nav/nav.component";
         FooterComponent
 
     ],
-    imports: [],
+    imports: [AccountsModule, FeaturedModule],
     exports: [
         AppComponent,
         NavComponent,
