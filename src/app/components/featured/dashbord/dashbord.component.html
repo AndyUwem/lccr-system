@@ -7,28 +7,30 @@
   <div class="container">
     <div class="row">
       <div class="col-2">
-        <div>
+        <div class="sidebar">
+            
             <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Home</a>
+                <li routerLinkActive="active current" class="nav-item">
+                  <a class="nav-link" [routerLink]="['/home']">Home</a>
+                </li>
+                <li routerLinkActive="active current" class="nav-item">
+                  <a class="nav-link" [routerLink]="['/customers']">Customers</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Customer</a>
+                  <a class="nav-link">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Settings</a>
+                    <a class="nav-link">Settings</a>
                   </li>
               </ul>
         </div>
+        
       </div>
       <div class="col-10">
        <div class="container container-margin">
         <div class="row">
             <app-status-cards></app-status-cards>
-                <app-customers></app-customers>
+               <router-outlet></router-outlet>
 
           </div>
        </div>
