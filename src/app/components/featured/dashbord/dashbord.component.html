@@ -4,23 +4,31 @@
     <a class="nav-link" href="#">Link</a>
     <a class="nav-link disabled">Disabled</a>
   </nav> -->
+  
   <div class="container">
     <div class="row">
-      <div class="col-2">
+      <div class="col-2 sidebar">
         <div class="sidebar">
             
+            <img src="..." class="img-fluid" alt="...">
             <ul class="nav flex-column">
                 <li routerLinkActive="active current" class="nav-item">
-                  <a class="nav-link" [routerLink]="['/home']">Home</a>
+                  <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-home"></i> Home </a>
                 </li>
                 <li routerLinkActive="active current" class="nav-item">
                   <a class="nav-link" [routerLink]="['/customers']">Customers</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link">Profile</a>
+                <li routerLinkActive="active current" class="nav-item">
+                  <a class="nav-link" [routerLink]="['/profile']">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Settings</a>
+                    <a class="nav-link" [routerLink]="['/settings']">Settings</a>
+                  </li>
+                  <li routerLinkActive="active current" class="nav-item">
+                    <a class="nav-link" [routerLink]="['/developer']">Developer</a>
+                  </li>
+                  <li routerLinkActive="active current" class="nav-item">
+                    <a class="nav-link" [routerLink]="['/company']">Company Info</a>
                   </li>
               </ul>
         </div>
