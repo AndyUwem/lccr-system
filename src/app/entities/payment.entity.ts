@@ -1,6 +1,6 @@
 export class Payment{
 
-    private id!: number;
+    
     private date!: Date;
     private amountPaid!: number;
     private balanceOfPayment!: number;
@@ -9,14 +9,6 @@ export class Payment{
 
     constructor(){}
 
-    setId(id: number){
-        this.id = id
-     }
- 
-     getId(): number{
-         return this.id
-     }
- 
      setDate(date: Date){
          this.date = date
       }

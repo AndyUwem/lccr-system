@@ -1,66 +1,55 @@
 import { Cloth } from "./cloth.entity";
 
-export class Customer{
+ class Customer{
 
-    private id!: number;
-    private names!: string
-    private dateRegistered!: Date
-    private phone!: number
-    private address!: string
-    private cloth!: Cloth[]
+    
+     dateRegistered!: string
+     address!: string
+     cloth!: Cloth[]
 
-
-    constructor(){}
-
-
-      setId(id: number){
-       this.id = id
+    constructor(private names: string, private phone: number, private gender: string){
+             this.names = names
+             this.phone = phone
+             this.gender = gender
     }
-
-    getId(): number{
-        return this.id
-    }
-
-    setNames(names: string){
-        this.names = names
-     }
- 
-     getNames(): string{
-         return this.names
-     }
-
-     setDateRegistered(dateRegistered: Date){
-        this.dateRegistered = dateRegistered
-     }
- 
-     getDateRegistered(): Date{
-         return this.dateRegistered
-     }
-
-     setPhone(phone: number){
-        this.phone = phone
-     }
- 
-     getPhone(): number{
-         return this.phone
-     }
-
-     setAdress(address: string){
-        this.address = address
-     }
- 
-     getAdress(): string{
-         return this.address
-     }
-
-
-     setCloth(cloth: Cloth[]){
-        this.cloth = cloth
-     }
- 
-     getCloth(): Cloth[]{
-         return this.cloth
-     }
-
 
 }
+
+
+export class CustomerBuilder{
+
+    private customer: Customer
+
+      constructor(private names: string, private phone: number, private gender: string){
+             this.customer = new Customer(names, phone, gender)
+      }
+  
+ 
+      setDateRegistered(dateRegistered: string): CustomerBuilder{
+         this.customer.dateRegistered = dateRegistered
+         return this
+      }
+  
+
+ 
+      setAdress(address: string): CustomerBuilder{
+         this.customer.address = address
+         return this
+      }
+  
+ 
+      setCloth(cloth: Cloth[]): CustomerBuilder{
+         this.customer.cloth = cloth
+         return this
+      }
+
+      build(): Customer{
+        return this.customer
+      }
+}
+
+
+
+
+
+
