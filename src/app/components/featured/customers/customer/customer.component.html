@@ -1,1 +1,47 @@
-<p>customer works!</p>
+
+
+ <table class="table">
+  <thead>
+      <tr>
+        <th scope="col">
+          <select class="form-control-sm" aria-label="select example">
+              <option selected>Search By</option>
+              <option value="1">Names</option>
+              <option value="2">Adress</option>
+            </select>
+        </th>
+        <th scope="col">
+          <input class="form-control form-control-sm" type="text" placeholder="Search name">
+        </th>
+        <th scope="col"><a type="button" class="btn btn-success btn-sm" [routerLink]="['/customers/create-customer']" >Add Customer</a></th>
+        <th scope="col"></th>
+     
+      </tr>
+    </thead>
+  
+</table>
+
+
+<table class="table caption-top" >
+
+
+    <caption>Customers</caption>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Names</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let customer of customers">
+      <tr>
+        <th scope="row"> {{ customer.id }} </th>
+        <td> {{ customer.names }} </td>
+        <td> {{ customer.phone }} </td>
+        <td> {{ customer.gender }} </td>
+        <td> {{ customer.address }} </td>
+      </tr>
+    </tbody>
+  </table>

@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { DashbordComponent } from "../featured/dashbord/dashbord.component";
 import { SidebarComponent } from "../featured/sidebar/sidebar.component";
-import { CustomersModule } from "./customers/customers.module";
 import { DashBoardRoutingModule } from "./dashbord/dashboard-routing.module";
 import { StatusCardsModule } from "./status-cards/status-cards.module";
 import { TimeComponent } from './time/time.component';
@@ -23,7 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
         CompanyInfoComponent,
         ProfileComponent
     ],
-    imports: [CustomersModule, StatusCardsModule, DashBoardRoutingModule],
+    imports: [StatusCardsModule, DashBoardRoutingModule],
     exports: [
         DashbordComponent,
         SidebarComponent,

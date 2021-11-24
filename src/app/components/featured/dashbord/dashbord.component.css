@@ -1,7 +1,10 @@
 .sidebar{
+   
     background-color: navy;
     color: #fff;
     font-size: small;
     text-align: letf;
-    
+    border: 1px solid navy;
+    border-radius: 12px 0px 0px 12px;
+
 }
