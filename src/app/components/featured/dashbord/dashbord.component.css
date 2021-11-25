@@ -1,10 +1,36 @@
-.sidebar{
-   
-    background-color: navy;
+.sidebar{ 
+    background-color: rgb(14, 14, 133);
     color: #fff;
     font-size: small;
     text-align: letf;
-    border: 1px solid navy;
+    border: 1px solid rgb(6, 6, 75);
     border-radius: 12px 0px 0px 12px;
+    padding: 0px 15px;
+}
 
+#logo{
+    margin-top: 16px;
+}
+
+li{
+    padding: 5px;
+    color: #fff;
+}
+
+li a{
+    color: #fff;
+}
+
+.icons{
+    font-size: medium;
+    margin-right: 10px;
+}
+
+.sections{
+    width: fit-content;
+    height: fit-content;
+    color: rgb(169, 162, 162);
+    text-align: left;
+    margin: 20% 0px 10px 26px;
+    font: 10px cursive;
 }
