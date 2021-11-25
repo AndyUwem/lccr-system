@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.site-background-color{
+    background-color: rgb(14, 14, 133);
+}
+
+.site-primary-color{
+    color: rgb(14, 14, 133);
+}
+
 .container-margin{
     margin: 10px;
 }
