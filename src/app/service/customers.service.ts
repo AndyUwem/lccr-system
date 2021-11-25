@@ -10,6 +10,8 @@ import { Injectable } from "@angular/core";
 export class CustomerService{
 
     private dBUrl: string = 'http://localhost:3000/customers'
+  
+ 
      
     constructor(private http: HttpClient){}
 
@@ -21,7 +23,6 @@ export class CustomerService{
         return this.http.get(this.dBUrl)
     }
 
-    
-    
-}
+ 
+}   
 
