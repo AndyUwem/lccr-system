@@ -1,10 +1,18 @@
 <div class="row">
+
+  <div class=""> 
+    <p class="time site-primary-color">
+      {{ clock }}
+    </p>
+  
+   </div>
+
   <div class="col">
            
-    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+    <div class="card text-white mb-3 site-background-color" style="max-width: 18rem;">
         <div class="card-header">Customers</div>
         <div class="card-body">
-          <h2 class="card-title">12</h2>
+          <h2 class="card-title"> {{ customerCount }} </h2>
           <p class="card-text">Since Last Month</p>
         </div>
       </div>
@@ -12,8 +20,8 @@
 </div>
 <div class="col">
   
-    <div class="card text-white bg-secondary  mb-3" style="max-width: 18rem;">
-        <div class="card-header">Cloths</div>
+    <div class="card text-white mb-3 site-background-color" style="max-width: 18rem;">
+        <div class="card-header">Total Cloths</div>
         <div class="card-body">
           <h2 class="card-title">200</h2>
           <p class="card-text">Since last Month</p>
@@ -23,10 +31,10 @@
 </div>
 <div class="col">
     
-    <div class="card text-white bg-success  mb-3" style="max-width: 18rem;">
-        <div class="card-header">Attendants</div>
+    <div class="card text-white mb-3 site-background-color" style="max-width: 18rem;">
+        <div class="card-header">In Progress</div>
         <div class="card-body">
-          <h2 class="card-title">10</h2>
+          <h2 class="card-title">4/10</h2>
           <p class="card-text">Since last Month</p>
         </div>
       </div>
@@ -34,10 +42,10 @@
 
      </div>
      <div class="col">
-        <div class="card text-white bg-danger  mb-3" style="max-width: 18rem;">
-            <div class="card-header">Admin</div>
+        <div class="card text-white mb-3 site-background-color" style="max-width: 18rem;">
+            <div class="card-header">Total Sales</div>
             <div class="card-body">
-              <h2 class="card-title">2</h2>
+              <h2 class="card-title">$530</h2>
               <p class="card-text">Since last Month</p>
             </div>
           </div>
