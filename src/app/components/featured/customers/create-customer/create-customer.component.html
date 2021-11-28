@@ -1,4 +1,4 @@
-<form class="row g-3">
+<form class="row g-3" [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <div class="container">
     <div class="row">
@@ -9,92 +9,142 @@
           <div class="card-body">
       
             
-            <h4 class="form-title">Fill Customer Info</h4>
+            <h4 class="form-title">Fill Customer Infomation</h4>
 
             <div class="input-group form-margin">
               <span class="input-group-text">Names</span>
-              <input type="text" aria-label="First name" class="form-control">
+              <input type="text" aria-label="Names" class="form-control" formControlName="customerNames">
+              <!-- <div *ngIf="names?.invalid && names?.touched">
+                <div *ngIf="names.errors?.['']">invalid input </div>
+                       
+              
+              </div> -->
             </div>
 
             <div class="input-group form-margin">
               <span class="input-group-text">Phone</span>
-              <input type="text" aria-label="First name" class="form-control">
+              <input type="text" aria-label="Phone" class="form-control" formControlName="phone">
             </div>
 
-            <div class="input-group form-margin">
-              <span class="input-group-text">Date</span>
-              <input type="text" aria-label="First name" class="form-control">
-            </div>
-
-            <div class="input-group form-margin">
-              <span class="input-group-text">Address</span>
-              <input type="text" aria-label="First name" class="form-control">
+            <div class="col-md-7 form-margin">
+              <label for="validationDefaultUsername" class="form-label">Registered Date</label>
+              <div class="input-group">
+                <input type="date" class="form-control" id="validationDefaultUsername" 
+                 aria-describedby="inputGroupPrepend2" formControlName="date">
+              </div>
             </div>
 
             <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" required>
-                <option selected disabled value="">Gender</option>
-                <option>...</option>
+              <select class="form-select" id="validationDefault04" formControlName="gender">
+                <option selected value="">Gender</option>
+                <option>Male</option>
+                <option>Female</option>
               </select>
             </div>
             
-          </div>
-        </div>
-      </div>
+            
+            <button (click)="addCloths()" > add cloth</button>
 
-   
-
-      <div class="col-6">
-        <div class="card w-auto" >
+            <div class="card w-auto" >
+      
+              <div class="card-body">
           
-          <div class="card-body">
-      
-            
-            <h4 class="form-title">Fill Cloths Info</h4>
-
-            <div class="input-group form-margin">
-              <span class="input-group-text">Cloth Name</span>
-              <input type="text" aria-label="First name" class="form-control">
+                
+                <h4 class="form-title">Make Payments</h4>
+        
+        
+                <div class="input-group form-margin">
+                  <span class="input-group-text">Amount Paid</span>
+                  <input type="text" aria-label="First name" class="form-control">
+                </div>
+        
+                <div class="input-group form-margin">
+                  <span class="input-group-text">Balance of Payment</span>
+                  <input type="text" aria-label="First name" class="form-control">
+                </div>
+        
+                <div class="input-group form-margin">
+                  <span class="input-group-text">Total to be paid</span>
+                  <input type="text" aria-label="First name" class="form-control">
+                </div>
+        
+                <div class="col-md-7 form-margin">
+                  <label for="validationDefaultUsername" class="form-label">Additional</label>
+                  <div class="input-group">   
+                    <input type="date" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" >
+                  </div>
+                </div>
+        
+                <div class="col-md-7 form-margin">
+                  <select class="form-select" id="validationDefault04" >
+                    <option selected value="">Delevery Status</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                  </select>
+                </div>
+        
+                <div class="col-md-7 form-margin">
+                  <select class="form-select" id="validationDefault04" >
+                    <option selected value="">Type Of Service</option>
+                    <option>Regular</option>
+                    <option>Express</option>
+                  </select>
+                </div>
+        
+                <div class="col-md-5 form-margin">
+                  <select class="form-select" id="validationDefault04" >
+                    <option selected value="">Is Owing ?</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+                
+        
+              </div>
             </div>
-
-            <div class="input-group form-margin">
-              <span class="input-group-text">Colour</span>
-              <input type="text" aria-label="First name" class="form-control">
-            </div>
-
-            <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" required>
-                <option selected disabled value="">Type Of Service</option>
-                <option>...</option>
-              </select>
-            </div>
-            
-            <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" required>
-                <option selected disabled value="">Cloth Category</option>
-                <option>...</option>
-              </select>
-            </div>
-
-            <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" required>
-                <option selected disabled value="">PickUp Date</option>
-                <option>...</option>
-              </select>
-            </div>
-
-            <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" required>
-                <option selected disabled value="">Delevery Status</option>
-                <option>...</option>
-              </select>
-            </div>
-
+           
 
           </div>
         </div>
       </div>
 
+
+<!-- fill Cloth -->
+       <div class="col-5 card-float" > 
+        <div formArrayName="cloths" class="" *ngFor="let cloths of bagOfCloths; let i = index">
+         
+          <div class="card w-auto" >
+            
+            <div [formGroupName]="i" class="card-body">
+              <button (click)=" removeCloth(i)" *ngIf="i >= 1">X</button>
+              
+              <h4 class="form-title">Fill in Cloth: {{ i+1 }} Infomation</h4>
+      
+              <div class="input-group form-margin">
+                <span class="input-group-text">Cloth Name</span>
+                <input type="text" aria-label="First name" class="form-control" formControlName="clothName">
+              </div>
+      
+              <div class="input-group form-margin">
+                <span class="input-group-text">Colour</span>
+                <input type="text" aria-label="First name" class="form-control" formControlName="color">
+              </div>
+              
+              <div class="form-margin">
+                <select class="form-select" id="validationDefault04" formControlName="clothCategory">
+                  <option selected value="">Cloth Category</option>
+                  <option>Shirt</option>
+                  <option>Trouser</option>
+                  <option>Other</option>
+                </select>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+       </div>
+      <!-- fill Cloth -->
+    
 
 
     </div>
@@ -103,56 +153,24 @@
 
 
 
-  <div class="col-6">
-    <div class="card w-auto" >
-      
-      <div class="card-body">
   
-        
-        <h4 class="form-title">Make Payments</h4>
-
-        <div class="col-md-4 form-margin">
-          <label for="validationDefaultUsername" class="form-label">Date</label>
-          <div class="input-group">
-            
-            <input type="date" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
-          </div>
-        </div>
-
-        <div class="input-group form-margin">
-          <span class="input-group-text">Amount Paid</span>
-          <input type="text" aria-label="First name" class="form-control">
-        </div>
-
-        <div class="input-group form-margin">
-          <span class="input-group-text">Date</span>
-          <input type="text" aria-label="First name" class="form-control">
-        </div>
-
-        <div class="input-group form-margin">
-          <span class="input-group-text">Balance of Payment</span>
-          <input type="text" aria-label="First name" class="form-control">
-        </div>
-
-        <div class="input-group form-margin">
-          <span class="input-group-text">Total to be paid</span>
-          <input type="text" aria-label="First name" class="form-control">
-        </div>
-
-
-        <div class="col-md-5 form-margin">
-          <select class="form-select" id="validationDefault04" required>
-            <option selected disabled value="">Is Owing</option>
-            <option>...</option>
-          </select>
-        </div>
-        
-      </div>
-    </div>
-  </div>
 
 
     <div class="col-12">
-      <button class="btn site-background-color site-secondary-color" (click)="createNewCustomer()">Save</button>
+      <button [disabled]="!form.valid"
+      type="submit" class="btn site-background-color site-secondary-color" >Save</button>
     </div>
   </form>
+
+
+
+
+
+
+
+
+
+
+
+ 
+

@@ -3,16 +3,32 @@
       <h5 class="card-title">Welcome !</h5>
    <br>
 
-      <form class="row g-3">
+      <form class="row g-3" #fm="ngForm" (ngSubmit)="submit(fm)">
      
         <div class="col-12">
-          <label for="inputAddress" class="form-label">Enter Attendant Code: </label>
-          <input type="text" class="form-control imput-height input-margin" id="inputAddress" placeholder="Eg. 00103A00">
+          <label for="inputEmail" class="form-label">Attendant email </label>
+          <input ngModel required maxlength="10" minlength="3" name="email" #email="ngModel" type="text" class="form-control imput-height input-margin" id="inputEmail" placeholder="Eg. james@gmail.com">
+          <div *ngIf="email.touched && !email.valid">
+              <div  *ngIf="email.errors?.['required']" class="alert alert-danger"> please enter your email</div>
+              <div *ngIf="email.errors?.['minlength']" class="alert alert-danger"> must be minimum 3 characters long.</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="inputCode" class="form-label">Attendant Code </label>
+          <input ngModel required name="passcode" #passcode="ngModel"
+           type="text" class="form-control imput-height input-margin" id="inputCode" placeholder="Eg. 00103A00">
+
+           <div *ngIf="passcode.touched && !passcode.valid">
+
+             <div *ngIf="passcode.errors?.['required']" class="alert alert-danger"> please enter your passcode</div>
+           </div>
         </div>
         
         <div class="col-12">
-          <button type="submit" class="btn btn-primary input-margin">Sign in</button>
+          <button [disabled]="!fm.valid" type="submit" class="btn btn-primary input-margin">Sign in</button>
         </div>
+
       </form>
 
     </div>

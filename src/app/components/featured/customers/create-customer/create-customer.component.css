@@ -5,3 +5,7 @@
 .form-title{
     margin: 20px 0px;
 }
+
+.card-float{
+    float: left;
+}
