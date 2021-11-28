@@ -5,11 +5,17 @@ import { CustomerComponent } from './customer/customer.component';
 import { CustomersComponent } from './customers.component';
 import { HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [CustomersComponent, CustomerComponent,CreateCustomerComponent ],
-  imports: [CommonModule, CustomerRoutingModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    CustomerRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
+   ],
   exports: [CustomersComponent, CustomerComponent,CreateCustomerComponent ],
 })
 export class CustomersModule {}

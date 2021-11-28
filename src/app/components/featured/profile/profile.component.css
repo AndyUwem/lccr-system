@@ -1,0 +1,23 @@
+.profile{
+    padding: 20px;
+    background-color: #e1e1e1;
+}
+.profile-pic{
+  border-radius: 10px;
+}
+
+.activity-container{
+    background-color: #fff;
+    text-align: right;
+    padding: 4PX;
+}
+
+.activity-container button{
+    margin-right: 40px;
+}
+
+.activity-container button i{
+    margin-right: 10px;
+}
+
+
