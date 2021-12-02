@@ -4,21 +4,25 @@ export class Cloth {
 
 
     constructor(
-        private name: string,
-        private color: string,
-        private type: string,
-        private delivered: boolean,
+        private clothName: string,
+        private clothColor: string,
+        private clothCategory: string,
+        private serviceType: string,
+        private deliveryStatus: string,
         private clothStatus: string,
-        private pickUpDate: String,
-        private payment: Payment
+        private pickUpDate: string,
+        private description: string,
+        private payment: Payment[]
         )
     {
-       this.name = name
-       this.color = color
-       this.type = type
-       this.delivered = delivered
+       this.clothName = clothName
+       this.clothColor = clothColor
+       this.clothCategory = clothCategory
+       this.serviceType = serviceType
+       this.deliveryStatus = deliveryStatus
        this.clothStatus = clothStatus
-       this.pickUpDate =pickUpDate
+       this.pickUpDate = pickUpDate
+       this.description = description
        this.payment = payment
     }
 

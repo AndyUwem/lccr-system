@@ -1,147 +1,219 @@
-<form class="row g-3" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="row g-3" [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
 
   <div class="container">
     <div class="row">
 
-      <div class="col-6">
-        <div class="card w-auto" >
+      <div class="col-8">
+        
           
-          <div class="card-body">
+          <div class="card-body row g-3">
       
             
             <h4 class="form-title">Fill Customer Infomation</h4>
+            
+            <!-- test -->
+            <div class="col-md-6">
+              <label for="validationServer01" class="form-label">Names</label>
+              <input type="text" class="form-control"  
+                [class.is-invalid]="setValidationFor('names')" 
+                id="validationServer01" value="Mark" formControlName="names">
 
-            <div class="input-group form-margin">
-              <span class="input-group-text">Names</span>
-              <input type="text" aria-label="Names" class="form-control" formControlName="customerNames">
-              <!-- <div *ngIf="names?.invalid && names?.touched">
-                <div *ngIf="names.errors?.['']">invalid input </div>
-                       
-              
-              </div> -->
+               <div *ngIf="setValidationFor('names')">
+                <div *ngIf="names?.errors?.['required']" style="color: red;">
+                  Please provide customer names.
+                </div>
+               </div>
+
             </div>
 
-            <div class="input-group form-margin">
-              <span class="input-group-text">Phone</span>
-              <input type="text" aria-label="Phone" class="form-control" formControlName="phone">
+            <div class="col-md-6">
+              <label for="validationServer02" class="form-label">Phone</label>
+              <input type="text" [class.is-invalid]="setValidationFor('phone')" 
+               class="form-control" 
+               id="validationServer02" value="Otto" formControlName="phone">
+
+              <div *ngIf="setValidationFor('phone')">
+                <div *ngIf="phone?.errors?.['required']" style="color: red;">
+                  Please provide a valid phone number.
+                </div>
+               </div>
+
             </div>
 
-            <div class="col-md-7 form-margin">
-              <label for="validationDefaultUsername" class="form-label">Registered Date</label>
-              <div class="input-group">
-                <input type="date" class="form-control" id="validationDefaultUsername" 
-                 aria-describedby="inputGroupPrepend2" formControlName="date">
+            <div class="col-md-6">
+              <label for="validationServerUsername" class="form-label">Address</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                <input type="text" [class.is-invalid]="setValidationFor('address')" 
+                 class="form-control" id="validationServerUsername" 
+                 aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" formControlName="address">
+
+                 <div *ngIf="setValidationFor('address')">
+                  <div *ngIf="address?.errors?.['required']" style="color: red;">
+                    Please provide an address for this customer.
+                  </div>
+                 </div>
+
               </div>
             </div>
 
-            <div class="col-md-5 form-margin">
-              <select class="form-select" id="validationDefault04" formControlName="gender">
-                <option selected value="">Gender</option>
+            <div class="col-md-6">
+              <label for="validationServer03" class="form-label">Registered Date</label>
+              <input type="button" class="form-control"
+               id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="registeredDate">
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationServer04" class="form-label">gender</label>
+              <select class="form-select"  [class.is-invalid]="setValidationFor('gender')" 
+              id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="gender">
+                <option selected disabled value="">Choose...</option>
                 <option>Male</option>
                 <option>Female</option>
               </select>
-            </div>
-            
-            
-            <button (click)="addCloths()" > add cloth</button>
 
-            <div class="card w-auto" >
-      
-              <div class="card-body">
-          
-                
-                <h4 class="form-title">Make Payments</h4>
-        
-        
-                <div class="input-group form-margin">
-                  <span class="input-group-text">Amount Paid</span>
-                  <input type="text" aria-label="First name" class="form-control">
+              <div *ngIf="setValidationFor('gender')">
+                <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                  Please select a valid gender.
                 </div>
-        
-                <div class="input-group form-margin">
-                  <span class="input-group-text">Balance of Payment</span>
-                  <input type="text" aria-label="First name" class="form-control">
-                </div>
-        
-                <div class="input-group form-margin">
-                  <span class="input-group-text">Total to be paid</span>
-                  <input type="text" aria-label="First name" class="form-control">
-                </div>
-        
-                <div class="col-md-7 form-margin">
-                  <label for="validationDefaultUsername" class="form-label">Additional</label>
-                  <div class="input-group">   
-                    <input type="date" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" >
-                  </div>
-                </div>
-        
-                <div class="col-md-7 form-margin">
-                  <select class="form-select" id="validationDefault04" >
-                    <option selected value="">Delevery Status</option>
-                    <option>In Progress</option>
-                    <option>Completed</option>
-                  </select>
-                </div>
-        
-                <div class="col-md-7 form-margin">
-                  <select class="form-select" id="validationDefault04" >
-                    <option selected value="">Type Of Service</option>
-                    <option>Regular</option>
-                    <option>Express</option>
-                  </select>
-                </div>
-        
-                <div class="col-md-5 form-margin">
-                  <select class="form-select" id="validationDefault04" >
-                    <option selected value="">Is Owing ?</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
-                </div>
-                
-        
-              </div>
+               </div>
             </div>
-           
+          
+          
+            <!-- test -->
+            
+            <button class="btn btn-secondary" (click)="addCloths()" >new cloth</button>
 
           </div>
-        </div>
+      
       </div>
 
 
 <!-- fill Cloth -->
-       <div class="col-5 card-float" > 
-        <div formArrayName="cloths" class="" *ngFor="let cloths of bagOfCloths; let i = index">
-         
-          <div class="card w-auto" >
+       <div class="col-8 "> 
+
+        <div formArrayName="cloths" class="" *ngFor="let cloths of cloths.controls; let i = index">
             
-            <div [formGroupName]="i" class="card-body">
+            <div [formGroupName]="i" class="card-body row g-3">
               <button (click)=" removeCloth(i)" *ngIf="i >= 1">X</button>
               
               <h4 class="form-title">Fill in Cloth: {{ i+1 }} Infomation</h4>
-      
-              <div class="input-group form-margin">
-                <span class="input-group-text">Cloth Name</span>
-                <input type="text" aria-label="First name" class="form-control" formControlName="clothName">
+
+              <div class="col-md-6">
+                <label for="validationServer02" class="form-label">Cloth Name</label>
+                <input type="text" 
+                 class="form-control" 
+                 id="validationServer02" value="Otto" formControlName="clothName">
+  
+                <div *ngIf="setValidationFor('phone')">
+                  <div *ngIf="phone?.errors?.['required']" style="color: red;">
+                    Please provide a valid name for this cloth or dress.
+                  </div>
+                 </div>
               </div>
-      
-              <div class="input-group form-margin">
-                <span class="input-group-text">Colour</span>
-                <input type="text" aria-label="First name" class="form-control" formControlName="color">
-              </div>
+
               
-              <div class="form-margin">
-                <select class="form-select" id="validationDefault04" formControlName="clothCategory">
-                  <option selected value="">Cloth Category</option>
+              <div class="col-md-6">
+                <label for="validationServer02" class="form-label">Colour</label>
+                <input type="text" 
+                 class="form-control" 
+                 id="validationServer02" value="Otto" formControlName="clothColor">
+  
+                <div *ngIf="setValidationFor('phone')">
+                  <div *ngIf="phone?.errors?.['required']" style="color: red;">
+                    Please provide a valid colour for this cloth or dress.
+                  </div>
+                 </div>
+              </div>
+      
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">ClothCategory</label>
+                <select class="form-select" 
+                id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="clothCategory">
+                  <option selected disabled value="">Choose...</option>
                   <option>Shirt</option>
                   <option>Trouser</option>
                   <option>Other</option>
                 </select>
+  
+                <div *ngIf="setValidationFor('gender')">
+                  <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                    Please select a valid category.
+                  </div>
+                 </div>
               </div>
-      
+
+
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">ServiceType</label>
+                <select class="form-select" 
+                id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="serviceType">
+                  <option selected disabled value="">Choose...</option>
+                  <option>Regular</option>
+                  <option>Express</option>
+                </select>
+  
+                <div *ngIf="setValidationFor('gender')">
+                  <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                    Please select a valid serviceType.
+                  </div>
+                 </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">ClothStatus</label>
+                <select class="form-select" 
+                id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="clothStatus">
+                  <option selected disabled value="">Choose...</option>
+                  <option>In Progress</option>
+                  <option>Completed</option>
+                </select>
+  
+                <div *ngIf="setValidationFor('gender')">
+                  <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                    Please select a valid status for this cloth.
+                  </div>
+                 </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">DeliveryStatus</label>
+                <select class="form-select" 
+                id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="deliveryStatus">
+                  <option selected disabled value="">Choose...</option>
+                  <option>Delivered</option>
+                  <option>Not Delivered</option>
+                </select>
+  
+                <div *ngIf="setValidationFor('gender')">
+                  <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                    Please select a valid status for this cloth.
+                  </div>
+                 </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <label for="validationServer03" class="form-label">PickUp Date</label>
+                <input type="date" class="form-control"
+                 id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="pickUpDate">
+              </div>
+              
+              <div class="mb-3">
+                <label for="validationTextarea" class="form-label">Description</label>
+                <textarea class="form-control" id="validationTextarea"
+                 placeholder="describe what to do with this cloth eg washing and ironing... starhing etc ." formControlName="description"></textarea>
+                <div class="invalid-feedback">
+                  Please enter a short description about this cloth in the textarea.
+                </div>
+              </div>
+
             </div>
-          </div>
-        </div>
+
+         
+        </div>  
        </div>
       <!-- fill Cloth -->
     
@@ -153,12 +225,9 @@
 
 
 
-  
-
-
     <div class="col-12">
-      <button [disabled]="!form.valid"
-      type="submit" class="btn site-background-color site-secondary-color" >Save</button>
+      <button [disabled]="!newCustomerForm.valid"
+      type="submit" class="btn site-background-color site-secondary-color">Save</button>
     </div>
   </form>
 
