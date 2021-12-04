@@ -5,15 +5,16 @@ import { CustomerComponent } from "./customer/customer.component";
 import { CustomersComponent } from "./customers.component";
 
 
-const routes: Routes =  [
-            {
-                path: '',
-                component: CustomersComponent, 
+const routes: Routes = [
+  {
+    path: '',
+    component: CustomersComponent,
 
-                children: [
-                    { path: '', component: CustomerComponent },
-                    { path: 'create-customer', component: CreateCustomerComponent }  
-                ]}
+    children: [
+      { path: '', component: CustomerComponent },
+      { path: 'create-customer', component: CreateCustomerComponent }
+    ]
+  }
 ]
 
 @NgModule({
@@ -22,4 +23,4 @@ const routes: Routes =  [
 })
 
 
-export class CustomerRoutingModule{}
+export class CustomerRoutingModule { }

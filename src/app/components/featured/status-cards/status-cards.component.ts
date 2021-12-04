@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { CustomerService } from 'src/app/service/customers.service';
 
 @Component({
@@ -8,27 +8,30 @@ import { CustomerService } from 'src/app/service/customers.service';
   styleUrls: ['./status-cards.component.css'],
   providers: [CustomerService],
 })
-export class StatusCardsComponent implements OnInit {
+export class StatusCardsComponent implements OnInit, OnDestroy {
   customers: any = [];
   customerCount: number = 0;
 
   clock: string = '';
-  attendantName: string = 'BobCat'
+  attendantName: string = 'BobCat';
+   private timeInterval!: Subscription;
 
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.getCustomersCounts();
 
-    interval(1000).subscribe((t: number) => {
+    this.timeInterval =  interval(1000).subscribe((t: number) => {
       this.handleTime();
     });
+  }
+ ngOnDestroy(): void{
+    this.timeInterval.unsubscribe()
   }
 
   getCustomersCounts() {
     return this.customerService.findAll().subscribe((customers) => {
       this.customers = customers;
-      console.log(this.updateCustomersStatus(customers));
     });
   }
 
@@ -40,18 +43,28 @@ export class StatusCardsComponent implements OnInit {
     let currentClock = new Date(),
       hours = currentClock.getHours(),
       minutes = currentClock.getMinutes(),
-      seconds = currentClock.getSeconds(),
       clockWeather = '',
       greetings = '';
 
-    if (hours > 11) {
+    if (currentClock.toLocaleString().endsWith('PM')) {
+
       clockWeather = 'PM';
-      greetings = `Good Afternoon! ${this.attendantName}`;
-    } else {
+        if(hours <= 12 || hours < 5) 
+           greetings = `Good Afternoon! ${this.attendantName}`;
+        else
+           greetings = `Good Evening! ${this.attendantName}`;
+      
+
+     } else {
       clockWeather = 'AM';
+      if(hours < 11) greetings = `Good Afternoon! ${this.attendantName}`;
       greetings = `Good Morning! ${this.attendantName}`;
     };
 
-    return (this.clock = `${greetings}      ( ${hours}:${minutes}:${seconds} ${clockWeather} )`);
+    return (this.clock = `${greetings},   ${currentClock.toLocaleString()}`);
   }
+
+
+
+
 }
