@@ -8,13 +8,10 @@ import { CustomersComponent } from "./customers.component";
 const routes: Routes = [
   {
     path: '',
-    component: CustomersComponent,
-
-    children: [
-      { path: '', component: CustomerComponent },
-      { path: 'create-customer', component: CreateCustomerComponent }
-    ]
-  }
+    component: CustomersComponent
+  },
+  { path: 'customer/:id', component: CustomerComponent },
+  { path: 'create-customer', component: CreateCustomerComponent }
 ]
 
 @NgModule({

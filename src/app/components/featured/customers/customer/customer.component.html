@@ -1,47 +1,76 @@
+<div class="container">
+    <div class="row">
+        
+        <div class="col-4">
 
+            <div class="card" style="width: 18rem;">
+                <img src="assets/img/profile-image.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ customer.names }}</h5>
+                  <ul class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw-bold">Address</div>
+                        {{ customer.address }}
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw-bold">Phone</div>
+                        {{ customer.phone }}
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw-bold">Gender</div>
+                        {{ customer.gender }}
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold">Total Cloths</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ customer.cloth.length }}</span>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+        
+        
+        </div>
 
- <table class="table">
-  <thead>
-      <tr>
-        <th scope="col">
-          <select class="form-control-sm" aria-label="select example" [(ngModel)]="selectFilterBy" (click)="updateSearchPlaceholder()">
-              <option selected disabled >Search By</option>
-              <option value="names">Names</option>
-              <option value="address">Adress</option>
-              <option value="phone">Phone</option>
-            </select>
-        </th>
-        <th scope="col">
-        <input class="form-control form-control-sm" type="text" [placeholder]="searchFieldPlaceHolder" [(ngModel)]="searchTerm">
-        </th>
-        <th scope="col"><a type="button" class="btn btn-success btn-sm" [routerLink]="['/customers/create-customer']" >Add Customer</a></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-  
-</table>
+        <div class="col-8">
+            <div class="col-12" style="margin-bottom: 10px;">
+             
+                <div class="card">
+                    <div class="card-body" style="background-color: rgb(238, 205, 72);">
+                        <h3 style="color: #fff; font-family: inherit;">Customer Profile</h3>
+                    </div>
+                  </div>
+            </div>
 
+            <!-- cloths section -->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item" *ngFor="let cloth of customer.cloth; let i = index">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                       Cloth:  {{ i + 1 }}
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end cloths section -->
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-8">payments</div>
+      <div class="col-4">payments operation</div>
+    </div>
+  </div>
 
-<table class="table caption-top" >
-
-
-    <caption>Customers</caption>
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Names</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Address</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let customer of customers | filterCustomer:searchTerm:selectFilterBy; let i = index; ">
-      <tr>
-        <th scope="row"> {{ i + 1 }} </th>
-        <td> {{ customer.names }} </td>
-        <td> {{ customer.phone }} </td>
-        <td> {{ customer.gender | lowercase }} </td>
-        <td> {{ customer.address }} </td>
-      </tr>
-    </tbody>
-  </table>
+ 

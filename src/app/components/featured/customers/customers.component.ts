@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'src/app/service/customers.service';
 
 @Component({
   selector: 'app-customers',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  constructor() { }
+  customers: any = [];
+  searchTerm  = '';
+  selectFilterBy = 'name'
+  searchFieldPlaceHolder = ''
+
+  constructor(private customerService: CustomerService ) { }
 
   ngOnInit(): void {
+
+    this.getAllCustomers();
+    this.updateSearchPlaceholder();
   }
+
+  getAllCustomers() {
+    return this.customerService.findAll().subscribe( response => this.customers = response )
+  }
+
+  updateSearchPlaceholder(){
+   this.searchFieldPlaceHolder = `search customers by ${this.selectFilterBy}`
+  }
+
 
 }

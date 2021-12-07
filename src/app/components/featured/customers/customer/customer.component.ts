@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Customer } from 'src/app/interface/customer.interface';
 import { CustomerService } from 'src/app/service/customers.service';
 
 @Component({
@@ -8,24 +10,21 @@ import { CustomerService } from 'src/app/service/customers.service';
   providers: [CustomerService]
 })
 export class CustomerComponent implements OnInit {
-  customers: any = [];
-  searchTerm  = '';
-  selectFilterBy = 'names'
-  searchFieldPlaceHolder = ''
 
-  constructor(private customerService: CustomerService) {}
+  customer = <Customer>{}
+
+  constructor(private customerService: CustomerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getAllCustomers();
-    this.updateSearchPlaceholder()
+    this.getCustomerById()
   }
 
-  getAllCustomers() {
-    return this.customerService.findAll().subscribe( response => this.customers = response )
+  getCustomerById() {
+     return this.customerService.findCustomerById('-Mq51Ghk623IHrKKHpKd').subscribe( responseData => {
+       console.log(responseData)
+       this.customer = responseData
+     } )
   }
 
-  updateSearchPlaceholder(){
-   this.searchFieldPlaceHolder = `search customers by ${this.selectFilterBy}`
-  }
-
+   
 }

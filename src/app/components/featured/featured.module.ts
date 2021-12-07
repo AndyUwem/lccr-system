@@ -2,13 +2,15 @@ import { NgModule } from "@angular/core";
 import { DashbordComponent } from "../featured/dashbord/dashbord.component";
 import { SidebarComponent } from "../featured/sidebar/sidebar.component";
 import { DashBoardRoutingModule } from "./dashbord/dashboard-routing.module";
-import { StatusCardsModule } from "./status-cards/status-cards.module";
 import { TimeComponent } from './time/time.component';
 import { AdvertsComponent } from './adverts/adverts.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DeveloperComponent } from './developer/developer.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { ProfileComponent } from './profile/profile.component';
+import { StatusCardComponent } from "./status-cards/status-card/status-card.component";
+import { StatusCardsComponent } from "./status-cards/status-cards.component";
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -20,14 +22,18 @@ import { ProfileComponent } from './profile/profile.component';
         SettingsComponent,
         DeveloperComponent,
         CompanyInfoComponent,
-        ProfileComponent
+        ProfileComponent,
+        StatusCardsComponent,
+        StatusCardComponent
     ],
-    imports: [StatusCardsModule, DashBoardRoutingModule],
+    imports: [ DashBoardRoutingModule, HttpClientModule],
     exports: [
         DashbordComponent,
         SidebarComponent,
         TimeComponent,
-        AdvertsComponent
+        AdvertsComponent,
+        StatusCardsComponent,
+        StatusCardComponent
     ]
 })
 
