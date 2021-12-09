@@ -11,18 +11,16 @@ export class CustomerService {
 
     private CUSTOMERS_API: string = 'https://laundry-records-system-default-rtdb.firebaseio.com'
 
-    private subject = new Subject<any>() 
-
 
     constructor(private http: HttpClient) { }
 
-    createCustomer(customer: {}) {
-        return this.http.post(`${this.CUSTOMERS_API}/customers.json`, customer)
+    createCustomer(customer: {}): Observable<Customer>{
+        return this.http.post<Customer>(`${this.CUSTOMERS_API}/customers.json`, customer)
     }
 
-    findAll() {
-        return this.http.get(`${this.CUSTOMERS_API}/customers.json`)
-            .pipe(map((responseData: any) => {
+    findAll(): Observable<Customer[]>{
+        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}/customers.json`)
+            .pipe(map((responseData: Customer[]) => {
                 let customers = [];
 
                 for (const key in responseData) {

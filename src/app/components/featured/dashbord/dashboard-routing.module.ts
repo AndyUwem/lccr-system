@@ -14,6 +14,7 @@ const routes: Routes =  [
       { path: 'developer', component: DeveloperComponent},
       { path: 'company', component: CompanyInfoComponent},
       { path: 'customers', loadChildren: ()=> import('../customers/customers.module').then( m => m.CustomersModule) },
+      { path: '**', redirectTo: '/home', pathMatch: 'full'}
 
 ]
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Customer } from 'src/app/interface/customer.interface';
 import { CustomerService } from 'src/app/service/customers.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CustomerService } from 'src/app/service/customers.service';
   providers: [CustomerService],
 })
 export class StatusCardsComponent implements OnInit {
-  customers: any = [];
+
   customerCount: number = 0;
 
   constructor(private customerService: CustomerService) {}
@@ -20,12 +21,12 @@ export class StatusCardsComponent implements OnInit {
 
 
   getCustomersCounts() {
-    return this.customerService.findAll().subscribe((customers) => {
-      this.customers = customers;
+    return this.customerService.findAll().subscribe((customers: Array<Customer>) => {
+      this.updateCustomersStatus(customers)
     });
   }
 
-  updateCustomersStatus(customers: any) {
+  updateCustomersStatus(customers: Array<Customer>) {
     return (this.customerCount = customers.length);
   }
 
