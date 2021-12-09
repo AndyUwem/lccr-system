@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --background-color-primary: rgb(14, 14, 133);
+    --background-color-secondary: rgb(119, 213, 220);
+}
+
 .site-background-color{
-    background-color: rgb(14, 14, 133);
+    background-color: var(--background-color-primary)
 }
 
 .site-background-color2{
-    background-color: rgb(119, 213, 220);
+    background-color: var(--background-color-secondary)
 }
 
 .site-primary-color{
@@ -26,4 +31,9 @@
 
 .input-margin{
     margin: 10px auto;
+}
+
+.current a{
+    background-color: var(--background-color-secondary);
+    color: var(--background-color-secondary);
 }
