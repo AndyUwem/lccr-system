@@ -10,7 +10,7 @@
           <th scope="col">
             <select class="form-control-sm" aria-label="select example" [(ngModel)]="selectFilterBy" (click)="updateSearchPlaceholder()">
                 <option selected disabled >Search By</option>
-                <option value="name">Name</option>
+                <option value="names">Name</option>
                 <option value="address">Adress</option>
                 <option value="phone">Phone</option>
               </select>
@@ -47,10 +47,15 @@
           <td> {{ customer.gender | lowercase }} </td>
           <td> {{ customer.address }} </td>
           <td> 
-            <button type="button" class="btn btn-primary btn-sm" style="margin-right: 5px;" [routerLink]="['/customers/customer', customer.id]"> <i class="fa fa-address-card"></i> view</button>
-            <button type="button" class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash-o"></i> delete</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-right: 5px;" [routerLink]="['/customers/customer', customer.id]"> 
+              <i class="fa fa-address-card"></i> 
+              view
+            </button>
+        
+              <button type="button" class="btn btn-danger btn-sm"  disabled><i class="fa fa-trash-o"></i> delete</button>
+        
         </td>
-         
+        
         </tr>
       </tbody>
     </table>

@@ -10,7 +10,7 @@ export class CustomersComponent implements OnInit {
 
   customers: any = [];
   searchTerm  = '';
-  selectFilterBy = 'name'
+  selectFilterBy = 'names'
   searchFieldPlaceHolder = ''
 
   constructor(private customerService: CustomerService ) { }

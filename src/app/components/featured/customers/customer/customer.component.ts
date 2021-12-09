@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Customer } from 'src/app/interface/customer.interface';
 import { CustomerService } from 'src/app/service/customers.service';
 
@@ -11,20 +11,28 @@ import { CustomerService } from 'src/app/service/customers.service';
 })
 export class CustomerComponent implements OnInit {
 
-  customer = <Customer>{}
+  public customer = <Customer>{}
+  public customerId: string = ''
 
-  constructor(private customerService: CustomerService, private route: ActivatedRoute) { }
+  constructor(private customerService: CustomerService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+   
     this.getCustomerById()
   }
 
   getCustomerById() {
-     return this.customerService.findCustomerById('-Mq51Ghk623IHrKKHpKd').subscribe( responseData => {
-       console.log(responseData)
-       this.customer = responseData
-     } )
+     this.getIdParams()
+     return this.customerService.findCustomerById(this.customerId).subscribe( responseData => this.customer = responseData)
   }
 
-   
+  getIdParams(){
+   return this.route.params.subscribe((params: Params) => this.customerId = params['id'])
+  }
+
+  cancelButton(){
+    this.router.navigateByUrl('/customers')
+   }
+
+
 }

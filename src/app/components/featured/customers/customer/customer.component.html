@@ -1,76 +1,169 @@
-<div class="container">
-    <div class="row">
-        
-        <div class="col-4">
+<div class="card card-margin-bottom">
+    <div class="card-header site-background-color site-secondary-color">
+        Customer Record
+      </div>
+  </div>
 
-            <div class="card" style="width: 18rem;">
-                <img src="assets/img/profile-image.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ customer.names }}</h5>
-                  <ul class="list-group list-group-numbered">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Address</div>
-                        {{ customer.address }}
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Phone</div>
-                        {{ customer.phone }}
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Gender</div>
-                        {{ customer.gender }}
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                          <div class="fw-bold">Total Cloths</div>
-                        </div>
-                        <span class="badge bg-primary rounded-pill">{{ customer.cloth.length }}</span>
-                      </li>
-                  </ul>
-                </div>
-              </div>
-        
-        
-        </div>
 
-        <div class="col-8">
-            <div class="col-12" style="margin-bottom: 10px;">
-             
-                <div class="card">
-                    <div class="card-body" style="background-color: rgb(238, 205, 72);">
-                        <h3 style="color: #fff; font-family: inherit;">Customer Profile</h3>
-                    </div>
-                  </div>
-            </div>
-
-            <!-- cloths section -->
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item" *ngFor="let cloth of customer.cloth; let i = index">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                       Cloth:  {{ i + 1 }}
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- end cloths section -->
-        </div>
+  <div class="card card-margin-bottom">
+    <div class="card-header site-background-color2 site-secondary-color">
+     
+      <span style="margin-right: 85%;"> Customer details</span>
+      <a (click)="cancelButton()"
+       type="button" class="btn btn-sm site-background-color site-secondary-color"> <i class="fa fa-times"></i></a>
     </div>
-    <div class="row">
-      <div class="col-8">payments</div>
-      <div class="col-4">payments operation</div>
+    <div class="card-body">
+ 
+        <div class="accordion box-container" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 Names / Address
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p class="details"><span style="margin-right: 10px;">Names:</span> <b style="color: #000;">{{ customer.names }}</b></p>
+                  <p class="details"><span style="margin-right: 10px;">Phone:</span> <b style="color: #000;"> {{ customer.phone }}</b></p>
+                  <p class="details"><span style="margin-right: 10px;">Address:</span> <b style="color: #000;">{{ customer.address }}</b></p>
+                  <p class="details"><span style="margin-right: 10px;">Gender:</span> <b style="color: #000;">{{ customer.gender }}</b></p>
+                  <p class="details"><span style="margin-right: 10px;">Registered Date:</span> <b style="color: #000;">{{ customer.dateRegistered }}</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion box-container" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button">
+                  Payments
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <div class="card">
+                        <div class="card-header" style="color: red;">
+                          Warning!!
+                        </div>
+                        <div class="card-body">
+                          <p class="card-text" style="color: red;">This customer is yet to make payments and so be advised that the comapny will not attend to his or her needs till payment is made.</p>
+
+                             <!-- Button trigger modal -->
+                          <button href="#" class="btn site-background-color site-secondary-color"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- payment-modal -->
+       
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">New Payment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+      
+
+              <div class="card">
+                <div class="card-body">
+                    <form class="row g-3">
+                        <div class="col-md-6">
+                          <label for="inputEmail4" class="form-label">AmountPaid</label>
+                          <input type="text" class="form-control" id="inputEmail4" placeholder="$ 0.00">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
+                          <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00">
+                        </div>
+                        <div class="col-12">
+                          <label for="inputAddress" class="form-label">Date</label>
+                          <input type="date" class="form-control" id="inputAddress">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputCity" class="form-label">TotalPayment</label>
+                          <input type="text" class="form-control" id="inputCity" placeholder="$ 0.00">
+                        </div>
+                        <div class="col-md-4">
+                          <label for="inputState" class="form-label">Owing?</label>
+                          <select id="inputState" class="form-select">
+                            <option selected>Choose...</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                   
+                      </form>
+                </div>
+              </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color">Pay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- payment-modal -->
+
+
+          <ng-template>
+   
+    
+          </ng-template>
+
     </div>
   </div>
 
- 
+  <div class="card">
+    <div class="card-header">
+      <span style="margin-right: 80%;">Cloths History</span>
+      <a type="button" class="btn btn-success btn-sm"> <i class="far fa fa-plus-square"></i> Add Cloth</a>
+    </div>
+    <div class="card-body">
+        <table class="table caption-top table-sm table-bordered">
+            <caption>List of cloths</caption>
+            <thead class="table table-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Color</th>
+                <th scope="col">Category</th>
+                <th scope="col">Status</th>
+                <th scope="col">DeliveryStatus</th>
+                <th scope="col">Type</th>
+                <th scope="col">PickUpDate</th>
+                <th scope="col">Cost</th>
+                <th scope="col">O/N</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let cloth of customer.cloth; let i = index">
+                <th scope="row">{{ i + 1}}</th>
+                <td> {{ cloth['clothName'] }}</td>
+                <td> {{ cloth['clothColor'] }}</td>
+                <td> {{ cloth['clothCategory'] }}</td>
+                <td> {{ cloth['clothStatus'] }}</td>
+                <td> {{ cloth['deliveryStatus'] }}</td>
+                <td> {{ cloth['serviceType'] }}</td>
+                <td> {{ cloth['pickUpDate'] }}</td>
+                <td> payments</td> 
+                <td>
+                    <button type="button" class="btn btn-secondary btn-sm" style="font-size:13px">Edit cloths <i class="fa fa-edit" ></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+    </div>
+  </div>
