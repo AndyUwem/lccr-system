@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
+
+import { MatStepperModule } from '@angular/material/stepper';
+
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomersComponent } from './customers.component';
-import { HttpClientModule } from '@angular/common/http'
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { FilterCustomer } from 'src/app/filter-customer.pipe';
 
 
@@ -21,8 +26,11 @@ import { FilterCustomer } from 'src/app/filter-customer.pipe';
     CustomerRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatStepperModule
    ],
-  exports: [CustomersComponent, CustomerComponent,CreateCustomerComponent ],
+  exports: [CustomersComponent,
+     CustomerComponent,
+     CreateCustomerComponent ],
 })
 export class CustomersModule {}

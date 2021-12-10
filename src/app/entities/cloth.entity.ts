@@ -12,7 +12,8 @@ export class Cloth {
         private clothStatus: string,
         private pickUpDate: string,
         private description: string,
-        private payment: Payment[]
+        private cost: string,
+       
         )
     {
        this.clothName = clothName
@@ -23,7 +24,7 @@ export class Cloth {
        this.clothStatus = clothStatus
        this.pickUpDate = pickUpDate
        this.description = description
-       this.payment = payment
+       this.cost = cost
     }
 
 }

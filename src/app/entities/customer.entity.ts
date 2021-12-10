@@ -1,17 +1,18 @@
-import { Cloth } from "./cloth.entity";
+import { Cloth } from "../interface/cloth.interface";
+import { Payment } from "../interface/payment.interface";
 
- class Customer{
 
-    
-     dateRegistered!: string
-     address!: string
-     cloth!: Cloth[]
+   class Customer{
 
-    constructor(private names: string, private phone: number, private gender: string){
-             this.names = names
-             this.phone = phone
-             this.gender = gender
-    }
+     names!: string;
+     phone!: number ;
+     gender!: string;
+     dateRegistered!: string;
+     address!: string;
+     cloth!: Cloth[];
+     payments!: Payment[];
+
+    constructor(){}
 
 }
 
@@ -20,11 +21,28 @@ export class CustomerBuilder{
 
     private customer: Customer
 
-      constructor(private names: string, private phone: number, private gender: string){
-             this.customer = new Customer(names, phone, gender)
+      constructor(){
+             this.customer = new Customer()
       }
   
- 
+      setNames(names: string): CustomerBuilder{
+         this.customer.names = names
+         return this
+      }
+      
+      
+      setPhone(phone: number): CustomerBuilder{
+         this.customer.phone = phone
+         return this
+      }
+
+      
+      setGender(gender: string): CustomerBuilder{
+         this.customer.gender = gender
+         return this
+      }
+
+
       setDateRegistered(dateRegistered: string): CustomerBuilder{
          this.customer.dateRegistered = dateRegistered
          return this
