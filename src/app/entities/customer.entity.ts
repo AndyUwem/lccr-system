@@ -61,6 +61,11 @@ export class CustomerBuilder{
          return this
       }
 
+      setPayments(payments: Payment[]): CustomerBuilder{
+         this.customer.payments = payments
+         return this
+      }
+
       build(): Customer{
         return this.customer
       }

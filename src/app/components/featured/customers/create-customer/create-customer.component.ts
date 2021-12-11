@@ -80,7 +80,7 @@ export class CreateCustomerComponent implements OnInit {
 
   get customerCloths(): Array<Cloth> {
     let customerCloths: Array<Cloth> = []
-    this.cloths.controls.forEach((cloth) => customerCloths = cloth.value)
+    this.cloths.controls.forEach((cloth) => customerCloths.push(cloth.value))
     return customerCloths
   }
 
