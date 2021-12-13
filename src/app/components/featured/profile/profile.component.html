@@ -1,4 +1,6 @@
-<div class="card mb-3 profile" style="max-width: 540px;">
+<ng-template>
+
+  <div class="card mb-3 profile" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
         <img src="assets/img/profile-image.jpg" class="img-fluid rounded-start profile-pic" alt="...">
@@ -19,3 +21,13 @@
     </div>
     </div>
   </div>
+
+</ng-template>
+
+<div class="card" style="width: 18rem;" style="margin: auto auto; background-color: #f5efef;">
+  <img src="assets/img/webpage-under-construction.jpg" style="margin: auto auto; width: 50%;" alt="...">
+  <div class="card-body">
+    <p class="card-text">The profile section is unavailable and is still in progress please bare with us.</p>
+    <a [routerLink]="['/home']" class="btn btn-primary">Goto Dashboard</a>
+  </div>
+</div>
