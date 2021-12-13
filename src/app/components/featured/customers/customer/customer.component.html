@@ -10,56 +10,116 @@
      
       <span style="margin-right: 85%;"> Customer details</span>
       <a (click)="cancelButton()"
-       type="button" class="btn btn-sm site-background-color site-secondary-color"> <i class="fa fa-times"></i></a>
+       type="button" class="btn btn-danger btn-sm"> <i class="fa fa-times"></i></a>
     </div>
     <div class="card-body">
- 
-        <div class="accordion box-container" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                 Names / Address
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <p class="details"><span style="margin-right: 10px;">Names:</span> <b style="color: #000;">{{ customer.names }}</b></p>
-                  <p class="details"><span style="margin-right: 10px;">Phone:</span> <b style="color: #000;"> {{ customer.phone }}</b></p>
-                  <p class="details"><span style="margin-right: 10px;">Address:</span> <b style="color: #000;">{{ customer.address }}</b></p>
-                  <p class="details"><span style="margin-right: 10px;">Gender:</span> <b style="color: #000;">{{ customer.gender }}</b></p>
-                  <p class="details"><span style="margin-right: 10px;">Registered Date:</span> <b style="color: #000;">{{ customer.dateRegistered }}</b></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="accordion box-container" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button">
-                  Payments
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-
-                    <div class="card">
-                        <div class="card-header" style="color: red;">
-                          Warning!!
-                        </div>
-                        <div class="card-body">
-                          <p class="card-text" style="color: red;">This customer is yet to make payments and so be advised that the comapny will not attend to his or her needs till payment is made.</p>
-
-                             <!-- Button trigger modal -->
-                          <button href="#" class="btn site-background-color site-secondary-color"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
-                        </div>
-                      </div>
-                </div>
-              </div>
-            </div>
-          </div>
   
+
+      <div class="box-container">
+        <div class="card">
+          <div class="card-header">
+            <span style="font-weight: bold;">   Names / Address</span>
+          </div>
+          <div class="card-body">
+            
+     
+                <div>
+                  <div class="accordion-body">
+                    <p class="details"><span>Names:</span> <b style="color: #000;">{{ customer.names }}</b></p>
+                    <p class="details"><span>Phone:</span> <b style="color: #000;"> {{ customer.phone }}</b></p>
+                    <p class="details"><span>Address:</span> <b style="color: #000;">{{ customer.address }}</b></p>
+                    <p class="details"><span>Gender:</span> <b style="color: #000;">{{ customer.gender }}</b></p>
+                    <p class="details"><span>Registered Date:</span> <b style="color: #000;">{{ customer.dateRegistered }}</b></p>
+                  </div>
+                </div>
+       
+         
+
+      
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="isCustomerOwing; else listOfPayments">
+ 
+            <div class="card">
+              <div class="card-header">
+                <span style="margin-right: 30%; font-weight: bold;"> payments</span>
+              </div>
+
+              <div class="card-body">
+
+                  <div class="accordion-body">
+  
+                      <div class="card">
+                          <div class="card-header" style="color: red;">
+                            Reminder!!
+                          </div>
+                          <div class="card-body">
+                            <p class="card-text" style="color: red;">Please note that <b>{{ customer.names }}</b> still has outstanding payments to be made, try contacting or informing them as a reminder about their payments. </p>
+  
+                               <!-- Button trigger modal -->
+                            <button type="button" class="btn site-background-color site-secondary-color right-spacer"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
+                  
+                              <button
+                               class="btn site-background-color2 site-secondary-color" (click)="goToPaymentsList()"
+                                >Continue <i class="fa fa-arrow-circle-right" ></i>
+                              </button>
+                   
+
+                          </div>
+                        </div>
+                  </div>
+             
+          
+              </div>
+            </div>
+      
+      </div>
+
+
+
+          <ng-template #listOfPayments>
+          <div id="accordionExample box-container">
+   
+              <div class="card">
+                <div class="card-header">
+                  <span style="margin-right: 35%; font-weight: bold;">{{  customer.names }}'s payments</span>
+
+                  <button type="button" class="btn btn-sm site-background-color site-secondary-color" 
+                   data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment
+                  </button>
+                </div>
+                <div class="card-body">
+                    <table class="table caption-top table-sm table-bordered">
+                        <thead class="table table-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">isOwing ?</th>
+                            <th scope="col">balance</th>
+                            <th scope="col">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr  *ngFor="let payment of customer.payments; let i = index">
+                            <th scope="row">{{ i + 1}}</th>
+                            <td> {{ payment['date'] | date:'medium' }}</td>
+                            <td> {{ payment['amountPaid'] | currency:'USD' }}</td>
+                            <td> {{ payment['isOwing'] }}</td>
+                            <td> {{ payment['balanceOfPayment']  | currency:'USD' }}</td>
+                            <td> {{ payment['totalPayment'] | currency:'USD' }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+            
+                </div>
+              </div>
+        
+          </div>
+        </ng-template>
           <!-- payment-modal -->
        
   
@@ -117,17 +177,14 @@
 <!-- payment-modal -->
 
 
-          <ng-template>
-   
-    
-          </ng-template>
+
 
     </div>
   </div>
 
   <div class="card">
     <div class="card-header">
-      <span style="margin-right: 80%; font-weight: bold;">{{  customer.names }}'s cloths</span>
+      <span style="margin-right: 70%; font-weight: bold;">{{  customer.names }}'s cloths</span>
       <a type="button" class="btn btn-success btn-sm"> <i class="far fa fa-plus-square"></i> Add Cloth</a>
     </div>
     <div class="card-body">
@@ -157,7 +214,7 @@
                 <td> {{ cloth['deliveryStatus'] }}</td>
                 <td> {{ cloth['serviceType'] }}</td>
                 <td> {{ cloth['pickUpDate'] }}</td>
-                <td> payments</td> 
+                <td> {{ cloth['cost'] }}</td> 
                 <td>
                     <button type="button" class="btn btn-secondary btn-sm" style="font-size:13px">Edit cloths <i class="fa fa-edit" ></i></button>
                 </td>

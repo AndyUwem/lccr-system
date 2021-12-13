@@ -1,5 +1,5 @@
 .right-spacer{
-    margin-right: 15%;
+    margin-right: 35%;
 }
 
 .card-margin-bottom{
@@ -20,4 +20,8 @@
 }
 button:hover{
   color: #fff;
+}
+
+.accordion-body.details,span{
+    margin-right: 10px;
 }

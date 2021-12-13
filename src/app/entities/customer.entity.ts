@@ -1,5 +1,5 @@
 import { Cloth } from "../interface/cloth.interface";
-import { Payment } from "../interface/payment.interface";
+import { Payment } from "./payment.entity";
 
 
    class Customer{

@@ -1,5 +1,5 @@
 
- <form class="row g-3" [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
+ <form class="row g-3" [formGroup]="newCustomerForm">
 
 <mat-stepper linear #stepper>
 
@@ -89,7 +89,7 @@
                 
                   <!-- test -->
                   
-                  <button class="btn btn-secondary" (click)="addCloths()" >new cloth</button>
+                  <button class="btn btn-secondary" (click)="handleNewCloths()" >new cloth</button>
       
                 </div>
             
@@ -263,7 +263,7 @@
 
         <div class="card">
           <div class="card-body">
-              <div class="row g-3" formGroupName="payments">
+              <div class="row g-3" formGroupName="payment">
                   <div class="col-md-5">
                     <label for="inputEmail4" class="form-label">AmountPaid</label>
                     <input type="text" class="form-control" id="inputEmail4" placeholder="$ 0.00" formControlName="amountPaid">
@@ -298,8 +298,8 @@
       <div>
         
         <div class="col-12" style="padding: 20px;">
-          <button [disabled]="!newCustomerForm.valid" style="margin: 0px 10% 0px 35%;"
-          type="submit" class="btn site-background-color site-secondary-color" mat-button matStepperNext>Accept</button>
+          <button [disabled]="!newCustomerForm.valid" style="margin: 0px 10% 0px 35%;" (click)="onSubmit()"
+          type="button" class="btn site-background-color site-secondary-color" mat-button matStepperNext>Accept</button>
           <button  class="btn btn-secondary" mat-button matStepperPrevious> <i class="fa fa-arrow-circle-left"></i>  Back</button>
         </div>
 

@@ -1,7 +1,7 @@
 export class Payment{
 
     
-    private date!: Date;
+    private date!: string;
     private amountPaid!: number;
     private balanceOfPayment!: number;
     private isOwing!: boolean
@@ -9,48 +9,36 @@ export class Payment{
 
     constructor(){}
 
-     setDate(date: Date){
+     setDate(date: string){
          this.date = date
       }
   
-      getDate(): Date{
-          return this.date
-      }
+  
  
       setAmountPaid(amountPaid: number){
          this.amountPaid = amountPaid
       }
   
-      getAmountPaid(): number{
-          return this.amountPaid
-      }
+    
  
  
       setBalanceOfPayment(balanceOfPayment: number){
          this.balanceOfPayment = balanceOfPayment
       }
   
-      getBalanceOfPayment(): number{
-          return this.balanceOfPayment
-      }
+    
  
  
       setIsOwing(isOwing: boolean){
          this.isOwing = isOwing
       }
   
-      getIsOwing(): boolean{
-          return this.isOwing
-      }
 
       
       setTotalPayment(totalPayment: number){
         this.totalPayment = totalPayment
      }
  
-     getTotalPayment(): number{
-         return this.totalPayment
-     }
 
 
  

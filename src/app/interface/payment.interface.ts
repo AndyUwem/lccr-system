@@ -1,6 +1,6 @@
 export interface Payment{
 
-     date: Date;
+     date: string;
      amountPaid: number;
      balanceOfPayment: number;
      isOwing: boolean

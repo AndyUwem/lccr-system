@@ -7,7 +7,8 @@ export interface Customer {
     phone: number,
     gender: string
     dateRegistered: string;
-    address: string
-    cloth: Cloth[] 
+    address: string;
+    cloth: Cloth[] ;
+    payments: [];
 
 }
