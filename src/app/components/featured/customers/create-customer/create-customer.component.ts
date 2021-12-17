@@ -43,7 +43,6 @@ export class CreateCustomerComponent implements OnInit {
         amountPaid: ['', Validators.required],
         balanceOfPayment: ['', Validators.required],
         date: [new Date().toUTCString()],
-        isOwing: ['', Validators.required],
         totalPayment: ['', Validators.required]
       })
 
@@ -106,11 +105,10 @@ export class CreateCustomerComponent implements OnInit {
   get newPayment(): Payment {
 
     const newPayment = new Payment()
-          newPayment.setAmountPaid(this.payment.get('amountPaid')?.value)
-          newPayment.setBalanceOfPayment(this.payment.get('balanceOfPayment')?.value)
+          newPayment.setAmountPaid(parseInt(this.payment.get('amountPaid')?.value))
+          newPayment.setBalanceOfPayment(parseInt(this.payment.get('balanceOfPayment')?.value))
           newPayment.setDate(this.payment.get('date')?.value)
-          newPayment.setIsOwing(this.payment.get('isOwing')?.value)
-          newPayment.setTotalPayment(this.payment.get('totalPayment')?.value)
+          newPayment.setTotalPayment(parseInt(this.payment.get('totalPayment')?.value))
 
     return newPayment
   }

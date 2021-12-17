@@ -25,3 +25,13 @@ button:hover{
 .accordion-body.details,span{
     margin-right: 10px;
 }
+
+img{ 
+    width:25px;
+    height: 25px;
+    opacity: 0.7;
+}
+
+form, input, span{
+    font-weight: bold;
+}

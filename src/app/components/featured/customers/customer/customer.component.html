@@ -63,7 +63,7 @@
                             <button type="button" class="btn site-background-color site-secondary-color right-spacer"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
                   
                               <button
-                               class="btn site-background-color2 site-secondary-color" (click)="goToPaymentsList()"
+                               class="btn site-background-color2 site-secondary-color" (click)="continueToPaymentsList()"
                                 >Continue <i class="fa fa-arrow-circle-right" ></i>
                               </button>
                    
@@ -87,8 +87,9 @@
                 <div class="card-header">
                   <span style="margin-right: 35%; font-weight: bold;">{{  customer.names }}'s payments</span>
 
-                  <button type="button" class="btn btn-sm site-background-color site-secondary-color" 
-                   data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment
+                  <button *ngIf="canMakePayment"
+                   type="button" class="btn btn-sm site-background-color site-secondary-color" 
+                   data-bs-toggle="modal" data-bs-target="#staticBackdrop">Balance Payment
                   </button>
                 </div>
                 <div class="card-body">
@@ -136,30 +137,47 @@
 
               <div class="card">
                 <div class="card-body">
-                    <form class="row g-3">
+                    <form #paymentForm="ngForm" class="row g-3" >
+
                         <div class="col-md-6">
-                          <label for="inputEmail4" class="form-label">AmountPaid</label>
-                          <input type="text" class="form-control" id="inputEmail4" placeholder="$ 0.00">
+                          <label for="inputEmail4" class="form-label">New Amount</label>
+                          <input [(ngModel)]="newPayment.amountPaid" name="amountPaid" 
+                          required  (ngModelChange)="onBalanceOfPaymentChange()"
+                           type="text" class="form-control" [class.is-invalid]="paymentExceedError.isAmountExceed" id="inputEmail4" placeholder="N 0.00">
+                           <div
+                           id="validationServer05Feedback" class="invalid-feedback">{{ paymentExceedError.errorMassage }}</div>
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
-                          <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00">
+                           
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">
+                               <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
+                            </span>
+                            <input  [(ngModel)]="newPayment.balanceOfPayment" name="balanceOfPayment" 
+                            required disabled 
+                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <span class="input-group-text">.00</span>
+                          </div>
+
                         </div>
                         <div class="col-12">
                           <label for="inputAddress" class="form-label">Date</label>
-                          <input type="date" class="form-control" id="inputAddress">
+                          <input [(ngModel)]="newPayment.date" name="date" disabled
+                          type="text" class="form-control" id="inputAddress">
                         </div>
                         <div class="col-md-6">
                           <label for="inputCity" class="form-label">TotalPayment</label>
-                          <input type="text" class="form-control" id="inputCity" placeholder="$ 0.00">
-                        </div>
-                        <div class="col-md-4">
-                          <label for="inputState" class="form-label">Owing?</label>
-                          <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                          </select>
+
+                           <div class="input-group mb-3">
+                            <span class="input-group-text">
+                              <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
+                            </span>
+                            <input [(ngModel)]="newPayment.totalPayment" name="totalPayment" required disabled
+                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <span class="input-group-text">.00</span>
+                          </div>
+
                         </div>
                    
                       </form>
@@ -169,7 +187,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color">Pay</button>
+          <button (click)="updatePayment()" [disabled]="paymentForm.invalid || newPayment.amountPaid == 0"
+           type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color">Update</button>
         </div>
       </div>
     </div>

@@ -212,7 +212,7 @@
                       <label for="validationServer02" class="form-label">Cost</label>
                       <input type="text" 
                        class="form-control" 
-                       id="validationServer02" value="Otto" placeholder="$ 0.00" formControlName="cost" >
+                       id="validationServer02" placeholder="$ 0.00" formControlName="cost" >
         
                       <div *ngIf="setValidationFor('phone')">
                         <div *ngIf="phone?.errors?.['required']" style="color: red;">
@@ -275,14 +275,6 @@
                   <div class="col-4">
                     <label for="inputAddress" class="form-label">Date</label>
                     <input type="text" class="form-control" id="inputAddress" formControlName="date">
-                  </div>
-                  <div class="col-md-3">
-                    <label for="inputState" class="form-label">Owing?</label>
-                    <select id="inputState" class="form-select" formControlName="isOwing">
-                      <option selected>Choose...</option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                    </select>
                   </div>
 
                   <div class="col-md-3">
