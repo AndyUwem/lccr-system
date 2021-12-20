@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
 
 import { CustomerBuilder } from 'src/app/entities/customer.entity';
 import { Payment } from 'src/app/entities/payment.entity';
@@ -13,8 +12,7 @@ import { CustomerService } from 'src/app/service/customers.service';
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
-  styleUrls: ['./create-customer.component.css'],
-  providers: [CustomerService]
+  styleUrls: ['./create-customer.component.css']
 })
 
 export class CreateCustomerComponent implements OnInit {

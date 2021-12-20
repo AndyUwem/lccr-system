@@ -5,8 +5,7 @@ import { CustomerService } from 'src/app/service/customers.service';
 @Component({
   selector: 'app-status-cards',
   templateUrl: './status-cards.component.html',
-  styleUrls: ['./status-cards.component.css'],
-  providers: [CustomerService],
+  styleUrls: ['./status-cards.component.css']
 })
 export class StatusCardsComponent implements OnInit {
 

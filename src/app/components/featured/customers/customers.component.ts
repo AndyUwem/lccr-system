@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Customer } from 'src/app/interface/customer.interface';
 import { CustomerService } from 'src/app/service/customers.service';
 
@@ -8,6 +7,8 @@ import { CustomerService } from 'src/app/service/customers.service';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
+
+
 export class CustomersComponent implements OnInit {
 
   customers: Array<Customer> = [];

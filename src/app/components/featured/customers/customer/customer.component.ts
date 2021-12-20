@@ -1,15 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Customer } from 'src/app/interface/customer.interface';
 import { Payment } from 'src/app/interface/payment.interface';
 import { CustomerService } from 'src/app/service/customers.service';
+import { PaymentService } from 'src/app/service/payments.service';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css'],
-  providers: [CustomerService]
+  providers: [PaymentService]
 })
 
 
@@ -37,6 +39,7 @@ export class CustomerComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
               private route: ActivatedRoute,
+              private paymentService: PaymentService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -114,8 +117,9 @@ export class CustomerComponent implements OnInit {
 
    updatePayment(): void{
      if(this.paymentForm.valid){
-      const payment = this.customer.payments.push(this.createNewPayment(this.newPayment))
-      console.log(payment)
+        this.customer.payments.push(this.createNewPayment(this.newPayment))
+        console.log(this.customer.payments)
+        this.paymentService.updatePayment(this.customerId, this.customer.payments).subscribe( responseData => console.log(responseData))
      }
    
      
