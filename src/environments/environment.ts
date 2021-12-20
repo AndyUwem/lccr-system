@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  CUSTOMERS_API: 'https://laundry-records-system-default-rtdb.firebaseio.com/customers'
 };
 
 /*

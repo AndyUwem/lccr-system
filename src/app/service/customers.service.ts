@@ -1,6 +1,7 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable, Subject } from "rxjs";
+import { map, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { Customer } from "../interface/customer.interface";
 
 @Injectable({
@@ -9,17 +10,16 @@ import { Customer } from "../interface/customer.interface";
 
 export class CustomerService {
 
-    private CUSTOMERS_API: string = 'https://laundry-records-system-default-rtdb.firebaseio.com'
-
+   private CUSTOMERS_API: string = environment.CUSTOMERS_API
 
     constructor(private http: HttpClient) { }
 
     createCustomer(customer: {}): Observable<Customer>{
-        return this.http.post<Customer>(`${this.CUSTOMERS_API}/customers.json`, customer)
+        return this.http.post<Customer>(`${this.CUSTOMERS_API}.json`, customer)
     }
 
     findAll(): Observable<Customer[]>{
-        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}/customers.json`)
+        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}.json`)
             .pipe(map((responseData: Customer[]) => {
                 let customers = [];
 
@@ -34,7 +34,7 @@ export class CustomerService {
 
     findCustomerById(customerId: string): Observable<Customer> {
 
-        return this.http.get<Customer>(`${this.CUSTOMERS_API}/customers/${customerId}.json`)
+        return this.http.get<Customer>(`${this.CUSTOMERS_API}/${customerId}.json`)
             .pipe(map(responseData => {
                 let customerObject = {} as Customer
 
