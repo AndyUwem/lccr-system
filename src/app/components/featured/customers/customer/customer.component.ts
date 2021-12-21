@@ -4,14 +4,16 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Customer } from 'src/app/interface/customer.interface';
 import { Payment } from 'src/app/interface/payment.interface';
-import { CustomerService } from 'src/app/service/customers.service';
-import { PaymentService } from 'src/app/service/payments.service';
+import { PaymentError } from 'src/app/interface/paymentError.interface';
+import { CustomerService } from 'src/app/service/customers/customers.service';
+import { PaymentService } from 'src/app/service/payments/payments.service';
+import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css'],
-  providers: [PaymentService]
+  providers: [ PaymentService, PaymentHelperService ]
 })
 
 
@@ -22,113 +24,72 @@ export class CustomerComponent implements OnInit {
   public customer: Customer | any = {};
   public customerId!: string;
   public isCustomerOwing: boolean = false
-  public canMakePayment: boolean = false 
+  public canMakePayment: boolean = false
   private initialBalanceOfPayment!: number;
 
-  public newPayment: Payment = {  
-      amountPaid: 0,
-      balanceOfPayment: 0,
-      date: new Date().toUTCString(),
-      totalPayment: 0
-    }
-
-  public paymentExceedError = { 
-    isAmountExceed: false, 
-    errorMassage: ''
+  public newPayment: Payment = {
+    amountPaid: 0,
+    balanceOfPayment: 0,
+    date: new Date().toUTCString(),
+    totalPayment: 0
   }
 
+  public paymentError: PaymentError = {
+    isAmountExceed: false,
+    errorMassage: ''
+  };
+
   constructor(private customerService: CustomerService,
-              private route: ActivatedRoute,
-              private paymentService: PaymentService,
-              private router: Router) { }
+    private route: ActivatedRoute,
+    private paymentHelperService: PaymentHelperService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getCustomer()
   }
 
   getCustomer() {
-    this.getIdParams()
+    this.route.params.subscribe((params: Params) => this.customerId = params['id'])
     return this.customerService.findCustomerById(this.customerId).subscribe(customer => {
       this.customer = customer
-
       this.handleCustomerDebts(customer)
       this.setTotalAndBalancePayments(customer)
     })
   }
 
-  getIdParams() {
-    return this.route.params.subscribe((params: Params) => this.customerId = params['id'])
-  }
 
   handleCustomerDebts(customer: Customer): void {
     customer.payments.filter((payment: Payment) => payment.balanceOfPayment > 0 ?
       this.isCustomerOwing = true : this.isCustomerOwing = false)
   }
 
-  setTotalAndBalancePayments(customer: Customer): void{
-    let $payment = { total: 0,  balance: 0 };
-     customer.payments.forEach( ( payment: Payment ) => { 
-      $payment.total = payment.totalPayment;
-      $payment.balance = payment.balanceOfPayment  
-      })
 
-     this.newPayment.totalPayment =  $payment.total
-     this.newPayment.balanceOfPayment = $payment.balance
-     this.initialBalanceOfPayment =  $payment.balance
+  setTotalAndBalancePayments(customer: Customer) {
+    const $payment = this.paymentHelperService.getTotalAndBalance(customer)
+    this.newPayment.totalPayment = $payment.total
+    this.newPayment.balanceOfPayment = $payment.balance
+    this.initialBalanceOfPayment = $payment.balance
   }
 
-  onBalanceOfPaymentChange(): void{
-    let initBalance = Number(this.initialBalanceOfPayment)
-    let amountPaid = Number(this.newPayment.amountPaid)
 
-   if(!amountPaid){
-    this.newPayment.balanceOfPayment = initBalance
-   }
-   
-   else{
-        const calculateBlance = initBalance - amountPaid
-
-        if(amountPaid > initBalance){ 
-        this.newPayment.balanceOfPayment = initBalance
-        this.paymentExceedError.isAmountExceed = true
-          this.paymentExceedError.errorMassage = `this customer can not pay more than: N${this.initialBalanceOfPayment}!`
-        }
-
-        else{
-          this.paymentExceedError.isAmountExceed = false
-          this.newPayment.balanceOfPayment = calculateBlance
-          }
-
-     }
- 
+  onBalanceOfPaymentChange(): void {
+    this.paymentHelperService.validateBalanceOfPayment(
+      this.newPayment, this.initialBalanceOfPayment, this.paymentError)
   }
- 
-   createNewPayment(payment: any): Payment{
 
-     return {  
-      date: payment.date,
-      amountPaid: parseInt(payment.amountPaid),
-      balanceOfPayment: parseInt(payment.balanceOfPayment),
-      totalPayment: parseInt(payment.totalPayment)
+
+  updatePayment(): void {
+    if (this.paymentForm.valid) {
+      this.customer.payments.push(this.paymentHelperService.createNewPayment(this.newPayment))
+       this.paymentHelperService.updatePayments( this.customerId, this.customer.payments )
     }
-
-   }
-  
-
-   updatePayment(): void{
-     if(this.paymentForm.valid){
-        this.customer.payments.push(this.createNewPayment(this.newPayment))
-        console.log(this.customer.payments)
-        this.paymentService.updatePayment(this.customerId, this.customer.payments).subscribe( responseData => console.log(responseData))
-     }
-   
-     
   }
+
 
   continueToPaymentsList(): void {
     this.isCustomerOwing = false
     this.canMakePayment = true
-     
+
   }
 
   cancelButton() {

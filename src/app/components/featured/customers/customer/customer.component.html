@@ -141,9 +141,9 @@
                           <label for="inputEmail4" class="form-label">New Amount</label>
                           <input [(ngModel)]="newPayment.amountPaid" name="amountPaid" 
                           required  (ngModelChange)="onBalanceOfPaymentChange()"
-                           type="text" class="form-control" [class.is-invalid]="paymentExceedError.isAmountExceed" id="inputEmail4" placeholder="N 0.00">
+                           type="text" class="form-control" [class.is-invalid]="paymentError.isAmountExceed" id="inputEmail4" placeholder="N 0.00">
                            <div
-                           id="validationServer05Feedback" class="invalid-feedback">{{ paymentExceedError.errorMassage }}</div>
+                           id="validationServer05Feedback" class="invalid-feedback">{{ paymentError.errorMassage }}</div>
                         </div>
                         <div class="col-md-6">
                           <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
@@ -185,7 +185,7 @@
 
         </div>
         <div class="modal-footer">
-          <button (click)="updatePayment()" [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentExceedError.isAmountExceed"
+          <button (click)="updatePayment()" [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentError.isAmountExceed"
            type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
         </div>
       </div>

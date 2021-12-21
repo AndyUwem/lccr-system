@@ -6,7 +6,7 @@ import { CustomerBuilder } from 'src/app/entities/customer.entity';
 import { Payment } from 'src/app/entities/payment.entity';
 import { Cloth } from 'src/app/interface/cloth.interface';
 
-import { CustomerService } from 'src/app/service/customers.service';
+import { CustomerService } from 'src/app/service/customers/customers.service';
 
 
 @Component({
