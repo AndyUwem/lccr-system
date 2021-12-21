@@ -4,7 +4,9 @@ import { environment } from "src/environments/environment";
 import { Payment } from "../../interface/payment.interface";
 
 
-@Injectable()
+@Injectable({
+     providedIn: 'root'
+})
 
 export class PaymentService {
 

@@ -12,6 +12,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { CustomersComponent } from './customers.component';
 
 import { FilterCustomer } from 'src/app/filter-customer.pipe';
+import { PaymentsModule } from '../payments/payments.moudle';
 
 
 @NgModule({
@@ -23,12 +24,13 @@ import { FilterCustomer } from 'src/app/filter-customer.pipe';
   ],
   imports: [
     CommonModule,
-    CustomerRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatStepperModule
-   ],
+    MatStepperModule,
+    CustomerRoutingModule,
+    PaymentsModule
+  ],
   exports: [CustomersComponent,
      CustomerComponent,
      CreateCustomerComponent ],

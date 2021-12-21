@@ -40,162 +40,8 @@
         </div>
       </div>
 
-
-      <div *ngIf="isCustomerOwing; else listOfPayments">
- 
-            <div class="card">
-              <div class="card-header">
-                <span style="margin-right: 30%; font-weight: bold;"> payments</span>
-              </div>
-
-              <div class="card-body">
-
-                  <div class="accordion-body">
+     <app-payment-list [customer]="customer" [customerId]="customerId"></app-payment-list>
   
-                      <div class="card">
-                          <div class="card-header" style="color: red;">
-                            Reminder!!
-                          </div>
-                          <div class="card-body">
-                            <p class="card-text" style="color: red;">Please note that <b>{{ customer.names }}</b> still has outstanding payments to be made, try contacting or informing them as a reminder about their payments. </p>
-  
-                           
-                  
-                              <button
-                               class="btn site-background-color2 site-secondary-color" (click)="continueToPaymentsList()"
-                                >Continue <i class="fa fa-arrow-circle-right" ></i>
-                              </button>
-                   
-
-                          </div>
-                        </div>
-                  </div>
-             
-          
-              </div>
-            </div>
-      
-      </div>
-
-
-
-          <ng-template #listOfPayments>
-          <div id="accordionExample box-container">
-   
-              <div class="card">
-                <div class="card-header">
-                  <span style="margin-right: 35%; font-weight: bold;">{{  customer.names }}'s payments</span>
-
-                      <!-- Button trigger modal -->
-                  <button *ngIf="canMakePayment"
-                   type="button" class="btn btn-sm site-background-color site-secondary-color" 
-                   data-bs-toggle="modal" data-bs-target="#staticBackdrop">Balance Payment
-                  </button>
-                </div>
-                <div class="card-body">
-                    <table class="table caption-top table-sm table-bordered">
-                        <thead class="table table-dark">
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">AmountPaid</th>
-                            <th scope="col">balance</th>
-                            <th scope="col">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr  *ngFor="let payment of customer.payments; let i = index">
-                            <th scope="row">{{ i + 1}}</th>
-                            <td> {{ payment['date'] | date:'medium' }}</td>
-                            <td> {{ payment['amountPaid'] | currency:'USD' }}</td>
-                            <td> {{ payment['balanceOfPayment']  | currency:'USD' }}</td>
-                            <td> {{ payment['totalPayment'] | currency:'USD' }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-            
-                </div>
-              </div>
-        
-          </div>
-        </ng-template>
-          <!-- payment-modal -->
-       
-  
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">New Payment</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-      
-
-              <div class="card">
-                <div class="card-body">
-                    <form #paymentForm="ngForm" class="row g-3" >
-
-                        <div class="col-md-6">
-                          <label for="inputEmail4" class="form-label">New Amount</label>
-                          <input [(ngModel)]="newPayment.amountPaid" name="amountPaid" 
-                          required  (ngModelChange)="onBalanceOfPaymentChange()"
-                           type="text" class="form-control" [class.is-invalid]="paymentError.isAmountExceed" id="inputEmail4" placeholder="N 0.00">
-                           <div
-                           id="validationServer05Feedback" class="invalid-feedback">{{ paymentError.errorMassage }}</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
-                           
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">
-                               <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
-                            </span>
-                            <input  [(ngModel)]="newPayment.balanceOfPayment" name="balanceOfPayment" 
-                            required disabled 
-                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text">.00</span>
-                          </div>
-
-                        </div>
-                        <div class="col-12">
-                          <label for="inputAddress" class="form-label">Date</label>
-                          <input [(ngModel)]="newPayment.date" name="date" disabled
-                          type="text" class="form-control" id="inputAddress">
-                        </div>
-                        <div class="col-md-6">
-                          <label for="inputCity" class="form-label">TotalPayment</label>
-
-                           <div class="input-group mb-3">
-                            <span class="input-group-text">
-                              <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
-                            </span>
-                            <input [(ngModel)]="newPayment.totalPayment" name="totalPayment" required disabled
-                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text">.00</span>
-                          </div>
-
-                        </div>
-                   
-                      </form>
-                </div>
-              </div>
-
-
-        </div>
-        <div class="modal-footer">
-          <button (click)="updatePayment()" [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentError.isAmountExceed"
-           type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- payment-modal -->
-
-
-
-
     </div>
   </div>
 
@@ -224,14 +70,14 @@
             <tbody>
               <tr  *ngFor="let cloth of customer.cloth; let i = index">
                 <th scope="row">{{ i + 1}}</th>
-                <td> {{ cloth['clothName'] }}</td>
-                <td> {{ cloth['clothColor'] }}</td>
-                <td> {{ cloth['clothCategory'] }}</td>
-                <td> {{ cloth['clothStatus'] }}</td>
-                <td> {{ cloth['deliveryStatus'] }}</td>
-                <td> {{ cloth['serviceType'] }}</td>
-                <td> {{ cloth['pickUpDate'] }}</td>
-                <td> {{ cloth['cost'] }}</td> 
+                <td> {{ cloth.clothName }}</td>
+                <td> {{ cloth.clothColor }}</td>
+                <td> {{ cloth.clothCategory }}</td>
+                <td> {{ cloth.clothStatus }}</td>
+                <td> {{ cloth.deliveryStatus }}</td>
+                <td> {{ cloth.serviceType }}</td>
+                <td> {{ cloth.pickUpDate }}</td>
+                <td> {{ cloth.cost }}</td> 
                 <td>
                     <button type="button" class="btn btn-secondary btn-sm" style="font-size:13px">Edit cloths <i class="fa fa-edit" ></i></button>
                 </td>

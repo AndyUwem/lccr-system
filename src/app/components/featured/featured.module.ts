@@ -30,7 +30,7 @@ import { HttpClientModule } from "@angular/common/http";
         TimeComponent,
         AdvertsComponent,
         StatusCardsComponent,
-        StatusCardComponent
+        StatusCardComponent,
     ]
 })
 
