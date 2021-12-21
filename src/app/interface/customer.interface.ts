@@ -1,4 +1,5 @@
-import { Cloth } from "../entities/cloth.entity"
+import { Cloth } from "./cloth.interface";
+
 
 
 export interface Customer {

@@ -13,6 +13,7 @@ import { CustomersComponent } from './customers.component';
 
 import { FilterCustomer } from 'src/app/filter-customer.pipe';
 import { PaymentsModule } from '../payments/payments.moudle';
+import { ClothsModule } from '../cloths/cloths.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PaymentsModule } from '../payments/payments.moudle';
     ReactiveFormsModule,
     MatStepperModule,
     CustomerRoutingModule,
-    PaymentsModule
+    PaymentsModule,
+    ClothsModule
   ],
   exports: [CustomersComponent,
      CustomerComponent,

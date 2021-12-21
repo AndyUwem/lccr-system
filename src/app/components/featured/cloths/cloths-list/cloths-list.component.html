@@ -1,0 +1,37 @@
+
+<div class="card-body">
+    <table class="table caption-top table-sm table-bordered">
+        <caption>List of cloths</caption>
+        <thead class="table table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Color</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">DeliveryStatus</th>
+            <th scope="col">Type</th>
+            <th scope="col">PickUpDate</th>
+            <th scope="col">Cost</th>
+            <th scope="col">O/N</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let cloth of customerCloths; let i = index">
+            <th scope="row">{{ i + 1}}</th>
+            <td> {{ cloth.clothName }}</td>
+            <td> {{ cloth.clothColor }}</td>
+            <td> {{ cloth.clothCategory }}</td>
+            <td> {{ cloth.clothStatus }}</td>
+            <td> {{ cloth.deliveryStatus }}</td>
+            <td> {{ cloth.serviceType }}</td>
+            <td> {{ cloth.pickUpDate }}</td>
+            <td> {{ cloth.cost }}</td> 
+            <td>
+                <button type="button" class="btn btn-secondary btn-sm" style="font-size:13px">Edit cloths <i class="fa fa-edit" ></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>

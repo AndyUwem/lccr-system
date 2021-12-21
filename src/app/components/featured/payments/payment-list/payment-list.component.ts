@@ -16,6 +16,7 @@ export class PaymentListComponent implements OnInit {
   @ViewChild('paymentForm') paymentForm!: NgForm;
   @Input('customer') customer: any;
   @Input('customerId') customerId!: string;
+  
 
   public isLoading: boolean = true
   public isCustomerOwing: boolean = false
