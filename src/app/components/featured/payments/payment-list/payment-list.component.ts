@@ -38,19 +38,21 @@ export class PaymentListComponent implements OnInit {
   constructor(private paymentHelperService: PaymentHelperService) { }
 
   ngOnInit(): void {
-
-   setTimeout(() => {
-     this.isLoading = false
-      this.handleCustomerDebts(this.customer)
-      this.setTotalAndBalancePayments(this.customer)
-    }, 3000)
-
+    this.refreshPaymentsList()
   }
+
+refreshPaymentsList(): void {
+  setTimeout(() => {
+    this.isLoading = false
+     this.handleCustomerDebts(this.customer)
+     this.setTotalAndBalancePayments(this.customer)
+   }, 3000)
+}
 
 
   handleCustomerDebts(customer: Customer): void {
     customer.payments.filter((payment: Payment) => payment.balanceOfPayment > 0 ?
-      this.isCustomerOwing = true : this.isCustomerOwing = false)
+     this.isCustomerOwing = true : this.isCustomerOwing = false)
   }
 
 
@@ -72,13 +74,17 @@ export class PaymentListComponent implements OnInit {
     if (this.paymentForm.valid) {
       this.customer.payments.push(this.paymentHelperService.createNewPayment(this.newPayment))
       this.paymentHelperService.updatePayments(this.customerId, this.customer.payments)
+      this.setTotalAndBalancePayments(this.customer)
+      this.newPayment.amountPaid = 0
     }
+    if(!this.isCustomerOwing)
+    this.customer.payments.filter((payment: Payment) => payment.balanceOfPayment > 0 ?
+    this.canMakePayment = true : this.canMakePayment = false )
   }
 
   continueToPaymentsList(): void {
     this.isCustomerOwing = false
     this.canMakePayment = true
-
   }
 
 }
