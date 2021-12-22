@@ -7,9 +7,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { DeveloperComponent } from './developer/developer.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { ProfileComponent } from './profile/profile.component';
-import { StatusCardComponent } from "./status-cards/status-card/status-card.component";
 import { StatusCardsComponent } from "./status-cards/status-cards.component";
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
@@ -21,16 +21,18 @@ import { HttpClientModule } from "@angular/common/http";
         DeveloperComponent,
         CompanyInfoComponent,
         ProfileComponent,
-        StatusCardsComponent,
-        StatusCardComponent
+        StatusCardsComponent
     ],
-    imports: [ DashBoardRoutingModule, HttpClientModule],
+    imports: [ 
+        DashBoardRoutingModule, 
+        HttpClientModule,
+        CommonModule
+    ],
     exports: [
         DashbordComponent,
         TimeComponent,
         AdvertsComponent,
-        StatusCardsComponent,
-        StatusCardComponent,
+        StatusCardsComponent
     ]
 })
 
