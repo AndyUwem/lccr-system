@@ -1,5 +1,5 @@
 import { Injectable, NgModule } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Observable, Subject, Subscription } from "rxjs";
 import { Customer } from "src/app/interface/customer.interface";
 import { Payment } from "src/app/interface/payment.interface";
 import { PaymentError } from "src/app/interface/paymentError.interface";
@@ -12,21 +12,22 @@ import { PaymentService } from "./payments.service";
 
 export class PaymentHelperService {
 
-    constructor( private paymentService: PaymentService ) { }
+
+    constructor(private paymentService: PaymentService) { }
 
     createNewPayment(payment: any): Payment {
         return {
-          date: payment.date,
-          amountPaid: parseInt(payment.amountPaid),
-          balanceOfPayment: parseInt(payment.balanceOfPayment),
-          totalPayment: parseInt(payment.totalPayment)
+            date: payment.date,
+            amountPaid: parseInt(payment.amountPaid),
+            balanceOfPayment: parseInt(payment.balanceOfPayment),
+            totalPayment: parseInt(payment.totalPayment)
         }
-    
-      }
 
-     updatePayments(customerId: string, payments: Payment[]): Subscription {
-       return this.paymentService.updatePayment(customerId, payments).subscribe(() => {})
-     }
+    }
+
+    updatePayments(customerId: string, payments: Payment[]): Subscription {
+        return this.paymentService.updatePayment(customerId, payments).subscribe(() => { })
+    }
 
     validateBalanceOfPayment(
         newPayment: Payment,
@@ -39,7 +40,6 @@ export class PaymentHelperService {
 
         if (!amountPaid)
             newPayment.balanceOfPayment = currentDebt
-
         else
             this.calculateBalanceOfPayment(newPayment, amountPaid, currentDebt, initialBalanceOfPayment, paymentError)
     }
@@ -62,7 +62,6 @@ export class PaymentHelperService {
             paymentError.isAmountExceed = true
             paymentError.errorMassage = `this customer can not pay more than: N${initialBalanceOfPayment}!`
         }
-
         else {
             paymentError.isAmountExceed = false
             newPayment.balanceOfPayment = calculateBlance
@@ -70,17 +69,14 @@ export class PaymentHelperService {
     }
 
 
-
-    getTotalAndBalance(customer: Customer ): { total: number,  balance: number }{
-        let $payment = { total: 0,  balance: 0 };
-        
-         customer.payments.forEach( ( payment: Payment ) => { 
-          $payment.total = payment.totalPayment;
-          $payment.balance = payment.balanceOfPayment  
-          })
-
-         return $payment;
-      }
+    getTotalAndBalance(customer: Customer): { total: number, balance: number } {
+        let $payment = { total: 0, balance: 0 };
+        customer.payments.forEach((payment: Payment) => {
+            $payment.total = payment.totalPayment;
+            $payment.balance = payment.balanceOfPayment
+        })
+        return $payment;
+    }
 
 
 

@@ -17,3 +17,11 @@
   .mat-form-field {
     margin-top: 16px;
   }
+
+  div.newClothBtn{
+    text-align: right;
+  }
+
+  div.newClothBtn button{
+    border: 4px solid #c2bfbf;
+  }

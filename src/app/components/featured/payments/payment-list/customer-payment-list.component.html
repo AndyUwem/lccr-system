@@ -75,10 +75,10 @@
                 <tbody>
                   <tr  *ngFor="let payment of customer.payments; let i = index">
                     <th scope="row">{{ i + 1}}</th>
-                    <td> {{ payment['date'] | date:'medium' }}</td>
-                    <td> {{ payment['amountPaid'] | currency:'USD' }}</td>
-                    <td> {{ payment['balanceOfPayment']  | currency:'USD' }}</td>
-                    <td> {{ payment['totalPayment'] | currency:'USD' }}</td>
+                    <td> {{ payment.date | date:'medium' }}</td>
+                    <td> {{ payment.amountPaid | currency:'USD' }}</td>
+                    <td> {{ payment.balanceOfPayment  | currency:'USD' }}</td>
+                    <td> {{ payment.totalPayment | currency:'USD' }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -100,64 +100,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-      
-
-              <div class="card">
-                <div class="card-body">
-                    <form #paymentForm="ngForm" class="row g-3" >
-
-                        <div class="col-md-6">
-                          <label for="inputEmail4" class="form-label">New Amount</label>
-                          <input [(ngModel)]="newPayment.amountPaid" name="amountPaid" 
-                          required  (ngModelChange)="onBalanceOfPaymentChange()"
-                           type="text" class="form-control" [class.is-invalid]="paymentError.isAmountExceed" id="inputEmail4" placeholder="N 0.00">
-                           <div
-                           id="validationServer05Feedback" class="invalid-feedback">{{ paymentError.errorMassage }}</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
-                           
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">
-                               <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
-                            </span>
-                            <input  [(ngModel)]="newPayment.balanceOfPayment" name="balanceOfPayment" 
-                            required disabled 
-                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text">.00</span>
-                          </div>
-
-                        </div>
-                        <div class="col-12">
-                          <label for="inputAddress" class="form-label">Date</label>
-                          <input [(ngModel)]="newPayment.date" name="date" disabled
-                          type="text" class="form-control" id="inputAddress">
-                        </div>
-                        <div class="col-md-6">
-                          <label for="inputCity" class="form-label">TotalPayment</label>
-
-                           <div class="input-group mb-3">
-                            <span class="input-group-text">
-                              <img src="assets/img/bank-currency-nigerian-naira.png"  alt="...">
-                            </span>
-                            <input [(ngModel)]="newPayment.totalPayment" name="totalPayment" required disabled
-                            type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text">.00</span>
-                          </div>
-
-                        </div>
-                   
-                      </form>
-                </div>
-              </div>
-
-
+          <app-new-payment [customer]="customer" (payment)="setPayment($event)"></app-new-payment>
         </div>
         <div class="modal-footer">
-          <button (click)="updatePayment()" [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentError.isAmountExceed"
-           type="submit" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
+          <button (click)="updatePayment()"
+           type="button" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
   </div>
 <!-- payment-modal -->
+
+
+<!-- [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentError.isAmountExceed" -->

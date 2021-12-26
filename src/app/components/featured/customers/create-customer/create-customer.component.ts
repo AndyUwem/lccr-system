@@ -19,15 +19,16 @@ export class CreateCustomerComponent implements OnInit {
 
 
   isClothsEmpty = true;
-
   newCustomerForm = new FormGroup({});
+  private $cost = { total: 0, balance: 0 }
 
   constructor(private customerService: CustomerService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm()
-
+    this.onAmountPaidChange();
   }
+
 
   initializeForm(): void {
     this.newCustomerForm = this.fb.group({
@@ -35,16 +36,17 @@ export class CreateCustomerComponent implements OnInit {
       phone: ['', Validators.required],
       address: ['', Validators.required],
       gender: ['', Validators.required],
-      registeredDate: [new Date().toUTCString()],
+      registeredDate: [{ value: new Date().toUTCString(), disabled: true }],
       cloths: this.fb.array([]),
       payment: this.fb.group({
-        amountPaid: ['', Validators.required],
-        balanceOfPayment: ['', Validators.required],
+        amountPaid: [0, Validators.required],
+        balanceOfPayment: [''],
         date: [new Date().toUTCString()],
-        totalPayment: ['', Validators.required]
+        totalPayment: ['']
       })
 
     })
+
   }
 
   handleNewCloths(): void {
@@ -100,48 +102,62 @@ export class CreateCustomerComponent implements OnInit {
     this.isClothsEmpty = this.customerCloths.length < 1 ? true : false;
   }
 
-  get newPayment(): Payment {
-
+  private get newPayment(): Payment {
     const newPayment = new Payment()
-          newPayment.setAmountPaid(parseInt(this.payment.get('amountPaid')?.value))
-          newPayment.setBalanceOfPayment(parseInt(this.payment.get('balanceOfPayment')?.value))
-          newPayment.setDate(this.payment.get('date')?.value)
-          newPayment.setTotalPayment(parseInt(this.payment.get('totalPayment')?.value))
+    newPayment.setAmountPaid(parseInt(this.payment.get('amountPaid')?.value))
+    newPayment.setBalanceOfPayment(parseInt(this.payment.get('balanceOfPayment')?.value))
+    newPayment.setDate(this.payment.get('date')?.value)
+    newPayment.setTotalPayment(parseInt(this.payment.get('totalPayment')?.value))
 
     return newPayment
   }
 
 
-  createNewCustomer(): void {
-
+  private createNewCustomer(): void {
     let customer = new CustomerBuilder()
-
       .setNames(this.names?.value)
-
       .setPhone(this.phone?.value)
-
       .setGender(this.gender?.value)
-
       .setAdress(this.address?.value)
-
       .setDateRegistered(this.registeredDate?.value)
-
       .setCloth(this.customerCloths)
-
       .setPayments([this.newPayment])
-
       .build()
-
     this.customerService.createCustomer(customer).subscribe(() => { })
   }
+
+  private initializeTotalCost(): void {
+    this.customerCloths.filter(cloth => {
+      this.$cost.total += parseInt(cloth.cost)
+      this.$cost.balance = this.$cost.total
+      this.updateBalanceOfPayment()
+    })
+  }
+
+ private onAmountPaidChange(): void {
+    this.payment.get('amountPaid')?.valueChanges.subscribe((amountPaid: string) => {
+      let $amountPaid = parseInt(amountPaid)
+      let $totalPayment = this.$cost.total
+      let balanceOfPayment = $totalPayment - $amountPaid
+      this.payment.get('balanceOfPayment')?.setValue(balanceOfPayment)
+    })
+  }
+
+  private updateBalanceOfPayment(): void {
+    this.payment.patchValue({
+      balanceOfPayment: this.$cost.balance,
+      totalPayment: this.$cost.total
+    })
+  }
+
+
+  proceed(): void { this.initializeTotalCost() }
 
   onSubmit(): void {
     if (this.newCustomerForm.valid) { this.createNewCustomer() }
   }
 
-  done(): void {
-    this.router.navigateByUrl('/customers')
-  }
+  done(): void { this.router.navigateByUrl('/customers') }
 
 
 }

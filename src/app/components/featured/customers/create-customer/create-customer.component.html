@@ -85,11 +85,12 @@
                       </div>
                      </div>
                   </div>
-                
+              
                 
                   <!-- test -->
-                  
-                  <button class="btn btn-secondary" (click)="handleNewCloths()" >new cloth</button>
+                  <div class="newClothBtn">
+                    <button class="btn btn-secondary" (click)="handleNewCloths()" >new cloth</button>
+                  </div>
       
                 </div>
             
@@ -240,7 +241,7 @@
             <!-- fill Cloth -->
           
             <div>
-              <button [disabled]="isClothsEmpty"
+              <button [disabled]="isClothsEmpty" (click)="proceed()"
               class="btn site-background-color site-secondary-color"
                mat-button matStepperNext>Proceed <i class="fa fa-arrow-circle-right" ></i></button>
             </div>
@@ -268,18 +269,18 @@
                     <label for="inputEmail4" class="form-label">AmountPaid</label>
                     <input type="text" class="form-control" id="inputEmail4" placeholder="$ 0.00" formControlName="amountPaid">
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-3">
                     <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00" formControlName="balanceOfPayment">
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00" formControlName="balanceOfPayment" readonly>
                   </div>
-                  <div class="col-4">
+                  <div class="col-5">
                     <label for="inputAddress" class="form-label">Date</label>
-                    <input type="text" class="form-control" id="inputAddress" formControlName="date">
+                    <input type="text" class="form-control" id="inputAddress" formControlName="date" readonly>
                   </div>
 
                   <div class="col-md-3">
                     <label for="inputCity" class="form-label">TotalPayment</label>
-                    <input type="text" class="form-control" id="inputCity" placeholder="$ 0.00" formControlName="totalPayment">
+                    <input type="text" class="form-control" id="inputCity" placeholder="$ 0.00" formControlName="totalPayment" readonly>
                   </div>
              
                 </div>

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { map, Observable, Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Customer } from "../../interface/customer.interface";
 
@@ -10,7 +10,8 @@ import { Customer } from "../../interface/customer.interface";
 
 export class CustomerService {
 
-   private CUSTOMERS_API: string = environment.CUSTOMERS_API
+    private customerReference = new Subject<Customer>()
+    private CUSTOMERS_API: string = environment.CUSTOMERS_API
 
     constructor(private http: HttpClient) { }
 
@@ -37,15 +38,20 @@ export class CustomerService {
         return this.http.get<Customer>(`${this.CUSTOMERS_API}/${customerId}.json`)
             .pipe(map(responseData => {
                 let customerObject = {} as Customer
-
                 if (responseData) { 
                     customerObject = responseData 
                  }
-                
                 return customerObject
             }))
     }
 
 
+     setCustomerRef(customer: Customer): void {
+        this.customerReference.next(customer)
+      }
+
+       getCustomerRef(): Observable<Customer>{
+       return this.customerReference.asObservable()
+    }
 }
 
