@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 
 import { CustomerBuilder } from 'src/app/entities/customer.entity';
-import { Payment } from 'src/app/entities/payment.entity';
 import { Cloth } from 'src/app/interface/cloth.interface';
+import { Payment } from 'src/app/interface/payment.interface';
 
 import { CustomerService } from 'src/app/service/customers/customers.service';
 
@@ -17,18 +17,17 @@ import { CustomerService } from 'src/app/service/customers/customers.service';
 
 export class CreateCustomerComponent implements OnInit {
 
-  // private $cost: any = { total: 0, balance: 0 }
 
-  public isClothsEmpty: boolean = true;  
+  public isClothsEmpty: boolean = true;
   public newCustomerForm: FormGroup = new FormGroup({});
-  public payments: Payment[] = []
+  public costPayments: Payment[] = []
   public isShowPaymentSection: boolean = false;
+  private newFormPayment!: Payment
 
   constructor(private customerService: CustomerService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm()
-    // this.onAmountPaidChange();
   }
 
 
@@ -41,7 +40,7 @@ export class CreateCustomerComponent implements OnInit {
       registeredDate: [{ value: new Date().toUTCString(), disabled: true }],
       cloths: this.fb.array([]),
       payment: this.fb.group({
-        amountPaid: [''],
+        amountPaid: ['', Validators.required],
         balanceOfPayment: [''],
         date: [new Date().toUTCString()],
         totalPayment: ['']
@@ -105,20 +104,26 @@ export class CreateCustomerComponent implements OnInit {
   }
 
   private newPayment(cost: number): Payment {
-    const newPayment = new Payment()
-    newPayment.setAmountPaid(0)
-    newPayment.setBalanceOfPayment(cost)
-    newPayment.setDate(new Date().toUTCString())
-    newPayment.setTotalPayment(cost)
+    const newPayment: Payment = {
+      date: new Date().toUTCString(),
+      amountPaid: 0,
+      balanceOfPayment: cost,
+      totalPayment: cost
+    }
     return newPayment
   }
 
   private initializePayments(): void {
-      let $cost: number =  0
+    let $cost: number = 0
     this.customerCloths.filter(cloth => $cost += parseInt(cloth.cost))
-    this.payments.push(this.newPayment($cost))  
-   this.isShowPaymentSection = true
+    this.costPayments.push(this.newPayment($cost))
+    this.isShowPaymentSection = true
   }
+
+  recievedPayment(payment: Payment): void {
+    this.newFormPayment = this.setFormPayment = payment
+  }
+
 
   private createNewCustomer(): void {
     let customer = new CustomerBuilder()
@@ -128,39 +133,47 @@ export class CreateCustomerComponent implements OnInit {
       .setAdress(this.address?.value)
       .setDateRegistered(this.registeredDate?.value)
       .setCloth(this.customerCloths)
-      .setPayments([])
+      .setPayments([this.newFormPayment])
       .build()
     this.customerService.createCustomer(customer).subscribe(() => { })
   }
 
 
-//  private onAmountPaidChange(): void {
-//     this.payment.get('amountPaid')?.valueChanges.subscribe((amountPaid: string) => {
-//       let $amountPaid = parseInt(amountPaid)
-//       let $totalPayment = this.$cost.total
-//       let balanceOfPayment = $totalPayment - $amountPaid
-//       this.payment.get('balanceOfPayment')?.setValue(balanceOfPayment)
-//     })
-//   }
 
-  // private updateBalanceOfPayment(): void {
-  //   this.payment.patchValue({
-  //     balanceOfPayment: this.$cost.balance,
-  //     totalPayment: this.$cost.total
-  //   })
-  // }
-
-
-  proceed(): void { 
-    this.initializePayments()
-   }
-
-  onSubmit(): void {
-    if (this.newCustomerForm.valid) { this.createNewCustomer() }
+  private set setFormPayment(payment: Payment) {
+    this.payment.patchValue({
+      amountPaid: payment.amountPaid,
+      balanceOfPayment: payment.balanceOfPayment,
+      totalPayment: payment.totalPayment,
+      date: payment.date
+    })
   }
 
-  done(): void { 
-    this.router.navigateByUrl('/customers') 
+  get isPaymentValid(): boolean {
+    return parseInt(this.payment.get('amountPaid')?.value) > 0 || this.newCustomerForm.valid
+  }
+
+  get isCostValid(): boolean {
+    let cost: number = 0
+    this.customerCloths.filter(cloth => {
+      if (cloth.cost == '' || isNaN(parseInt(cloth.cost)))
+        cloth.cost = '0'
+      else
+        cost = parseInt(cloth.cost)
+    })
+    return cost < 1
+  }
+
+  proceed(): void {
+    this.initializePayments()
+  }
+
+  onSubmit(): void {
+    if (this.newCustomerForm.valid && this.isPaymentValid) { this.createNewCustomer() }
+  }
+
+  done(): void {
+    this.router.navigateByUrl('/customers')
   }
 
 

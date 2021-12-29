@@ -215,9 +215,9 @@
                        class="form-control" 
                        id="validationServer02" placeholder="$ 0.00" formControlName="cost" >
         
-                      <div *ngIf="setValidationFor('phone')">
-                        <div *ngIf="phone?.errors?.['required']" style="color: red;">
-                          Please provide a valid subtotal for this cloth or dress.
+                      <div *ngIf="setValidationFor('gender')">
+                        <div *ngIf="gender?.errors?.['required']" style="color: red;">
+                          Please provide a valid cost for this cloth should be a number.
                         </div>
                        </div>
                     </div>
@@ -241,7 +241,7 @@
             <!-- fill Cloth -->
           
             <div>
-              <button [disabled]="isClothsEmpty" (click)="proceed()"
+              <button [disabled]="isCostValid" (click)="proceed()"
               class="btn site-background-color site-secondary-color"
                mat-button matStepperNext>Proceed <i class="fa fa-arrow-circle-right" ></i></button>
             </div>
@@ -262,38 +262,15 @@
     <div>
       <ng-template matStepLabel>Fill out cloth(s) payment</ng-template>
 
-        <!-- <div class="card">
-          <div class="card-body">
-              <div class="row g-3" formGroupName="payment">
-                  <div class="col-md-5">
-                    <label for="inputEmail4" class="form-label">AmountPaid</label>
-                    <input type="text" class="form-control" id="inputEmail4" placeholder="$ 0.00" formControlName="amountPaid">
-                  </div>
-                  <div class="col-md-3">
-                    <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00" formControlName="balanceOfPayment" readonly>
-                  </div>
-                  <div class="col-5">
-                    <label for="Date" class="form-label">Date</label>
-                    <input type="text" class="form-control"formControlName="date" readonly>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="TotalPayment" class="form-label">TotalPayment</label>
-                    <input type="text" class="form-control" placeholder="$ 0.00" formControlName="totalPayment" readonly>
-                  </div>
-             
-                </div>
-          </div>
-        </div> -->
+  
       <div *ngIf="isShowPaymentSection">
-        <app-new-payment  [payments]="payments"></app-new-payment>
+        <app-new-payment  [payments]="costPayments" (payment)="recievedPayment($event)"></app-new-payment>
       </div>
       
       <div>
         
         <div class="col-12" style="padding: 20px;">
-          <button [disabled]="!newCustomerForm.valid" style="margin: 0px 10% 0px 35%;" (click)="onSubmit()"
+          <button [disabled]="!isPaymentValid" style="margin: 0px 10% 0px 35%;" (click)="onSubmit()"
           type="button" class="btn site-background-color site-secondary-color" mat-button matStepperNext>Accept</button>
           <button  class="btn btn-secondary" mat-button matStepperPrevious> <i class="fa fa-arrow-circle-left"></i>  Back</button>
         </div>

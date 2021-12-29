@@ -5,10 +5,14 @@
 
 
 <table class="table">
-    <thead>
+    <thead class="filterSelection">
         <tr>
           <th scope="col">
-            <select class="form-control-sm" aria-label="select example" [(ngModel)]="selectFilterBy" (click)="updateSearchPlaceholder()">
+            <i class="fa fa-filter"></i>
+            <select
+             class="form-control-sm" aria-label="select example" 
+            [(ngModel)]="selectFilterBy"
+             (click)="updateSearchPlaceholder()">
                 <option selected disabled >Search By</option>
                 <option value="names">Name</option>
                 <option value="address">Adress</option>
@@ -48,9 +52,9 @@
           <td> {{ customer.gender | lowercase }} </td>
           <td> {{ customer.address }} </td>
           <td> 
-            <button type="button" class="btn btn-primary btn-sm" style="margin-right: 5px;" [routerLink]="['/customers/customer', customer.id]"> 
+            <button type="button" class="btn btn-success btn-sm" style="margin-right: 5px;" [routerLink]="['/customers/customer', customer.id]"> 
               <i class="fa fa-address-card"></i> 
-              view
+              Manage
             </button>
         
               <button type="button" class="btn btn-danger btn-sm"  disabled><i class="fa fa-trash-o"></i> delete</button>
