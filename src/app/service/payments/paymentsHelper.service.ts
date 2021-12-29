@@ -69,9 +69,9 @@ export class PaymentHelperService {
     }
 
 
-    getTotalAndBalance(customer: Customer): { total: number, balance: number } {
+    getTotalAndBalance(payments: Payment[]): { total: number, balance: number } {
         let $payment = { total: 0, balance: 0 };
-        customer.payments.forEach((payment: Payment) => {
+        payments.forEach((payment: Payment) => {
             $payment.total = payment.totalPayment;
             $payment.balance = payment.balanceOfPayment
         })

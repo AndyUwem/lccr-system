@@ -100,10 +100,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <app-new-payment [customer]="customer" (payment)="setPayment($event)"></app-new-payment>
+          <app-new-payment [payments]="customer.payments" (payment)="setPayment($event)"></app-new-payment>
         </div>
         <div class="modal-footer">
-          <button (click)="updatePayment()"
+          <button (click)="updatePayment()"  [disabled]="!onAmountPaidValueCheck" 
            type="button" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
         </div>
       </div>
@@ -112,4 +112,3 @@
 <!-- payment-modal -->
 
 
-<!-- [disabled]="(paymentForm.invalid || newPayment.amountPaid == 0) || paymentError.isAmountExceed" -->

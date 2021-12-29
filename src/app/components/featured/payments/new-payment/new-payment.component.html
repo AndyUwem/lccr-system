@@ -1,5 +1,15 @@
 <div class="card">
     <div class="card-body">
+
+      <div *ngIf="isLoading; else paymentScreen">
+        <div class="text-center">
+            <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+        </div>
+      </div>
+
+      <ng-template #paymentScreen>
         <form #paymentForm="ngForm" class="row g-3" >
 
             <div class="col-md-6">
@@ -44,5 +54,6 @@
             </div>
        
           </form>
+        </ng-template>
     </div>
   </div>

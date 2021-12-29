@@ -262,7 +262,7 @@
     <div>
       <ng-template matStepLabel>Fill out cloth(s) payment</ng-template>
 
-        <div class="card">
+        <!-- <div class="card">
           <div class="card-body">
               <div class="row g-3" formGroupName="payment">
                   <div class="col-md-5">
@@ -274,20 +274,22 @@
                     <input type="text" class="form-control" id="inputPassword4" placeholder="$ 0.00" formControlName="balanceOfPayment" readonly>
                   </div>
                   <div class="col-5">
-                    <label for="inputAddress" class="form-label">Date</label>
-                    <input type="text" class="form-control" id="inputAddress" formControlName="date" readonly>
+                    <label for="Date" class="form-label">Date</label>
+                    <input type="text" class="form-control"formControlName="date" readonly>
                   </div>
 
                   <div class="col-md-3">
-                    <label for="inputCity" class="form-label">TotalPayment</label>
-                    <input type="text" class="form-control" id="inputCity" placeholder="$ 0.00" formControlName="totalPayment" readonly>
+                    <label for="TotalPayment" class="form-label">TotalPayment</label>
+                    <input type="text" class="form-control" placeholder="$ 0.00" formControlName="totalPayment" readonly>
                   </div>
              
                 </div>
           </div>
-        </div>
-
-
+        </div> -->
+      <div *ngIf="isShowPaymentSection">
+        <app-new-payment  [payments]="payments"></app-new-payment>
+      </div>
+      
       <div>
         
         <div class="col-12" style="padding: 20px;">
@@ -296,7 +298,6 @@
           <button  class="btn btn-secondary" mat-button matStepperPrevious> <i class="fa fa-arrow-circle-left"></i>  Back</button>
         </div>
 
-       
       </div>
     </div>
 

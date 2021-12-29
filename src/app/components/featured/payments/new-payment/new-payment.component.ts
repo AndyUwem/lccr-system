@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Customer } from 'src/app/interface/customer.interface';
 import { Payment } from 'src/app/interface/payment.interface';
 import { PaymentError } from 'src/app/interface/paymentError.interface';
-import { CustomerService } from 'src/app/service/customers/customers.service';
 import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
 
 @Component({
@@ -12,10 +10,9 @@ import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.se
 })
 export class NewPaymentComponent implements OnInit{
 
-  // @ViewChild('paymentForm') paymentForm!: NgForm;
 
 
-   @Input('customer') customer: any;
+   @Input('payments') payments: any;
    @Output('payment') updatedPaymentRef: EventEmitter<Payment> =  new EventEmitter<Payment>();
 
   public isLoading: boolean = true
@@ -35,18 +32,18 @@ export class NewPaymentComponent implements OnInit{
     errorMassage: ''
   };
 
-  constructor(private paymentHelperService: PaymentHelperService,
-    private customerService: CustomerService) { }
+  constructor(private paymentHelperService: PaymentHelperService) { }
 
   ngOnInit(): void {
     setTimeout(()=> {
-      this.setTotalAndBalancePayments(this.customer)
+      this.setTotalAndBalancePayments(this.payments) 
+      this.isLoading = false       
     }, 2000)
   }
 
 
-  private setTotalAndBalancePayments(customer: Customer) {
-    const $payment = this.paymentHelperService.getTotalAndBalance(customer)
+  private setTotalAndBalancePayments(payments: Payment[]) {
+    const $payment = this.paymentHelperService.getTotalAndBalance(payments)
     this.newPayment.totalPayment = $payment.total
     this.newPayment.balanceOfPayment = $payment.balance
     this.initialBalanceOfPayment = $payment.balance

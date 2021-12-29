@@ -4,6 +4,7 @@ import { Customer } from 'src/app/interface/customer.interface';
 import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
 import { CustomerService } from 'src/app/service/customers/customers.service';
 import { Subscription } from 'rxjs';
+import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
 
 
 @Component({
@@ -13,26 +14,23 @@ import { Subscription } from 'rxjs';
 })
 export class CustomerPaymentListComponent implements OnInit, OnDestroy {
 
-  private customerSubscription: Subscription = new Subscription()
   public customer: any;
   public isLoading: boolean = true
   public isCustomerOwing: boolean = false
   public canMakePayment: boolean = false
-  public newPayment!: Payment;
 
-  // public newPayment: Payment = {
-  //   amountPaid: 0,
-  //   balanceOfPayment: 0,
-  //   date: new Date().toUTCString(),
-  //   totalPayment: 0
-  // }
 
-  // public paymentError: PaymentError = {
-  //   isAmountExceed: false,
-  //   errorMassage: ''
-  // };
+  public newPayment: Payment = {
+    amountPaid: 0,
+    balanceOfPayment: 0,
+    date: new Date().toUTCString(),
+    totalPayment: 0
+  }
 
-  constructor(private paymentHelperService: PaymentHelperService, private customerService: CustomerService) { }
+
+  constructor(private paymentHelperService: PaymentHelperService,
+    private customerService: CustomerService,
+    private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
     this.refreshPaymentsList()
@@ -40,7 +38,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
   }
 
   private getCustomer(): void {
-    this.customerSubscription = this.customerService
+    this.subscriptionService.add = this.customerService
       .getCustomerRef()
       .subscribe((customer: Customer) => this.customer = customer)
   }
@@ -54,27 +52,37 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
 
 
   private handleCustomerDebts(customer: Customer): void {
-    customer.payments.filter((payment: Payment) => payment.balanceOfPayment > 0 ?
-      this.isCustomerOwing = true : this.isCustomerOwing = false)
+    customer.payments.filter((payment: Payment) => {
+      payment.balanceOfPayment > 0 ? this.isCustomerOwing = true : this.isCustomerOwing = false
+    })
   }
 
   setPayment(payment: Payment): void {
-     this.newPayment = {...payment}
+    this.newPayment = { ...payment }
+  }
+
+  get onAmountPaidValueCheck(): boolean {
+    return this.newPayment.amountPaid > 0;
   }
 
   updatePayment(): void {
-    if (this.newPayment.amountPaid > 0 ) {
-      this.customer.payments.push(this.paymentHelperService.createNewPayment(this.newPayment))
-      this.paymentHelperService.updatePayments(this.customer.id, this.customer.payments)
-     }
-     this.recheckCustomerDebts()
-     this.refreshPaymentsList()
+    if (this.onAmountPaidValueCheck) {
+      this.customer.payments
+        .push(this.paymentHelperService
+        .createNewPayment(this.newPayment))
+
+      this.paymentHelperService
+        .updatePayments(this.customer.id, this.customer.payments)
+    }
+    this.recheckCustomerDebts()
   }
 
   private recheckCustomerDebts(): void {
-    if(!this.isCustomerOwing)
-    this.customer.payments.filter((payment: Payment) => payment.balanceOfPayment > 0 ?
-    this.canMakePayment = true : this.canMakePayment = false )
+    if (!this.isCustomerOwing)
+      this.customer
+        .payments
+        .filter((payment: Payment) => payment.balanceOfPayment > 0 ?
+          this.canMakePayment = true : this.canMakePayment = false)
   }
 
   continueToPaymentsList(): void {
@@ -83,7 +91,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.customerSubscription.unsubscribe()
+    this.subscriptionService.remove()
   }
 
 
