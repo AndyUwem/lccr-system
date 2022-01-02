@@ -28,10 +28,82 @@
             <td> {{ cloth.pickUpDate }}</td>
             <td> {{ cloth.cost }}</td> 
             <td>
-                <button type="button" class="btn btn-secondary btn-sm" style="font-size:13px">Edit cloths <i class="fa fa-edit" ></i></button>
+                <button (click)="getPreviousClothValues(cloth)"
+                 type="button"
+                 class="btn btn-secondary btn-sm"
+                 data-bs-toggle="modal" data-bs-target="#clothUpdateView"
+                  style="font-size:13px">
+                  Edit Status <i class="fa fa-edit" ></i>
+                </button>
+              
             </td>
           </tr>
         </tbody>
       </table>
+
+             <!-- Button trigger modal -->
+             <!-- <button 
+             type="button" class="btn btn-sm site-background-color site-secondary-color" 
+             data-bs-toggle="modal" data-bs-target="#staticBackdrop">Balance Payment
+            </button> -->
+<!-- modal -->
+      <div class="modal fade" id="clothUpdateView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Cloth Status</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form [formGroup]="clothStatusForm" class="row g-3">
+
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">DeliveryStatus</label>
+                <select class="form-select" formControlName="deliveryStatus"
+                id="validationServer04" aria-describedby="validationServer04Feedback" >
+                  <option selected disabled value="">Choose...</option>
+                  <option>Delivered</option>
+                  <option>Not Delivered</option>
+                </select>
+  
+                <div>
+                  <div style="color: red;" >
+                    Please select a valid status for this cloth.
+                  </div>
+                 </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="validationServer04" class="form-label">Progress Status</label>
+                <select class="form-select" formControlName="progressStatus"
+                id="validationServer04" aria-describedby="validationServer04Feedback" >
+                  <option selected disabled value="">Choose...</option>
+                  <option>In Progress</option>
+                  <option>Completed</option>
+                </select>
+  
+                <div>
+                  <div style="color: red;" >
+                    Please select if it's completed or still in progress.
+                  </div>
+                 </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="validationServer03" class="form-label">PickUp Date</label>
+                <input type="date" class="form-control" formControlName="pickUpDate"
+                 id="validationServer03" aria-describedby="validationServer03Feedback" >
+              </div>
+
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button (click)="updateClothArray()"  [disabled]="!clothStatusForm.valid" 
+               type="button" style="width: fit-content;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update Status</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- modal -->
 
 </div>

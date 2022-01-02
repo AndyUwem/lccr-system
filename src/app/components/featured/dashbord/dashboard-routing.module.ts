@@ -7,7 +7,7 @@ import { ProfileComponent } from "../profile/profile.component";
 import { SettingsComponent } from "../settings/settings.component";
 
 const routes: Routes =  [
-      { path: '', component: AdvertsComponent, pathMatch: 'full' },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: AdvertsComponent },
       { path: 'profile', component: ProfileComponent},
       { path: 'settings', component: SettingsComponent},
