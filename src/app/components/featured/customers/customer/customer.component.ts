@@ -16,7 +16,7 @@ export class CustomerComponent implements OnInit {
 
   public customer: any = {};
   public customerCloths: Array<Cloth> = []
-
+  public isLoading: boolean = true
 
   constructor(private customerService: CustomerService,
     private route: ActivatedRoute,
@@ -29,12 +29,10 @@ export class CustomerComponent implements OnInit {
   private getCustomer(): void{
      let customerId!: string;
     this.route.params.subscribe((params: Params) => customerId = params['id'])
-    
-
+  
       this.customerService.findCustomerById(customerId).subscribe((customer: Customer) => {
       this.customer = {...customer}
       this.customer.id = customerId
-      
       this.setCustomerCloths(customer)
       this.setCustomerRef(this.customer)
     })

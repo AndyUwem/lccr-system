@@ -3,7 +3,6 @@ import { Payment } from 'src/app/interface/payment.interface';
 import { Customer } from 'src/app/interface/customer.interface';
 import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
 import { CustomerService } from 'src/app/service/customers/customers.service';
-import { Subscription } from 'rxjs';
 import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
 
 
@@ -14,7 +13,7 @@ import { SubscriptionService } from 'src/app/service/subscription/subscription.s
 })
 export class CustomerPaymentListComponent implements OnInit, OnDestroy {
 
-  public customer: any;
+  public customer!: any;
   public isLoading: boolean = true
   public isCustomerOwing: boolean = false
   public canMakePayment: boolean = false
@@ -33,8 +32,8 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
     private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
-    this.refreshPaymentsList()
     this.getCustomer()
+    this.refreshPaymentsList()  
   }
 
   private getCustomer(): void {
@@ -67,10 +66,8 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
 
   updatePayment(): void {
     if (this.onAmountPaidValueCheck) {
-      this.customer.payments
-        .push(this.paymentHelperService
-        .createNewPayment(this.newPayment))
 
+      this.customer.payments.push(this.newPayment)
       this.paymentHelperService
         .updatePayments(this.customer.id, this.customer.payments)
     }

@@ -12,7 +12,7 @@ export class NewPaymentComponent implements OnInit{
 
 
 
-   @Input('payments') payments: any;
+   @Input('payments') payments!: Payment[];
    @Output('payment') updatedPaymentRef: EventEmitter<Payment> =  new EventEmitter<Payment>();
 
   public isLoading: boolean = true
@@ -35,7 +35,7 @@ export class NewPaymentComponent implements OnInit{
   constructor(private paymentHelperService: PaymentHelperService) { }
 
   ngOnInit(): void {
-    setTimeout(()=> {
+    setTimeout(() => {
       this.setTotalAndBalancePayments(this.payments) 
       this.isLoading = false       
     }, 2000)

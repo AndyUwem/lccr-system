@@ -15,12 +15,12 @@ export class PaymentHelperService {
 
     constructor(private paymentService: PaymentService) { }
 
-    createNewPayment(payment: any): Payment {
+    createNewPayment(payment: Payment): Payment {
         return {
             date: payment.date,
-            amountPaid: parseInt(payment.amountPaid),
-            balanceOfPayment: parseInt(payment.balanceOfPayment),
-            totalPayment: parseInt(payment.totalPayment)
+            amountPaid: payment.amountPaid,
+            balanceOfPayment: payment.balanceOfPayment,
+            totalPayment: payment.totalPayment
         }
 
     }
