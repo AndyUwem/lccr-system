@@ -10,3 +10,14 @@
  text-align: center;
  font-weight: bold;
 }
+
+.clothsInprogress{
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.timeContainer{
+  float: left;
+  width: 50%;
+  height: fit-content;
+}

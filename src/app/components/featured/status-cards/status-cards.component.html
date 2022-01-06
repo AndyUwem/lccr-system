@@ -8,9 +8,18 @@
 </div>
 
 <ng-template #statusCardsComponent>
-  
-    <app-time></app-time>
+    <div class="row clothsInprogress">
+        <div class="timeContainer">
+            <app-time style="display: inline-block;"></app-time> 
+        </div>
     
+        <div class="timeContainer">
+            <marquee width="100%" behavior="alternate"> 
+               Only <span style="color: red;">{{ completedCloths.completed }}</span> of {{ completedCloths.cloths }} cloths have been completed !!
+            </marquee>
+        </div>      
+    </div>  
+
     <div class="row">
         <div class="col" *ngFor="let statusCard of statusCards">
             
