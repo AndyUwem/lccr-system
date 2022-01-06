@@ -168,6 +168,11 @@ export class CreateCustomerComponent implements OnInit {
     this.initializePayments()
   }
 
+  
+  goBackToCustomerForm(): void{
+    this.isShowPaymentSection = false
+  }
+
   onSubmit(): void {
     if (this.newCustomerForm.valid && this.isPaymentValid) { this.createNewCustomer() }
   }

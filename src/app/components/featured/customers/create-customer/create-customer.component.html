@@ -272,7 +272,7 @@
         <div class="col-12" style="padding: 20px;">
           <button [disabled]="!isPaymentValid" style="margin: 0px 10% 0px 35%;" (click)="onSubmit()"
           type="button" class="btn site-background-color site-secondary-color" mat-button matStepperNext>Accept</button>
-          <button  class="btn btn-secondary" mat-button matStepperPrevious> <i class="fa fa-arrow-circle-left"></i>  Back</button>
+          <button (click)="goBackToCustomerForm()" class="btn btn-secondary" mat-button matStepperPrevious> <i class="fa fa-arrow-circle-left"></i>  Back</button>
         </div>
 
       </div>

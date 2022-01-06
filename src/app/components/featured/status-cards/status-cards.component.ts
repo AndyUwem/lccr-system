@@ -35,7 +35,6 @@ export class StatusCardsComponent implements OnInit {
       .then((statusCard: StatusCardData) => {
 
         const { totalSales, totalCloths, inProgress } = statusCard
-
         this.customerService.findAll().subscribe((customer: Array<Customer>) => {
           const statusCards = [
             { header: 'Customers', value: customer.length + '' },
