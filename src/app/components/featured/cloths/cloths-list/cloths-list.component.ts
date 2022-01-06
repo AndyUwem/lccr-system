@@ -17,7 +17,6 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 
   private selectedCloth!: Cloth;
   private updatedClothsStatus!: ClothStatus;
-  public customerCloths!: Cloth[]
   public customer!: Customer
   public clothStatusEditForm!: FormGroup;
   public newClothForm!: FormGroup;
@@ -41,7 +40,6 @@ export class ClothsListComponent implements OnInit, OnDestroy{
    this.subscriptionService.add = this.customerService.getCustomerRef()
       .subscribe((customer: Customer) => {
         this.customer = customer
-        this.customerCloths = this.customer.cloth
         this.isLoading = false
       })
   }
@@ -79,15 +77,11 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 
 
   updateClothArray(): void {
-    const index: number = this.customerCloths.indexOf(this.selectedCloth)
+    const index: number = this.customer.cloth.indexOf(this.selectedCloth)
     const { deliveryStatus, progressStatus, pickUpDate } = this.updatedClothsStatus
     this.customer.cloth[index].deliveryStatus = deliveryStatus
     this.customer.cloth[index].clothStatus = progressStatus
     this.customer.cloth[index].pickUpDate = pickUpDate
-
-    // this.customerCloths[index].deliveryStatus = deliveryStatus
-    // this.customerCloths[index].clothStatus = progressStatus
-    // this.customerCloths[index].pickUpDate = pickUpDate
 
     this.updateCloth(this.customer)
   }
