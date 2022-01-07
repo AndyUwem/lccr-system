@@ -89,7 +89,9 @@
                 
                   <!-- test -->
                   <div class="newClothBtn">
-                    <button class="btn btn-secondary" (click)="handleNewCloths()" >new cloth</button>
+                    <button class="btn btn-secondary" (click)="handleNewCloths()">
+                       {{ getClothsLength ? "Add more cloths" : "New cloth" }}
+                      </button>
                   </div>
       
                 </div>
@@ -100,10 +102,14 @@
       <!-- fill Cloth -->
              <div class="col-8 "> 
       
-              <div formArrayName="cloths" class="" *ngFor="let cloths of cloths.controls; let i = index">
+              <div formArrayName="cloths" *ngFor="let cloths of cloths.controls; let i = index">
                   
                   <div [formGroupName]="i" class="card-body row g-3">
-                    <button (click)=" removeCloth(i)" *ngIf="i >= 1">X</button>
+                    <button title="click to delete this cloth"
+                     class="btn btn-danger btn-sm fit-content-width"
+                     (click)=" removeCloth(i)" *ngIf="i >= 1">
+                     <i class="fa fa-times"></i>
+                    </button>
                     
                     <h4 class="form-title">Fill in Cloth: {{ i+1 }} Infomation</h4>
       
@@ -244,6 +250,12 @@
               <button [disabled]="isCostValid" (click)="proceed()"
               class="btn site-background-color site-secondary-color"
                mat-button matStepperNext>Proceed <i class="fa fa-arrow-circle-right" ></i></button>
+
+
+               <button
+               class="btn btn-danger btn-sm fit-content-width" [routerLink]="['/customers']">
+               <i class="fa fa-times-circle-o"> Cancel</i>
+              </button>
             </div>
       
           </div>

@@ -25,3 +25,12 @@
   div.newClothBtn button{
     border: 4px solid #c2bfbf;
   }
+
+  .fit-content-width{
+    width: fit-content;
+  }
+
+  .fit-content-width, i {
+    font-size: 18px;
+    margin: 0px 5px;
+  }

@@ -17,14 +17,16 @@ import { CustomerService } from 'src/app/service/customers/customers.service';
 
 export class CreateCustomerComponent implements OnInit {
 
-
-  public isClothsEmpty: boolean = true;
+  
   public newCustomerForm: FormGroup = new FormGroup({});
   public costPayments: Payment[] = []
   public isShowPaymentSection: boolean = false;
   private newFormPayment!: Payment
 
-  constructor(private customerService: CustomerService, private fb: FormBuilder, private router: Router) { }
+  constructor(
+    private customerService: CustomerService,
+    private fb: FormBuilder, 
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm()
@@ -65,7 +67,7 @@ export class CreateCustomerComponent implements OnInit {
     });
 
     (this.newCustomerForm.get('cloths') as FormArray).push(cloth)
-    this.onIsClothsArrayEmpty()
+    // this.getClothsLength
 
   }
 
@@ -99,8 +101,8 @@ export class CreateCustomerComponent implements OnInit {
       (this.newCustomerForm.get(formControl)?.dirty || this.newCustomerForm.get(formControl)?.touched))
   }
 
-  onIsClothsArrayEmpty(): void {
-    this.isClothsEmpty = this.customerCloths.length < 1 ? true : false;
+  get getClothsLength(): boolean {
+    return this.customerCloths.length > 0;
   }
 
   private newPayment(cost: number): Payment {
@@ -168,8 +170,8 @@ export class CreateCustomerComponent implements OnInit {
     this.initializePayments()
   }
 
-  
-  goBackToCustomerForm(): void{
+
+  goBackToCustomerForm(): void {
     this.isShowPaymentSection = false
   }
 
