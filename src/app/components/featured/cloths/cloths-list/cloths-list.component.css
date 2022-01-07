@@ -1,5 +1,11 @@
-
 div .modal-body{
     display: flex;
     justify-content: center;
 }
+
+.example-viewport {
+    height: 180px;
+    width: 100%;
+    border: none;
+  }
+  

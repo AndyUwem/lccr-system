@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { PaymentHelperService } from "src/app/service/payments/paymentsHelper.service";
 import { NewPaymentComponent } from "./new-payment/new-payment.component";
 import { CustomerPaymentListComponent } from "./payment-list/customer-payment-list.component";
@@ -14,7 +17,8 @@ import { CustomerPaymentListComponent } from "./payment-list/customer-payment-li
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ScrollingModule
     ],
     exports: [
         CustomerPaymentListComponent,

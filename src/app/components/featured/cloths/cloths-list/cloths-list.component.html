@@ -10,9 +10,6 @@
 
 <ng-template #clothsIformations>
 
-
-
- 
  <div class="card">
     <div class="card-header">
       <span style="margin-right: 70%; font-weight: bold;">{{  customer.names }}'s cloths</span>
@@ -21,8 +18,9 @@
     </div>
 
 <div class="card-body">
+
+  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <table class="table caption-top table-sm table-bordered">
-        <caption>List of cloths</caption>
         <thead class="table table-dark">
           <tr>
             <th scope="col">#</th>
@@ -61,7 +59,7 @@
           </tr>
         </tbody>
       </table>
-
+    </cdk-virtual-scroll-viewport>
 <!-- update cloths modal -->
       <div class="modal fade" id="clothUpdateView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">

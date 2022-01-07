@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 import { MatStepperModule } from '@angular/material/stepper';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -29,6 +30,7 @@ import { ClothsModule } from '../cloths/cloths.module';
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,
+    ScrollingModule,
     CustomerRoutingModule,
     PaymentsModule,
     ClothsModule

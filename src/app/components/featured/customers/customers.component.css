@@ -12,3 +12,9 @@
     margin: 0px 7px 0px 0px;
 }
 
+.example-viewport {
+    height: 570px;
+    width: 100%;
+    border: none;
+  }
+  

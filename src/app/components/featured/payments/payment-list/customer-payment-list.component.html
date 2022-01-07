@@ -61,6 +61,7 @@
           </button>
         </div>
         <div class="card-body">
+          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">     
             <table class="table caption-top table-sm table-bordered">
                 <thead class="table table-dark">
                   <tr>
@@ -81,8 +82,10 @@
                   </tr>
                 </tbody>
               </table>
-    
+            </cdk-virtual-scroll-viewport>
+
         </div>
+
       </div>
 
    </div>
@@ -109,5 +112,6 @@
   </div>
   <!-- payment-modal -->
 </ng-template>
+
 
 
