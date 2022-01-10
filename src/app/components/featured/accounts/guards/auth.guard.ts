@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate{
 
       canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {        
            if(!this.authService.isUserLoggedIn()){
-               this.router.navigate(['/login'])
+               this.router.navigate(['login'])
                console.log('no token found')
                return false
              }

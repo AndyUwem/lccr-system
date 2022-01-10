@@ -14,21 +14,21 @@ import { SharedModule } from "../shared/shared.module";
 
 
 const routes: Routes = [
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
          path: 'home', canActivate: [AuthGuard],
          component: BodyComponent,
          children: [
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: AdvertsComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'settings', component: SettingsComponent },
             { path: 'developer', component: DeveloperComponent },
             { path: 'company', component: CompanyInfoComponent },
-            { path: 'customers', loadChildren: () => import('../featured/customers/customers.module').then(m => m.CustomersModule) },
-            { path: '', redirectTo: './dashboard', pathMatch: 'full' },
+            { path: 'customers', loadChildren: () => import('../featured/customers/customers.module').then(m => m.CustomersModule) }
          ]
         },
-    { path: 'login', component: UserLoginComponent },
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'login', component: UserLoginComponent },  
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ]
 
