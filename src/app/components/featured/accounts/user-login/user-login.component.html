@@ -1,0 +1,29 @@
+
+<div class="login-container">
+<div class="card" style="width: 18rem; height: fit-content; margin: 10% 0% 0% 50%;" >
+    <div class="card-body">
+ <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
+    <div class="mb-3">
+      <label for="validationServer01" class="form-label">User ID</label>
+      <input type="text" class="form-control is-valid" id="validationServer01" formControlName='userId'>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="validationServer02" class="form-label">Password</label>
+        <input type="text" class="form-control is-valid" id="validationServer02" formControlName='password'>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+ 
+
+    <div class="col-12">
+      <button [disabled]="loginForm.invalid" class="btn btn-primary" type="submit">Login</button>
+    </div>
+  </form>
+</div>
+</div>
+</div>

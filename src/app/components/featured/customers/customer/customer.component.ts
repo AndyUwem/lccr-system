@@ -48,7 +48,7 @@ export class CustomerComponent implements OnInit {
   }
 
   cancelButton() {
-    this.router.navigateByUrl('/customers')
+    this.router.navigateByUrl('home/customers')
   }
 
 

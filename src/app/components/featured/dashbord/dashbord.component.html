@@ -12,23 +12,23 @@
             <ul class="nav flex-column">
                <p class="sections">MAIN</p>
                 <li routerLinkActive="active current" class="nav-item">
-                  <a class="nav-link" [routerLink]="['/home']"> <i class="fa fa-dashboard icons"></i> Dashboard </a>
+                  <a class="nav-link" [routerLink]="['./dashboard']"> <i class="fa fa-dashboard icons"></i> Dashboard </a>
                 </li>
                 <li routerLinkActive="active current" class="nav-item">
-                  <a class="nav-link" [routerLink]="['/customers']"> <i class="fa fa-users icons"></i>  Customers</a>
+                  <a class="nav-link" [routerLink]="['./customers']"> <i class="fa fa-users icons"></i>  Customers</a>
                 </li>
                 <li routerLinkActive="active current" class="nav-item">
-                  <a class="nav-link " [routerLink]="['/profile']"> <i class="fa fa-id-card icons"></i>  Profile</a>
+                  <a class="nav-link " [routerLink]="['./profile']"> <i class="fa fa-id-card icons"></i>  Profile</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active current">
-                    <a class="nav-link " [routerLink]="['/settings']"> <i class="fa fa-cogs icons"></i>  Settings</a>
+                    <a class="nav-link " [routerLink]="['./settings']"> <i class="fa fa-cogs icons"></i>  Settings</a>
                   </li>
                   <p class="sections">ADDTIONAL INFO</p>
                   <li routerLinkActive="active current" class="nav-item">
-                    <a class="nav-link " [routerLink]="['/developer']" > <i class="fa fa-code icons"></i>  Developer</a>
+                    <a class="nav-link " [routerLink]="['./developer']" > <i class="fa fa-code icons"></i>  Developer</a>
                   </li>
                   <li routerLinkActive="active current" class="nav-item">
-                    <a class="nav-link " [routerLink]="['/company']"> <i class="fa fa-info-circle icons"></i> Company Info</a>
+                    <a class="nav-link " [routerLink]="['./company']"> <i class="fa fa-info-circle icons"></i> Company Info</a>
                   </li>
               </ul>
         
@@ -38,16 +38,12 @@
        <div class="container container-margin">
         <div class="row">
                <router-outlet></router-outlet>
-
           </div>
        </div>
 
       </div>
     </div>
   </div>
-
-
-
 
 
 

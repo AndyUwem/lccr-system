@@ -180,8 +180,11 @@ export class CreateCustomerComponent implements OnInit {
   }
 
   done(): void {
-    this.router.navigateByUrl('/customers')
+    this.router.navigate(['home/customers'])
   }
 
+  cancelForm(): void {
+     this.done()
+  }
 
 }
