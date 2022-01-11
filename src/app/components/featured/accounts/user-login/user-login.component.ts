@@ -11,7 +11,11 @@ import { AuthService } from '../authentication/auth.service';
 })
 export class UserLoginComponent implements OnInit, OnDestroy {
 
-  loginForm!: FormGroup;
+  public loginForm!: FormGroup;
+  public isAdmin!: boolean;
+  public loginTypeArray: Array<string> = ['Administrator', 'Attendant']
+  public loginType!: string;
+
 
   constructor(
     private router: Router,
@@ -20,10 +24,15 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.onUserLoggedInCheck()
+    this.initializeLoginType()
     this.initializeLoginForm()
+    this.onUserLoggedInCheck()
   }
 
+  private initializeLoginType(): void {
+    this.loginType = this.loginTypeArray[0]
+    this.isAdmin = true
+  }
 
   private initializeLoginForm(): void {
     this.loginForm = new FormGroup({
@@ -45,14 +54,21 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           next: () => this.navigateToHome(),
           error: responseErrorMessage => alert(responseErrorMessage)
         });
-  }
+}
 
   private navigateToHome(): void {
     this.router.navigate(['home/dashboard'])
   }
 
+  getSelectedLoginType(): void {
+    if (this.loginType === this.loginTypeArray[0])
+      this.isAdmin = true
+    else
+      this.isAdmin = !this.isAdmin
+  }
+
   ngOnDestroy(): void {
-  this.subscriptionService.remove()
+    this.subscriptionService.remove()
   }
 
 }

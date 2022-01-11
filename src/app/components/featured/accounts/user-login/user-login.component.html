@@ -1,29 +1,142 @@
-
-<div class="login-container">
-<div class="card" style="width: 18rem; height: fit-content; margin: 10% 0% 0% 50%;" >
+<div class="login-cover">
+  <div class="card">
     <div class="card-body">
- <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
-    <div class="mb-3">
-      <label for="validationServer01" class="form-label">User ID</label>
-      <input type="text" class="form-control is-valid" id="validationServer01" formControlName='userId'>
-      <div class="valid-feedback">
-        Looks good!
-      </div>
-    </div>
 
-    <div class="mb-3">
-        <label for="validationServer02" class="form-label">Password</label>
-        <input type="text" class="form-control is-valid" id="validationServer02" formControlName='password'>
-        <div class="valid-feedback">
-          Looks good!
+      <div class="cards-group-container">
+        <div class="card no-border card-register">
+          <img src="assets/img/cloth-icon.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h2 class="card-title">Welcome</h2>
+            <p class="card-title bottom-spacer" style="font-size: 20px;">Register a free Laundry records account here.</p>
+            <p class="card-text bottom-spacer">
+
+              Learn Error handling in Angular 13, we will take the best approach with RxJS catchError operator and
+              HttpInterceptor to handle client-side errors gracefully.
+
+              A proper Error handling makes an application most helpful for users from the user experience aspect, error
+              handlers report a user correctly what causing the problem. It also notifies developers in the development
+              phase about the error reason, which assists them to fix it before it goes live.
+
+              These days new technologies are growing faster than ever. This competition is all about making a piece of
+              software better for users be it a final user, product owner or a developer who is building it from
+              scratch. Due to this, user experiences became the trend.
+
+
+              Angular 12 Error Handling Example
+              There are two types of errors which might occur in an application, inside errors and outside errors.
+
+              Outside Errors: These errors often occur from the server-side and usually starts with (5xxx) status code.
+              These errors return the error message with the proper reason so identifying these errors is easy.
+
+
+              Inside Error: When something unexpected happens, then these errors are thrown. These errors occur with the
+              proper message, which contains the reason for the error occurrence.
+
+              Here is the complete List of HTTP status codes.
+
+              .</p>
+
+              <div class="col-12">
+                <button class="site-primary-Button1 bottom-spacer" type="submit">Register</button>
+              </div>
+
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+
+
+        <div class="card no-border site-background-green" style="width: 30%;">
+          <div class="card-body">
+            <div class="login-container">
+              <div class="card card-login site-background-green">
+                <div class="card-body">
+
+                  <div class="row row-cols-lg-auto g-3 align-items-center bottom-spacer" style="display: flex; justify-content: flex-end;">
+                    <label class="visually" for="inlineFormSelectPref">Login As: </label>
+                    <div class="col-12">
+                      <select [(ngModel)]="loginType" name="loginType" (change)="getSelectedLoginType()"
+                        class="form-select" id="inlineFormSelectPref">
+                        <option *ngFor="let loginType of loginTypeArray"
+                         [ngValue]="loginType">{{ loginType }}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                <br>
+
+                <div *ngIf="isAdmin; else attendantForm">
+                  <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
+                    <h3 class="card-title">Enter administrator info</h3>
+                    <div class="mb-3">
+                      <label for="validationServer01" class="form-label">Administrator ID</label>
+                      <input type="text" class="form-control" id="validationServer01" formControlName='userId'>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="validationServer02" class="form-label">Password</label>
+                      <input type="text" class="form-control" id="validationServer02" formControlName='password'>      
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input checkbox" type="checkbox" id="inlineFormCheck">
+                        <label class="form-check-label" for="inlineFormCheck">
+                          Remember me
+                        </label>
+                        <span> <a href="javascript:void()">forget password?</a> </span>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12">      
+                      <button [disabled]="loginForm.invalid" class="site-primary-Button2 bottom-spacer" type="submit">Login</button>
+                    </div>
+                  </form>
+                </div>
+
+
+                  <ng-template #attendantForm>
+                    <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
+                      <h3 class="card-title">Enter attendant info</h3>
+                      <div class="mb-3">
+                        <label for="validationServer01" class="form-label">Attendant ID</label>
+                        <input type="text" class="form-control" id="validationServer01" formControlName='userId'>
+                      </div>
+  
+                      <div class="mb-3">
+                        <label for="validationServer02" class="form-label">Employer's Phone Number</label>
+                        <input type="text" class="form-control" id="validationServer02" formControlName='password'>      
+                      </div>
+  
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input checkbox" type="checkbox" id="inlineFormCheck">
+                          <label class="form-check-label" for="inlineFormCheck">
+                            Remember me
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <button [disabled]="loginForm.invalid" class="site-primary-Button2 bottom-spacer" type="submit">Login</button>
+                      </div>
+                    </form>
+                  </ng-template>
+                  
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer">
+            <small class="site-secondary-color">have any problem tyring to login as attendant? contact your employer asap!</small>
+          </div>
         </div>
       </div>
- 
 
-    <div class="col-12">
-      <button [disabled]="loginForm.invalid" class="btn btn-primary" type="submit">Login</button>
+
     </div>
-  </form>
-</div>
-</div>
+  </div>
 </div>
