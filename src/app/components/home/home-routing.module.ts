@@ -25,7 +25,8 @@ const routes: Routes = [
             { path: 'settings', component: SettingsComponent },
             { path: 'developer', component: DeveloperComponent },
             { path: 'company', component: CompanyInfoComponent },
-            { path: 'customers', loadChildren: () => import('../featured/customers/customers.module').then(m => m.CustomersModule) }
+            { path: 'customers', loadChildren: () => import('../featured/customers/customers.module').then(m => m.CustomersModule) },
+            { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
          ]
         },
     { path: 'login', component: UserLoginComponent },  

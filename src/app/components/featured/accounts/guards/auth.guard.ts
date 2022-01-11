@@ -3,22 +3,20 @@ import { Injectable } from "@angular/core";
 import { AuthService } from "../authentication/auth.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
- 
+export class AuthGuard implements CanActivate {
 
-      constructor(private authService: AuthService,  private router: Router){}
 
-      canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {        
-           if(!this.authService.isUserLoggedIn()){
-               this.router.navigate(['login'])
-               console.log('no token found')
-               return false
-             }
-             console.log('one token was found')
-           return this.authService.isUserLoggedIn();
-       }
+  constructor(private authService: AuthService, private router: Router) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!this.authService.isUserLoggedIn()) {
+      this.router.navigate(['login'])
+      return false
+    }
+    return this.authService.isUserLoggedIn();
+  }
 
 
 

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-
+import { of, Observable, throwError } from 'rxjs'
 @Injectable({
     providedIn: 'root'
 })
@@ -8,7 +7,7 @@ import { Router } from "@angular/router";
 
 export class AuthService {
 
-    constructor(private router: Router){}
+    constructor(){}
 
      setUserToken(token: string){
           localStorage.setItem('myToken', token)
@@ -23,15 +22,17 @@ export class AuthService {
      }
 
 
-     loginUser( obj: any): void {
-            if( obj.userId === 'andy' && obj.password === '12345'){
+     logInUser({ userId, password }: any): Observable<any> {
+            if( userId === 'andy' && password === '12345'){
                 this.setUserToken('ZWEWDEJHHE6FB780032XBNHJUAQW12A')
-                this.router.navigate(['home'])
-            }
-                 
-            
-              else 
-              alert('email or password incorrect!!!!')
-
+              return of({ names: 'andy uwem essien', phone: '0909983784736' })
+              } 
+            return throwError(()=> new Error('failed to login! invalid email or password'))
      }
+
+
+     logOutUser(): void {
+       localStorage.removeItem('myToken')
+     }
+
 }
