@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { of, Observable, throwError } from 'rxjs'
+
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth'
+import { LoginData } from "src/app/interface/login-data.interface";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import { Observable } from "rxjs";
+
 @Injectable({
     providedIn: 'root'
 })
@@ -7,7 +13,10 @@ import { of, Observable, throwError } from 'rxjs'
 
 export class AuthService {
 
-    constructor(){}
+    constructor(
+        private angularFireAuth: Auth,
+        private htttp: HttpClient
+        ){}
 
      setUserToken(token: string){
           localStorage.setItem('myToken', token)
@@ -22,17 +31,22 @@ export class AuthService {
      }
 
 
-     logInUser({ userId, password }: any): Observable<any> {
-            if( userId === 'andy' && password === '12345'){
-                this.setUserToken('ZWEWDEJHHE6FB780032XBNHJUAQW12A')
-              return of({ names: 'andy uwem essien', phone: '0909983784736' })
-              } 
-            return throwError(()=> new Error('failed to login! invalid email or password'))
+     logInUser(loginData: LoginData): Promise<any> {
+        return signInWithEmailAndPassword(this.angularFireAuth, loginData.email, loginData.password)
      }
 
 
      logOutUser(): void {
        localStorage.removeItem('myToken')
      }
+
+
+     setUserAccount(loginData: LoginData): Promise<any> {
+         return createUserWithEmailAndPassword(this.angularFireAuth, loginData.email, loginData.password)
+     }
+
+    saveUserToFireBase(user: any): Observable<any> {
+        return this.htttp.put<any>(`${environment.firebase.databaseURL}/users/${user.id}.json`, user)
+    }
 
 }

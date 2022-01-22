@@ -1,1 +1,151 @@
-<p>user-register works!</p>
+
+ <div class="row g-3">
+
+    <div class="container">
+        <div class="row">
+    
+          <div class="col-8">
+              <form class="card-body row g-3" [formGroup]="userRegisterForm">
+                
+                <!-- user register form -->
+                <div class="col-md-6">
+                  <label for="validationServer01" class="form-label">Names</label>
+                  <input type="text" class="form-control"  
+                    id="validationServer01" 
+                    formControlName="names">
+                </div>
+    
+                <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Age</label>
+                    <input type="text" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="age">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Phone</label>
+                    <input type="text" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="phone">
+                  </div>
+
+    
+                <div class="col-md-6">
+                  <label for="validationServerUsername" class="form-label">Address</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                    <input type="text" 
+                     class="form-control" id="validationServerUsername" 
+                     aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" formControlName="address">
+    
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+                  <label for="validationServer03" class="form-label">Registered Date</label>
+                  <input type="button" class="form-control"
+                   id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="dateRegistered">
+                </div>
+    
+                <div class="col-md-4">
+                  <label for="validationServer04" class="form-label">Gender</label>
+                  <select class="form-select"
+                  id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="gender">
+                    <option selected disabled value="">Choose...</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+            
+     
+                <div class="col-md-4">
+                    <label for="validationServer01" class="form-label">Role</label>
+                    <input type="text" class="form-control"
+                      id="validationServer01"
+                      formControlName="role">
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Company Name</label>
+                    <input type="text" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="companyName">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Company Image</label>
+                    <input type="file" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="companyImage">
+                  </div>
+              
+
+                  <hr>
+                  <h3>Account Info</h3>
+
+                  
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Email</label>
+                    <input type="text" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="email">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label">Password</label>
+                    <input type="text" class="form-control"  
+                      id="validationServer01" 
+                      formControlName="password">
+                  </div>
+                <!-- user register form -->
+  
+    
+                </form>
+          
+          </div>
+  
+        
+          <div>
+
+           <button (click)="registerUser()"
+           class="site-primary-Button1" type="button">       
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
+          </button>
+
+
+             <button 
+             class="btn btn-danger btn-sm fit-content-width">
+             <i class="fa fa-times-circle-o"> Cancel</i>
+            </button>
+            
+          </div>
+    
+        </div>
+    
+      </div>
+    </div>
+    
+
+    <!-- create new user modal -->
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+<!-- <div *ngIf="isLoading" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; margin: 40px auto;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+ <!-- create new user modal -->

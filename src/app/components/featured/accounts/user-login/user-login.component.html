@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
 
-      <div class="cards-group-container">
+      <div class="cards-group-container" *ngIf="!userRegister; else registerPage">
         <div class="card no-border card-register">
           <img src="assets/img/cloth-icon.png" class="card-img-top" alt="...">
           <div class="card-body">
@@ -12,7 +12,7 @@
 
               Learn Error handling in Angular 13, we will take the best approach with RxJS catchError operator and
               HttpInterceptor to handle client-side errors gracefully.
-
+              
               A proper Error handling makes an application most helpful for users from the user experience aspect, error
               handlers report a user correctly what causing the problem. It also notifies developers in the development
               phase about the error reason, which assists them to fix it before it goes live.
@@ -35,15 +35,16 @@
               Here is the complete List of HTTP status codes.
 
               .</p>
-
               <div class="col-12">
-                <button class="site-primary-Button1 bottom-spacer" type="submit">Register</button>
+                <button (click)="navigateToRegisterPage()"
+                class="site-primary-Button1 bottom-spacer" type="submit">Register</button>
               </div>
 
           </div>
           <div class="card-footer">
             <small class="text-muted">Last updated 3 mins ago</small>
           </div>
+
         </div>
 
 
@@ -58,7 +59,7 @@
                     <div class="col-12">
                       <select [(ngModel)]="loginType" name="loginType" (change)="getSelectedLoginType()"
                         class="form-select" id="inlineFormSelectPref">
-                        <option *ngFor="let loginType of loginTypeArray"
+                        <option *ngFor="let loginType of arrayOfLoginTypes"
                          [ngValue]="loginType">{{ loginType }}</option>
                       </select>
                     </div>
@@ -66,16 +67,21 @@
 
                 <br>
 
-                <div *ngIf="isAdmin; else attendantForm">
+                <div>
                   <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
-                    <h3 class="card-title">Enter administrator info</h3>
+                    <h3 class="card-title">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
                     <div class="mb-3">
-                      <label for="validationServer01" class="form-label">Administrator ID</label>
-                      <input type="text" class="form-control" id="validationServer01" formControlName='userId'>
+                      <label for="validationServer01" class="form-label"> {{ isAdmin ? 'Administrator Email': 'Attendant Email'}}</label>
+                      <input type="text" class="form-control" id="validationServer01" formControlName='email'>
                     </div>
 
                     <div class="mb-3">
                       <label for="validationServer02" class="form-label">Password</label>
+                      <input type="text" class="form-control" id="validationServer02" formControlName='password'>      
+                    </div>
+
+                    <div class="mb-3" *ngIf="!isAdmin">
+                      <label for="validationServer02" class="form-label">Employer's Phone Number</label>
                       <input type="text" class="form-control" id="validationServer02" formControlName='password'>      
                     </div>
 
@@ -95,35 +101,6 @@
                     </div>
                   </form>
                 </div>
-
-
-                  <ng-template #attendantForm>
-                    <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
-                      <h3 class="card-title">Enter attendant info</h3>
-                      <div class="mb-3">
-                        <label for="validationServer01" class="form-label">Attendant ID</label>
-                        <input type="text" class="form-control" id="validationServer01" formControlName='userId'>
-                      </div>
-  
-                      <div class="mb-3">
-                        <label for="validationServer02" class="form-label">Employer's Phone Number</label>
-                        <input type="text" class="form-control" id="validationServer02" formControlName='password'>      
-                      </div>
-  
-                      <div class="col-12">
-                        <div class="form-check">
-                          <input class="form-check-input checkbox" type="checkbox" id="inlineFormCheck">
-                          <label class="form-check-label" for="inlineFormCheck">
-                            Remember me
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="col-12">
-                        <button [disabled]="loginForm.invalid" class="site-primary-Button2 bottom-spacer" type="submit">Login</button>
-                      </div>
-                    </form>
-                  </ng-template>
                   
                 </div>
               </div>
@@ -140,3 +117,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #registerPage>
+  <app-user-register></app-user-register>
+</ng-template>

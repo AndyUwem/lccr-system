@@ -1,13 +1,14 @@
-import { Account } from "./account.entity";
 
 export class User{
      private id!: number;
-     private name!: string
+     private names!: string
      private age!: number
+     private phone! : number
+     private gender! : string
      private dateRegistered!: Date
      private address!: string
-     private userType!: string 
-     private account!: Account
+     private userRole!: string 
+    
 
     constructor(){}
 
@@ -20,12 +21,12 @@ export class User{
         return this.id
     }
 
-    setName(name: string){
-        this.name = name
+    setNames(names: string){
+        this.names = names
      }
  
-     getName(): string{
-         return this.name
+     getNames(): string{
+         return this.names
      }
 
      setAge(age: number){
@@ -36,6 +37,21 @@ export class User{
          return this.age
      }
 
+     setPhone(phone: number){
+        this.phone = phone
+     }
+ 
+     getPhone(): number{
+         return this.phone
+     }
+
+     setGender(gender: string){
+        this.gender = gender
+     }
+ 
+     getGender(): string{
+         return this.gender
+     }
 
      setDateRegistered(dateRegistered: Date){
         this.dateRegistered = dateRegistered
@@ -55,11 +71,11 @@ export class User{
      }
 
 
-     setUserType(userType: string){
-        this.userType = userType
+     setUserRole(userRole: string){
+        this.userRole = userRole
      }
  
-     getUserType(): string{
-         return this.userType
+     getUserRole(): string{
+         return this.userRole
      }
 }
