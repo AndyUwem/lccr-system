@@ -9,18 +9,27 @@ import { AuthService } from '../../featured/accounts/authentication/auth.service
 })
 export class NavComponent implements OnInit {
 
+  public user: any;
+
   constructor(
     private router: Router,
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+     this.getUserData()
   }
 
   logOutUser(): void {
     this.authService.logOutUser()
     this.router.navigate(['login'])
   }
+
+
+    private getUserData(): void {
+      this.user = JSON.parse(this.authService.getUserRef())
+      console.log(this.user)
+    }
 
 
 }

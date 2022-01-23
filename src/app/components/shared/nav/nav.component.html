@@ -1,7 +1,10 @@
 
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand">Avater</a>
+    <a class="">
+      <img src="assets/img/logo.jpg" class="avater" alt="user avater">
+      {{ user.names }} ({{ user.userRole }})
+    </a>
     <form class="d-flex">
       <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
       <button class="btn btn-outline-primary" (click)="logOutUser()" type="button">Log Out</button>

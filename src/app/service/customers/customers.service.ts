@@ -11,16 +11,16 @@ import { Customer } from "../../interface/customer.interface";
 export class CustomerService {
 
     private customerReference = new Subject<Customer>()
-    private CUSTOMERS_API: string = environment.CUSTOMERS_API
+    private CUSTOMERS_API: string = environment.firebase.databaseURL
 
     constructor(private http: HttpClient) { }
 
-    createCustomer(customer: {}): Observable<Customer>{
-        return this.http.post<Customer>(`${this.CUSTOMERS_API}.json`, customer)
+    createCustomer(adminId: string, customer: {}): Observable<Customer>{
+        return this.http.post<Customer>(`${this.CUSTOMERS_API}/users/${adminId}customers.json`, customer)
     }
 
-    findAll(): Observable<Customer[]>{
-        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}.json`)
+    findAll(adminId: string): Observable<Customer[]>{
+        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}/users/${adminId}customers.json`)
             .pipe(map((responseData: Customer[]) => {
                 let customers = [];
 
@@ -33,9 +33,9 @@ export class CustomerService {
     }
 
 
-    findCustomerById(customerId: string): Observable<Customer> {
+    findCustomerById(adminId: string, customerId: string): Observable<Customer> {
 
-        return this.http.get<Customer>(`${this.CUSTOMERS_API}/${customerId}.json`)
+        return this.http.get<Customer>(`${this.CUSTOMERS_API}/users/${adminId}customers/${customerId}.json`)
             .pipe(map(responseData => {
                 let customerObject = {} as Customer
                 if (responseData) { 

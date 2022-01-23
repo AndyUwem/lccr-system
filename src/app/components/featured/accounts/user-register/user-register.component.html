@@ -75,7 +75,8 @@
 
                   <div class="col-md-6">
                     <label for="validationServer01" class="form-label">Company Image</label>
-                    <input type="file" class="form-control"  
+                    <input (change)="onImageValueChange($event)"
+                      type="file" class="form-control"  
                       id="validationServer01" 
                       formControlName="companyImage">
                   </div>
@@ -115,7 +116,7 @@
           </button>
 
 
-             <button 
+             <button (click)="cancelUserRegistration()"
              class="btn btn-danger btn-sm fit-content-width">
              <i class="fa fa-times-circle-o"> Cancel</i>
             </button>

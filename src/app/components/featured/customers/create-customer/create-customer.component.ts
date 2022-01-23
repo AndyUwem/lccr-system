@@ -7,6 +7,7 @@ import { Cloth } from 'src/app/interface/cloth.interface';
 import { Payment } from 'src/app/interface/payment.interface';
 
 import { CustomerService } from 'src/app/service/customers/customers.service';
+import { AuthService } from '../../accounts/authentication/auth.service';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class CreateCustomerComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private fb: FormBuilder, 
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
     this.initializeForm()
@@ -137,7 +140,7 @@ export class CreateCustomerComponent implements OnInit {
       .setCloth(this.customerCloths)
       .setPayments([this.newFormPayment])
       .build()
-    this.customerService.createCustomer(customer).subscribe(() => { })
+    this.customerService.createCustomer( this.authService.getAdminId(), customer).subscribe(() => { })
   }
 
 

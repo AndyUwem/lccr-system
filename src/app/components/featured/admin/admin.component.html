@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card" style="width: 18rem;">
+            <img src="assets/img/logo.jpg" class="img-fluid" alt="...">
+            <div class="card-body">
+                    <div class="card-header">
+                      <h3>Administrator Panel</h3>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                          <small>Names</small> <br>
+                          <b> <small>{{ currentUser.names }}</small> </b>
+                      </li>
+                      <li class="list-group-item">
+                        <small>Gender</small> <br>
+                        <b> <small>{{ currentUser.gender }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Age</small> <br>
+                        <b> <small>{{ currentUser.age }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Phone</small> <br>
+                        <b> <small>{{ currentUser.phone }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Address</small> <br>
+                        <b> <small>{{ currentUser.address }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Company Name</small> <br>
+                        <b> <small>{{ currentUser.companyName }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Your Role</small> <br>
+                        <b> <small>{{ currentUser.userRole }}</small> </b>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Registration Date</small> <br>
+                        <b> <small>{{ currentUser.dateRegistered }}</small> </b>
+                    </li>
+                    </ul>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="card" style="width: 90%; margin-left: 10px;">
+            <div class="card-body">
+                <app-status-cards></app-status-cards> 
+            </div>
+          </div>
+
+          <div class="card" style="width: 90%; margin: 10px 0px 0px 10px;">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active"
+                       id="attendant-tab" 
+                      data-bs-toggle="tab"
+                       data-bs-target="#home"
+                        type="button" role="tab"
+                         aria-controls="home"
+                          aria-selected="true">Attendants</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button  [routerLink]="['./customers']"
+                      class="nav-link"
+                       id="customers-tab"
+                        data-bs-toggle="tab" 
+                        data-bs-target="#profile"
+                         type="button" role="tab"
+                          aria-controls="profile"
+                           aria-selected="false">Customers</button>
+                    </li>
+                    <li class="AddNewAttendantBtn" > 
+                        <a type="button" class="btn btn-success btn-sm"> <i class="fa fa-user-plus"></i> Add Attendant</a>
+                      </li>
+
+                  </ul>
+                  <div class="tab-content" id="myTabContent">         
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="attendant-tab">
+                        <div  class="card" style="width: 90%; margin-left: 10px;">
+                        </div>
+                            <div class="row">
+                              <div class="col-4">
+                                      <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <b> <small>{{ currentUser.names }}</small> </b>
+                                        </li>       
+                                      </ul>    
+                              </div>
+                              <div class="col-8">
+                                Column
+                              </div>
+                            </div>
+                        
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="customers-tab">
+                        <div>
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+    
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noDataFound>
+    <div>
+        <span><i class="fa fa-dashboard icons"></i></span>
+        <h3>nothing to see here</h3>
+    </div>
+</ng-template>

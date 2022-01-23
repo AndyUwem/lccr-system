@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admin } from 'src/app/entities/admin.entity';
@@ -15,6 +15,7 @@ export class UserRegisterComponent implements OnInit {
 
   public userRegisterForm!: FormGroup;
   public isLoading: boolean = false
+  @Output('backToLoginScreen') backToLoginScreen = new EventEmitter<boolean>()
 
   constructor(
       private fb: FormBuilder,
@@ -97,28 +98,29 @@ export class UserRegisterComponent implements OnInit {
     return userAccounts
   }
 
-  private getEmptyCustomer(): Customer{
-     const customer: Customer = {
-      id: '',
-      names: '',
-      phone: 0,
-      gender: '',
-      dateRegistered: '',
-      address: '',
-      cloth: [],
-      payments: []
-    }
+  // private getEmptyObject(): any{
+  //    const emptyObject = {
+  //     object: []
+  //   }
 
-    return customer;
+  //   return emptyObject;
+  // }
+
+
+  onImageValueChange(event: any): void {
+    event.stopPropagation() 
+
   }
+
 
   registerUser(): void {
     this.isLoading = true
+
      this.authService.setUserAccount(this.getUserEmailAndPassword())
-     .then((responseData: any) => {
+     .then((userAccount: any) => {
       
         const newUser = new Admin()
-              newUser.setId(responseData.user.auth.currentUser.uid)
+              newUser.setId(userAccount.user.auth.currentUser.uid)
               newUser.setNames(this.names?.value)
               newUser.setAge(this.age?.value)
               newUser.setPhone(this.phone?.value)
@@ -129,16 +131,18 @@ export class UserRegisterComponent implements OnInit {
               newUser.setCompanyName(this.companyName?.value)
               newUser.setCompanyIamge(this.companyImage?.value)
               newUser.setAttendants([])
-              newUser.setCustomers([this.getEmptyCustomer()])
+              newUser.setCustomers([])
              
+              this.authService.setUserREf(newUser)
               this.authService.saveUserToFireBase(newUser)
-              .subscribe({
-                  next: () => {
+              .subscribe({ 
+                  next: () => {     
                     this.isLoading = false
+                    this.authService.setUserREf(newUser)
                     this.authService
                     .logInUser(this.getUserEmailAndPassword())
-                    .then((responseData: any) => {
-                      this.authService.setUserToken(responseData.user.auth.currentUser.accessToken);
+                    .then((userData: any) => {
+                      this.authService.setUserToken(userData.user.auth.currentUser.accessToken); 
                       this.router.navigate(['home/dashboard'])
                     })
                     .catch(err => console.log(err.code))
@@ -146,9 +150,12 @@ export class UserRegisterComponent implements OnInit {
                  error: err => console.log(err.message)
               })
      })
-     .catch(err => this.isLoading = false )
+     .catch(() => this.isLoading = false )
   }
 
+     cancelUserRegistration(): void {
+      this.backToLoginScreen.emit(false)
+  }
 
 
 

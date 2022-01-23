@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FeaturedModule } from "../featured/featured.module";
 import { BodyComponent } from "./body/body.component";
@@ -12,7 +13,8 @@ import { NavComponent } from "./nav/nav.component";
         FooterComponent
      ],
     imports: [
-       FeaturedModule
+       FeaturedModule,
+       CommonModule
      ],
      exports: [
         NavComponent,

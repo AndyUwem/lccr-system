@@ -10,6 +10,7 @@ import { StatusCardsComponent } from "./status-cards/status-cards.component";
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { RouterModule } from "@angular/router";
         DeveloperComponent,
         CompanyInfoComponent,
         ProfileComponent,
-        StatusCardsComponent
+        StatusCardsComponent,
+        AdminComponent
     ],
     imports: [ 
         HttpClientModule,
@@ -32,7 +34,8 @@ import { RouterModule } from "@angular/router";
         DashbordComponent,
         TimeComponent,
         AdvertsComponent,
-        StatusCardsComponent
+        StatusCardsComponent,
+        AdminComponent
     ]
 })
 

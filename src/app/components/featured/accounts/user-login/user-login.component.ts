@@ -75,9 +75,13 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   }
 
   navigateToRegisterPage(): void {
-    // this.router.navigate(['registerUser'])
     this.userRegister = true
   }
+
+  navigateBackToLoginPage(booleanEventValue: any): void{ 
+    this.userRegister = booleanEventValue 
+  }
+
 
   registerUser(): void {
     this.authService

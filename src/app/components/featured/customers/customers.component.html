@@ -22,7 +22,7 @@
           <th scope="col">
           <input class="form-control form-control-sm" type="text" [placeholder]="searchFieldPlaceHolder" [(ngModel)]="searchTerm">
           </th>
-          <th scope="col"><a type="button" class="btn btn-success btn-sm" [routerLink]="['../customers/create-customer']" > <i class="fa fa-user-plus"></i> Add Customer</a></th>
+          <th *ngIf="!isAdmin" scope="col"><a type="button" class="btn btn-success btn-sm" [routerLink]="['../customers/create-customer']" > <i class="fa fa-user-plus"></i> Add Customer</a></th>
           <th scope="col"> </th>
         </tr>
       </thead>
@@ -55,7 +55,7 @@
               Manage
             </button>
         
-              <button type="button" class="btn btn-danger btn-sm"  disabled><i class="fa fa-trash-o"></i> delete</button>
+              <button type="button" class="btn btn-danger btn-sm"  *ngIf="isAdmin"><i class="fa fa-trash-o"></i> delete</button>
         
         </td>
         

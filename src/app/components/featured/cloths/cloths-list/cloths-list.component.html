@@ -12,8 +12,9 @@
 
  <div class="card">
     <div class="card-header">
-      <span style="margin-right: 70%; font-weight: bold;">{{  customer.names }}'s cloths</span>
-      <a type="button" data-bs-toggle="modal" data-bs-target="#addNewClothView"
+      <span style="margin-right: 60%; font-weight: bold;">{{  customer.names }}'s cloths</span>
+      <a [hidden]="isAdmin"
+       type="button" data-bs-toggle="modal" data-bs-target="#addNewClothView"
       class="btn btn-success btn-sm"> <i class="far fa fa-plus-square"></i> Add Cloth</a>
     </div>
 
@@ -47,12 +48,14 @@
             <td> {{ cloth.pickUpDate }}</td>
             <td> {{ cloth.cost }}</td> 
             <td>
-                <button (click)="handleClothStatusForm(cloth)"
+                <button
+                 [hidden]="isAdmin"
+                 (click)="handleClothStatusForm(cloth)"
                  type="button"
                  class="btn btn-secondary btn-sm"
                  data-bs-toggle="modal" data-bs-target="#clothUpdateView"
                   style="font-size:13px">
-                  Edit Status <i class="fa fa-edit" ></i>
+                  Edit Status <i class="fa fa-edit"></i>
                 </button>
               
             </td>

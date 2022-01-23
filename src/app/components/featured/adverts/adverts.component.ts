@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../accounts/authentication/auth.service';
 
 @Component({
   selector: 'app-adverts',
@@ -10,6 +11,11 @@ export class AdvertsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+ 
   }
+
+
+
+
 
 }

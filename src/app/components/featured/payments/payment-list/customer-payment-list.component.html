@@ -56,7 +56,7 @@
 
               <!-- Button trigger modal -->
           <button *ngIf="canMakePayment"
-           type="button" class="btn btn-sm site-background-color site-secondary-color" 
+           type="button" class="btn btn-sm site-background-color site-secondary-color"  [hidden]="isAdmin"
            data-bs-toggle="modal" data-bs-target="#staticBackdrop">Balance Payment
           </button>
         </div>

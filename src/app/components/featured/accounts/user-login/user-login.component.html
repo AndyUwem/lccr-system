@@ -119,5 +119,5 @@
 </div>
 
 <ng-template #registerPage>
-  <app-user-register></app-user-register>
+  <app-user-register (backToLoginScreen)="navigateBackToLoginPage($event)"></app-user-register>
 </ng-template>

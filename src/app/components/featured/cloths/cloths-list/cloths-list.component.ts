@@ -6,6 +6,7 @@ import { Customer } from 'src/app/interface/customer.interface';
 import { ClothService } from 'src/app/service/cloths/cloths.service';
 import { CustomerService } from 'src/app/service/customers/customers.service';
 import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
+import { AuthService } from '../../accounts/authentication/auth.service';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class ClothsListComponent implements OnInit, OnDestroy{
   public clothStatusEditForm!: FormGroup;
   public newClothForm!: FormGroup;
   public isLoading: boolean = true
+  public isAdmin: boolean = false
 
   constructor(
     private clothService: ClothService,
     private customerService: CustomerService,
     private subscriptionService: SubscriptionService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +37,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
     this.initializeClothStatusForm()
     this.initializeNewClothForm()
     this.handleOnClothStatusChange()
+    this.getUserRole()
   }
 
   private getCustomer(): void {
@@ -77,7 +81,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 
 
   updateClothArray(): void {
-    const index: number = this.customer.cloth.indexOf(this.selectedCloth)
+  const index: number = this.customer.cloth.indexOf(this.selectedCloth)
     const { deliveryStatus, progressStatus, pickUpDate } = this.updatedClothsStatus
     this.customer.cloth[index].deliveryStatus = deliveryStatus
     this.customer.cloth[index].clothStatus = progressStatus
@@ -111,6 +115,11 @@ export class ClothsListComponent implements OnInit, OnDestroy{
     this.customer.cloth.push(this.newClothForm.value)
     this.updateCloth(this.customer)
   }
+
+  private getUserRole(): void {
+      this.isAdmin = this.authService.getUserRole()
+  }
+
 
   ngOnDestroy(): void {
     this.subscriptionService.remove()

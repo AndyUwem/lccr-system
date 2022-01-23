@@ -5,8 +5,8 @@ import { User } from "./user.entity";
 export class Admin extends User{
 
    private companyName!: string
-   private companyImage!: string
-   private attendants!: []
+   private companyImage!: File
+   private attendants!: Array<User>
    private customers!: Array<Customer>
 
    
@@ -23,20 +23,20 @@ export class Admin extends User{
      }
 
 
-     setCompanyIamge(companyImage: string){
+     setCompanyIamge(companyImage: File){
         this.companyImage = companyImage
      }
  
-     getCompanyImage(): string{
+     getCompanyImage(): File{
          return this.companyImage
      }
 
      
-     setAttendants(attendants: []){
+     setAttendants(attendants: Array<User>){
         this.attendants = attendants
      }
  
-     getAttendants(): []{
+     getAttendants(): Array<User>{
          return this.attendants
      }
 

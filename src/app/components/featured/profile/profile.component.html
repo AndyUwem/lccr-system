@@ -1,4 +1,4 @@
-<ng-template>
+<!-- <ng-template> -->
 
   <div class="card mb-3 profile" style="max-width: 540px;">
     <div class="row g-0">
@@ -7,10 +7,12 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">James Bond</h5>
-          <p class="card-title">JamesBonie@gmail.com</p>
-          <p class="card-title">UserId: 0938922739</p>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-title"> {{ user.names }}</p>
+          <p class="card-title">Phone: {{ user.phone }}</p>
+          <p class="card-title">Address: {{ user.address }}</p>
+          <p class="card-title">Gender: {{ user.gender }}</p>
+          <p class="card-title">Date: {{ user.dateRegistered }}</p>
+          <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
       </div>
@@ -22,12 +24,29 @@
     </div>
   </div>
 
-</ng-template>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Attendants</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Customers</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Payment Activity</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+  </div>
 
-<div class="card" style="width: 18rem;" style="margin: auto auto; background-color: #f5efef;">
+<!-- </ng-template> -->
+
+<!-- <div class="card" style="width: 18rem;" style="margin: auto auto; background-color: #f5efef;">
   <img src="assets/img/webpage-under-construction.jpg" style="margin: auto auto; width: 50%;" alt="...">
   <div class="card-body">
     <p class="card-text">The profile section is unavailable and is still in progress please bare with us.</p>
     <a [routerLink]="['/home']" class="btn btn-primary">Goto Dashboard</a>
   </div>
-</div>
+</div> -->

@@ -4,6 +4,7 @@ import { Customer } from 'src/app/interface/customer.interface';
 import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
 import { CustomerService } from 'src/app/service/customers/customers.service';
 import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
+import { AuthService } from '../../accounts/authentication/auth.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true
   public isCustomerOwing: boolean = false
   public canMakePayment: boolean = false
+  public isAdmin: boolean = false
 
 
   public newPayment: Payment = {
@@ -29,11 +31,14 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
 
   constructor(private paymentHelperService: PaymentHelperService,
     private customerService: CustomerService,
-    private subscriptionService: SubscriptionService) { }
+    private subscriptionService: SubscriptionService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
     this.getCustomer()
     this.refreshPaymentsList()  
+    this.isAdmin = this.getUserRole()
   }
 
   private getCustomer(): void {
@@ -80,6 +85,10 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
         .payments
         .filter((payment: Payment) => payment.balanceOfPayment > 0 ?
           this.canMakePayment = true : this.canMakePayment = false)
+  }
+
+  private getUserRole(): boolean{ 
+      return this.authService.getUserRole()
   }
 
   continueToPaymentsList(): void {
