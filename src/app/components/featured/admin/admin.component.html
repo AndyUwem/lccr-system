@@ -113,7 +113,8 @@
                               <app-profile [currentAttendant]="currentAttendant"></app-profile>
 
                               <div class="list-group-item list-group-btns">
-                                <button class="btn btn-light action-btns"
+                                <button (click)="deleteAttendant()"
+                                class="btn btn-light action-btns"
                                 style="color: rgb(199, 34, 34);"
                                  type="button">
                                  <i class="fa fa-trash-o"> </i>

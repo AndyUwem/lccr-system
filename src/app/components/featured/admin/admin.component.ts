@@ -49,6 +49,13 @@ export class AdminComponent implements OnInit {
       this.currentAttendant = attendant
   }
 
+  public deleteAttendant(): void {
+       const indexOfAttendant = this.attendants.indexOf(this.currentAttendant)
+       this.attendants.splice(indexOfAttendant, 1)
+       this.getAttendants();
+  }
+
+
   navigateToRegisterPage(): void {
     this.isRegisterUser = true;
   }

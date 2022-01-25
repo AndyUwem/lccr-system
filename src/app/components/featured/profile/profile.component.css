@@ -20,4 +20,12 @@
     margin-right: 10px;
 }
 
+b{
+    color: rgb(199, 34, 34);
+}
+
+code{
+    color: blue !important;
+    font-weight: bold;
+}
 

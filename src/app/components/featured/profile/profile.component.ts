@@ -14,12 +14,9 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getUserData()
+
   }
 
 
-  private getUserData(): void {
-    // this.user = JSON.parse(this.authService.getUserRef())
-  }
 
 }
