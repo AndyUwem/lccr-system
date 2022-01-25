@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginData } from 'src/app/interface/login-data.interface';
+import { AdminService } from 'src/app/service/admin/admin.service';
+import { AttendantsService } from 'src/app/service/attendants/attendants.service';
 import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
 import { AuthService } from '../authentication/auth.service';
 
@@ -15,23 +17,26 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   public isAdmin!: boolean;
   public arrayOfLoginTypes: Array<string> = ['Administrator', 'Attendant'];
   public loginType!: string;
-  public userRegister: boolean = false
+  public isRegisterUser: boolean = false;
+  public userRole: string = "Administrator"
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    private adminService: AdminService,
+    private attendantService: AttendantsService
   ) {}
 
   ngOnInit(): void {
     this.initializeLoginType();
     this.initializeLoginForm();
     this.onUserLoggedInCheck();
+    this.getSelectedLoginType();
   }
 
   private initializeLoginType(): void {
     this.loginType = this.arrayOfLoginTypes[0];
-    this.isAdmin = true;
   }
 
   private initializeLoginForm(): void {
@@ -45,52 +50,68 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     if (this.authService.isUserLoggedIn()) this.navigateToHome();
   }
 
-  private getUserInfo(): LoginData{
-    const loginInfo: LoginData = { 
-      email: this.loginForm.get('email')?.value, 
-      password: this.loginForm.get('password')?.value
-    }
+  private getUserInfo(): LoginData {
+    const loginInfo: LoginData = {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value,
+    };
     return loginInfo;
   }
 
   validateLogin(): void {
-    if (this.loginForm.valid)
-      this.authService
-        .logInUser(this.getUserInfo())
-        .then((responseData: any) => {
-          this.authService.setUserToken(responseData.user.auth.currentUser.accessToken);
-          this.navigateToHome()
-        })
-        .catch((e: Error) => console.log(e.message));
+    if (this.loginForm.valid) this.loginUser();
   }
-
 
   private navigateToHome(): void {
     this.router.navigate(['home/dashboard']);
   }
 
-  getSelectedLoginType(): boolean {
-    if (this.loginType === this.arrayOfLoginTypes[0]) return (this.isAdmin = true);
-    return (this.isAdmin = !this.isAdmin);
+  getSelectedLoginType(): void {
+
+    if(this.loginType === this.arrayOfLoginTypes[0] )
+      this.isAdmin = true
+    else 
+      this.isAdmin = false
+
   }
 
   navigateToRegisterPage(): void {
-    this.userRegister = true
+    this.isRegisterUser = true;
   }
 
-  navigateBackToLoginPage(booleanEventValue: any): void{ 
-    this.userRegister = booleanEventValue 
+  navigateBackToLoginPage(booleanEventValue: any): void {
+    this.isRegisterUser = booleanEventValue;
+  }
+
+  private getUser(uId: string): any{
+     if(this.isAdmin){
+       this.adminService.getAdminFromFireBase(uId)
+       .subscribe({
+          next: (admin) =>  {
+             this.authService.setUserREf(admin)
+             this.navigateToHome();
+            },
+          error: (err) => console.log(err.message)
+       })
+     }
+     else{
+       console.log('nothing')
+     }
+
+
   }
 
 
-  registerUser(): void {
+  private loginUser(): void {
     this.authService
       .logInUser(this.getUserInfo())
       .then((responseData: any) => {
-        console.log(responseData);
-      });
+         const user = responseData.user.auth.currentUser;
+         this.authService.setUserToken(user.accessToken);
+         this.getUser(user.uid)
+      })
+      .catch((e: Error) => console.log(e.message));
   }
-
 
   ngOnDestroy(): void {
     this.subscriptionService.remove();

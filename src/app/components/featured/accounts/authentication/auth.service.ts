@@ -7,14 +7,15 @@ import {
 } from '@angular/fire/auth';
 import { LoginData } from 'src/app/interface/login-data.interface';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private angularFireAuth: Auth, private htttp: HttpClient) {}
+  constructor(
+      private angularFireAuth: Auth, 
+      private htttp: HttpClient
+      ) {}
 
   setUserToken(token: string) {
     localStorage.setItem('myToken', token);
@@ -40,7 +41,7 @@ export class AuthService {
     localStorage.clear();
   }
 
-  setUserAccount(loginData: LoginData): Promise<any> {
+  setUserFirebaseLogin(loginData: LoginData): Promise<any> {
     return createUserWithEmailAndPassword(
       this.angularFireAuth,
       loginData.email,
@@ -48,12 +49,6 @@ export class AuthService {
     );
   }
 
-  saveUserToFireBase(user: any): Observable<any> {
-    return this.htttp.put<any>(
-      `${environment.firebase.databaseURL}/users/${user.id}.json`,
-      user
-    );
-  }
 
   setUserREf(currentUser: any): void {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -73,4 +68,7 @@ export class AuthService {
       ? JSON.parse(this.getUserRef()).id
       : JSON.parse(this.getUserRef()).employerId;
   }
+
+
+
 }

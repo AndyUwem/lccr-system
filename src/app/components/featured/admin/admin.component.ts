@@ -10,7 +10,8 @@ export class AdminComponent implements OnInit {
 
   public currentUser: any
   public contentToShow = null
-  
+  public isRegisterUser: boolean = false;
+  public userRole: string = 'Attendant'
 
   constructor(private authService: AuthService) { }
 
@@ -20,6 +21,14 @@ export class AdminComponent implements OnInit {
 
   private getCurrentUser(): void {
      this.currentUser = JSON.parse(this.authService.getUserRef())
+  }
+
+  navigateToRegisterPage(): void {
+    this.isRegisterUser = true;
+  }
+
+  navigateBackToAdminPanel(booleanEventValue: any): void {
+    this.isRegisterUser = booleanEventValue;
   }
 
 

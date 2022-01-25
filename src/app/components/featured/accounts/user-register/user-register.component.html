@@ -29,7 +29,6 @@
                       formControlName="phone">
                   </div>
 
-    
                 <div class="col-md-6">
                   <label for="validationServerUsername" class="form-label">Address</label>
                   <div class="input-group has-validation">
@@ -66,14 +65,14 @@
                   </div>
 
 
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="isAdmin">
                     <label for="validationServer01" class="form-label">Company Name</label>
                     <input type="text" class="form-control"  
                       id="validationServer01" 
                       formControlName="companyName">
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="isAdmin">
                     <label for="validationServer01" class="form-label">Company Image</label>
                     <input (change)="onImageValueChange($event)"
                       type="file" class="form-control"  
@@ -115,11 +114,13 @@
             <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
           </button>
 
-
+          
              <button (click)="cancelUserRegistration()"
              class="btn btn-danger btn-sm fit-content-width">
              <i class="fa fa-times-circle-o"> Cancel</i>
             </button>
+            
+
             
           </div>
     

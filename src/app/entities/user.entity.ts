@@ -1,3 +1,4 @@
+import { LoginData } from "../interface/login-data.interface";
 
 export class User{
      private id!: number;
@@ -8,6 +9,7 @@ export class User{
      private dateRegistered!: Date
      private address!: string
      private userRole!: string 
+     private userAccount!: LoginData 
     
 
     constructor(){}
@@ -78,4 +80,14 @@ export class User{
      getUserRole(): string{
          return this.userRole
      }
+
+     
+     setUserAccount(userAccount: LoginData){
+        this.userAccount = userAccount
+     }
+ 
+     getUserAccount(): LoginData{
+         return this.userAccount
+     }
+     
 }

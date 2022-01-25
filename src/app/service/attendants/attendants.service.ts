@@ -13,8 +13,8 @@ export class AttendantsService{
 
      constructor(private httpClient: HttpClient){}
 
-     AddNewAttendant(uId: any, attendant: User): Observable<User> {
-         return this.httpClient.patch<User>(`${environment.firebase.databaseURL}/users/${uId}.json`, attendant)
+     AddNewAttendant(uId: string, attendant: User): Observable<any> {
+         return this.httpClient.post<any>(`${environment.firebase.databaseURL}/users/${uId}/attendants.json`, attendant)
      }
 
 

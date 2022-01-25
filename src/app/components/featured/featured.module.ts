@@ -11,6 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { AdminComponent } from './admin/admin.component';
+import { AccountsModule } from "./accounts/accounts.module";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AdminComponent } from './admin/admin.component';
     imports: [ 
         HttpClientModule,
         CommonModule,
-        RouterModule
+        RouterModule,
+        AccountsModule
     ],
     exports: [
         DashbordComponent,
