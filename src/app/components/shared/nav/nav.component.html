@@ -6,8 +6,13 @@
       {{ user.names }} ({{ user.userRole }})
     </a>
     <form class="d-flex">
-      <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <button class="btn btn-outline-primary" (click)="logOutUser()" type="button">Log Out</button>
+      <button 
+      class="btn btn-light"
+       style="color: rgb(199, 34, 34);"
+        (click)="logOutUser()" type="button">
+        <i class="fa fa-sign-out icons">
+        </i>Log Out</button>
+
     </form>
   </div>
 </nav>

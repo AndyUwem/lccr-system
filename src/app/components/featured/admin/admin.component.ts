@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   public isAttendantScreenReady: boolean = false
   public userRole: string = 'Attendant'
   public attendants!: Array<Attendant>
+  public currentAttendant!: Attendant
 
   constructor(
     private authService: AuthService,
@@ -37,11 +38,15 @@ export class AdminComponent implements OnInit {
        .subscribe({
          next: (attendants: Array<Attendant>) => {
            this.attendants = attendants
+           this.setCurrentAttendant(attendants[0])
            this.isAttendantScreenReady = true
-           console.log(this.attendants)
           },
          error: (err) => console.log(err.message)
        })
+  }
+
+  public setCurrentAttendant(attendant: Attendant): void {
+      this.currentAttendant = attendant
   }
 
   navigateToRegisterPage(): void {

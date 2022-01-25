@@ -87,20 +87,46 @@
                         <div class="row">
                             <div class="col-4">             
                                     <div class="list-group">
-                            
-                                      <a href="#" class="list-group-item list-group-item-action" *ngFor="let attendant of attendants">
-                                        <div class="d-flex w-100 justify-content-between attendant-list-stripe">
-                                          <b> <small> {{ attendant.names }}</small> </b>
-                                          <small class="text-active">Active</small>
-                                          <small class="text-muted">3 days ago</small>
-                                        </div>
-                                        <small class="text-muted">And some muted small print.</small>
-                                      </a>
-                                 
+                                       
+                                        <div class="card-header">
+                                            <h3>Attendants</h3>
+                                          </div>
+                                      <div
+                                       *ngFor="let attendant of attendants; let i = index;"
+                                       style="margin-bottom: 1rem;"
+                                        >
+                                        <button 
+                                        (click)="setCurrentAttendant(attendant)"
+                                         class="list-group-item list-group-item-action list-group-item-light">
+                                          <div class="d-flex w-100 justify-content-between attendant-list-stripe">
+                                            <b> <code>{{i + 1}}</code>. <small> {{ attendant.names }}</small> </b>
+                                            <small class="text-active">Active</small>
+                                            <small class="text-muted">3 days ago</small>
+                                          </div>
+                                      </button>
+
+                                      </div>
+
                                     </div>
                             </div>
                             <div class="col-8" *ngIf="isAttendantScreenReady; else isLoading">
-                              <app-profile></app-profile>
+                              <app-profile [currentAttendant]="currentAttendant"></app-profile>
+
+                              <div class="list-group-item list-group-btns">
+                                <button class="btn btn-light action-btns"
+                                style="color: rgb(199, 34, 34);"
+                                 type="button">
+                                 <i class="fa fa-trash-o"> </i>
+                                 Delete
+                                </button>
+
+                                <button class="btn btn-light action-btns"
+                                style="color: rgb(19, 79, 208);"
+                                 type="button">
+                                 <i class="fa fa-sign-out icons">
+                                 </i>Edit</button>
+                                </div>
+
                             </div>
                           </div>
                     

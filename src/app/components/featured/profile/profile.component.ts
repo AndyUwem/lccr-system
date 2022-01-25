@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Attendant } from 'src/app/interface/attendant.interface';
 import { AuthService } from '../accounts/authentication/auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '../accounts/authentication/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public user: any
+  @Input('currentAttendant') currentAttendant!: Attendant
 
   constructor(private authService: AuthService) { }
 
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
 
   private getUserData(): void {
-    this.user = JSON.parse(this.authService.getUserRef())
+    // this.user = JSON.parse(this.authService.getUserRef())
   }
 
 }

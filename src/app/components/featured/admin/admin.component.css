@@ -21,7 +21,14 @@ a{
   color: green
 }
 
-.attendant-list-stripe:hover{
-    background-color: #e1e1e1;
+.action-btns{
+    width: 6rem;
+    margin:  0 0 0 10px;
 }
 
+.list-group-btns{
+    padding: 0;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+}
