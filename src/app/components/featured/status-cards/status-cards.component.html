@@ -1,10 +1,6 @@
 
 <div *ngIf="isLoading; else statusCardsComponent">
-    <div class="text-center">
-        <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-    </div>
+ <app-loading></app-loading>
 </div>
 
 <ng-template #statusCardsComponent>

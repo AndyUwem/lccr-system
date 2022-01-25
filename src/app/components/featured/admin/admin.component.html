@@ -58,9 +58,9 @@
                       <button class="nav-link active"
                        id="attendant-tab" 
                       data-bs-toggle="tab"
-                       data-bs-target="#home"
+                       data-bs-target="#attendant"
                         type="button" role="tab"
-                         aria-controls="home"
+                         aria-controls="attendant"
                           aria-selected="true">Attendants</button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -68,9 +68,9 @@
                       class="nav-link"
                        id="customers-tab"
                         data-bs-toggle="tab" 
-                        data-bs-target="#profile"
+                        data-bs-target="#customers"
                          type="button" role="tab"
-                          aria-controls="profile"
+                          aria-controls="customers"
                            aria-selected="false">Customers</button>
                     </li>
                     <li class="AddNewAttendantBtn" > 
@@ -81,28 +81,37 @@
 
                   </ul>
                   <div class="tab-content" id="myTabContent">         
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="attendant-tab">
-                        <div  class="card" style="width: 90%; margin-left: 10px;">
-                        </div>
-                            <div class="row">
-                              <div class="col-4">
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <b> <small>{{ currentUser.names }}</small> </b>
-                                        </li>       
-                                      </ul>    
-                              </div>
-                              <div class="col-8">
-                                Column
-                              </div>
+                 <br>
+                    <div class="tab-pane fade show active" id="attendant" role="tabpanel" aria-labelledby="attendant-tab">
+                   
+                        <div class="row">
+                            <div class="col-4">             
+                                    <div class="list-group">
+                            
+                                      <a href="#" class="list-group-item list-group-item-action" *ngFor="let attendant of attendants">
+                                        <div class="d-flex w-100 justify-content-between attendant-list-stripe">
+                                          <b> <small> {{ attendant.names }}</small> </b>
+                                          <small class="text-active">Active</small>
+                                          <small class="text-muted">3 days ago</small>
+                                        </div>
+                                        <small class="text-muted">And some muted small print.</small>
+                                      </a>
+                                 
+                                    </div>
                             </div>
+                            <div class="col-8" *ngIf="isAttendantScreenReady; else isLoading">
+                              <app-profile></app-profile>
+                            </div>
+                          </div>
                     
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="customers-tab">
+
+                    <div class="tab-pane fade" id="customers" role="tabpanel" aria-labelledby="customers-tab">
                         <div>
                             <router-outlet></router-outlet>
                         </div>
                     </div>
+
                   </div>
             </div>
           </div>
@@ -114,3 +123,8 @@
   <ng-template #registerPage>
     <app-user-register [userRole]="userRole" (backToLoginScreen)="navigateBackToAdminPanel($event)"></app-user-register>
   </ng-template>
+
+  <ng-template #isLoading>
+    <app-loading></app-loading>
+  </ng-template>
+  

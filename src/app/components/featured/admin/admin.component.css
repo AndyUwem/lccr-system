@@ -8,3 +8,20 @@
 ul{
     padding-bottom: 1rem;
 }
+
+a{
+    text-decoration: none;
+}
+
+.attendant-list-stripe{
+    color:blue
+}
+
+.text-active{
+  color: green
+}
+
+.attendant-list-stripe:hover{
+    background-color: #e1e1e1;
+}
+

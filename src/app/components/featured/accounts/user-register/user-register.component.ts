@@ -120,6 +120,11 @@ export class UserRegisterComponent implements OnInit {
     return this.userRole === 'Administrator' ? true : false;
   }
 
+  private navigateToHome():void{
+    this.router.navigate(['home/dashboard']);
+  }
+
+
   registerUser(): void {
     this.isLoading = true;
 
@@ -145,12 +150,13 @@ export class UserRegisterComponent implements OnInit {
       });
     } else if (!this.isAdmin) {
       const attendant = this.handleUserBuilder();
-      console.log('is attendant')
-      console.log(attendant)
       this.attendantService
         .AddNewAttendant(this.authService.getAdminId(), attendant)
         .subscribe({
-          next: () => this.isLoading = false 
+          next: () => {
+            this.isLoading = false;
+            this.cancelUserRegistration()
+           }
           ,
           error: (err) => console.log(err.message),
         });
@@ -164,7 +170,7 @@ export class UserRegisterComponent implements OnInit {
       .then((userData: any) => {
         const userToken = userData.user.auth.currentUser.accessToken;
         this.authService.setUserToken(userToken);
-        this.router.navigate(['home/dashboard']);
+        this.navigateToHome();
       })
       .catch((err) => console.log(err.code));
   }

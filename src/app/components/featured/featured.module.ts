@@ -12,6 +12,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { AdminComponent } from './admin/admin.component';
 import { AccountsModule } from "./accounts/accounts.module";
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AccountsModule } from "./accounts/accounts.module";
         CompanyInfoComponent,
         ProfileComponent,
         StatusCardsComponent,
-        AdminComponent
+        AdminComponent,
+        LoadingComponent
     ],
     imports: [ 
         HttpClientModule,
@@ -37,7 +39,8 @@ import { AccountsModule } from "./accounts/accounts.module";
         TimeComponent,
         AdvertsComponent,
         StatusCardsComponent,
-        AdminComponent
+        AdminComponent,
+        LoadingComponent
     ]
 })
 
