@@ -151,7 +151,7 @@ export class UserRegisterComponent implements OnInit {
     } else if (!this.isAdmin) {
       const attendant = this.handleUserBuilder();
       this.attendantService
-        .AddNewAttendant(this.authService.getAdminId(), attendant)
+        .addNewAttendant(this.authService.getAdminId(), attendant)
         .subscribe({
           next: () => {
             this.isLoading = false;
@@ -207,7 +207,7 @@ export class UserRegisterComponent implements OnInit {
     return this.isAdmin ? admin : attendant;
   }
 
-  cancelUserRegistration(): void {
+  public cancelUserRegistration(): void {
     this.backToLoginScreen.emit(false);
   }
 }

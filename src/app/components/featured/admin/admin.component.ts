@@ -52,15 +52,25 @@ export class AdminComponent implements OnInit {
   public deleteAttendant(): void {
        const indexOfAttendant = this.attendants.indexOf(this.currentAttendant)
        this.attendants.splice(indexOfAttendant, 1)
-       this.getAttendants();
+       this.attendantService
+       .deleteAttendant(this.authService.getAdminId(), this.currentAttendant.id)
+       .subscribe({
+         next: () => {
+           this.getAttendants();
+           console.log('deleted sucessfully!')
+         },
+         error: (err) => console.log('Uncsucessfull could not delete attendant: ', err.message)
+       })
+
+       
   }
 
 
-  navigateToRegisterPage(): void {
+  public navigateToRegisterPage(): void {
     this.isRegisterUser = true;
   }
 
-  navigateBackToAdminPanel(booleanEventValue: any): void {
+ public navigateBackToAdminPanel(booleanEventValue: any): void {
     this.getAttendants()
     this.isRegisterUser = booleanEventValue;
   }

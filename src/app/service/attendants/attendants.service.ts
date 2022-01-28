@@ -12,16 +12,17 @@ import { environment } from "src/environments/environment";
 
 export class AttendantsService{
 
+    private USERS_ENDPOINT: string = `${environment.firebase.databaseURL}/users`
      constructor(private httpClient: HttpClient){}
 
-     AddNewAttendant(uId: string, attendant: User): Observable<Attendant> {
+     public addNewAttendant(adminId: string, attendant: User): Observable<Attendant> {
          return this.httpClient
-            .post<Attendant>(`${environment.firebase.databaseURL}/users/${uId}/attendants.json`, attendant)
+            .post<Attendant>(`${this.USERS_ENDPOINT}/${adminId}/attendants.json`, attendant)
      }
 
-     findAllAttendants(uId: string): Observable<Attendant[]> {
+     public findAllAttendants(adminId: string): Observable<Attendant[]> {
         return this.httpClient
-            .get<Attendant[]>(`${environment.firebase.databaseURL}/users/${uId}/attendants.json`)
+            .get<Attendant[]>(`${this.USERS_ENDPOINT}/${adminId}/attendants.json`)
             .pipe(map((responseData: Attendant[]) => {
 
                 let attendants = []
@@ -34,5 +35,11 @@ export class AttendantsService{
 
             }))
     }
+
+
+    public deleteAttendant(adminId: string, attendantId: string): Observable<any>{
+        return this.httpClient.delete(`${this.USERS_ENDPOINT}/${adminId}/attendants/${attendantId}.json`)
+    }
+    
 
 }
