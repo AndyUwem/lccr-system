@@ -7,6 +7,7 @@
      deliveryStatus: string,
      clothStatus: string,
      pickUpDate: string,
+     clothRegistrationDate: string,
      description: string,
      cost: string,
    

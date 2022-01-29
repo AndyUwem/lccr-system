@@ -27,11 +27,11 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Color</th>
-            <th scope="col">Category</th>
             <th scope="col">Status</th>
-            <th scope="col">DeliveryStatus</th>
-            <th scope="col">Type</th>
-            <th scope="col">PickUpDate</th>
+            <th scope="col">Delivery Status</th>
+            <th scope="col">Service Type</th>
+            <th scope="col">Date Registered</th>
+            <th scope="col">Pickup Date</th>
             <th scope="col">Cost</th>
             <th scope="col">O/N</th>
           </tr>
@@ -41,10 +41,10 @@
             <th scope="row">{{ i + 1}}</th>
             <td> {{ cloth.clothName }}</td>
             <td> {{ cloth.clothColor }}</td>
-            <td> {{ cloth.clothCategory }}</td>
             <td> {{ cloth.clothStatus }}</td>
             <td> {{ cloth.deliveryStatus }}</td>
             <td> {{ cloth.serviceType }}</td>
+            <td> {{ cloth.clothRegistrationDate }}</td>
             <td> {{ cloth.pickUpDate }}</td>
             <td> {{ cloth.cost }}</td> 
             <td>
@@ -57,7 +57,6 @@
                   style="font-size:13px">
                   Edit Status <i class="fa fa-edit"></i>
                 </button>
-              
             </td>
           </tr>
         </tbody>

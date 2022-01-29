@@ -65,41 +65,41 @@ export class CreateCustomerComponent implements OnInit {
       clothStatus: ['', Validators.required],
       description: ['', Validators.required],
       pickUpDate: ['', Validators.required],
+      clothRegistrationDate: [new Date().toUTCString()],
       cost: ['', Validators.required]
-
     });
 
-    (this.newCustomerForm.get('cloths') as FormArray).push(cloth)
-    // this.getClothsLength
-
+        this.cloths.push(cloth)
   }
 
 
+
+  
+  get names(): FormControl { return this.newCustomerForm.get('names') as FormControl };
+  
+  get phone(): FormControl { return this.newCustomerForm.get('phone') as FormControl };
+  
+  get address(): FormControl { return this.newCustomerForm.get('address') as FormControl };
+  
+  get gender(): FormControl { return this.newCustomerForm.get('gender') as FormControl };
+  
+  get registeredDate() { return this.newCustomerForm.get('registeredDate') as FormControl };
 
   get cloths(): FormArray { return (this.newCustomerForm.get('cloths') as FormArray) };
 
-  get names(): FormControl { return this.newCustomerForm.get('names') as FormControl };
-
-  get phone(): FormControl { return this.newCustomerForm.get('phone') as FormControl };
-
-  get address(): FormControl { return this.newCustomerForm.get('address') as FormControl };
-
-  get gender(): FormControl { return this.newCustomerForm.get('gender') as FormControl };
-
-  get registeredDate() { return this.newCustomerForm.get('registeredDate') as FormControl };
-
   get payment(): FormGroup { return this.newCustomerForm.get('payment') as FormGroup };
 
+  public removeCloth(index: number): void { this.cloths.removeAt(index) }
+ 
   get customerCloths(): Array<Cloth> {
     let customerCloths: Array<Cloth> = []
-    this.cloths.controls.forEach((cloth) => customerCloths.push(cloth.value))
-    return customerCloths
+    this.cloths.controls
+    .forEach((cloth) => customerCloths.push(cloth.value))
+     return customerCloths
   }
 
 
-  removeCloth(index: number): void { this.cloths.removeAt(index) }
-
-  setValidationFor(formControl: string) {
+  public setValidationFor(formControl: string) {
     return (this.newCustomerForm.get(formControl)?.invalid &&
       (this.newCustomerForm.get(formControl)?.dirty || this.newCustomerForm.get(formControl)?.touched))
   }
@@ -125,7 +125,7 @@ export class CreateCustomerComponent implements OnInit {
     this.isShowPaymentSection = true
   }
 
-  recievedPayment(payment: Payment): void {
+  public recievedPayment(payment: Payment): void {
     this.newFormPayment = this.setFormPayment = payment
   }
 
@@ -140,7 +140,13 @@ export class CreateCustomerComponent implements OnInit {
       .setCloth(this.customerCloths)
       .setPayments([this.newFormPayment])
       .build()
-    this.customerService.createCustomer( this.authService.getAdminId(), customer).subscribe(() => { })
+
+    this.customerService
+     .createCustomer( this.authService.getAdminId(), customer)
+     .subscribe({
+      next: (responseData) => console.log(responseData),
+      error: (err) => console.log(err.message)
+    })
   }
 
 
@@ -154,11 +160,11 @@ export class CreateCustomerComponent implements OnInit {
     })
   }
 
-  get isPaymentValid(): boolean {
+  public get isPaymentValid(): boolean {
     return parseInt(this.payment.get('amountPaid')?.value) > 0 || this.newCustomerForm.valid
   }
 
-  get isCostValid(): boolean {
+  public get isCostValid(): boolean {
     let cost: number = 0
     this.customerCloths.filter(cloth => {
       if (cloth.cost == '' || isNaN(parseInt(cloth.cost)))
@@ -169,12 +175,12 @@ export class CreateCustomerComponent implements OnInit {
     return cost < 1
   }
 
-  proceed(): void {
+  public proceed(): void {
     this.initializePayments()
   }
 
 
-  goBackToCustomerForm(): void {
+  public goBackToCustomerForm(): void {
     this.isShowPaymentSection = false
   }
 
@@ -182,12 +188,13 @@ export class CreateCustomerComponent implements OnInit {
     if (this.newCustomerForm.valid && this.isPaymentValid) { this.createNewCustomer() }
   }
 
-  done(): void {
+  public done(): void {
     this.router.navigate(['home/customers'])
   }
 
-  cancelForm(): void {
-     this.done()
+  public cancelForm(): void {
+    this.newCustomerForm.reset()
+    this.done()
   }
 
 }

@@ -37,7 +37,7 @@
                     <label for="validationServer02" class="form-label">Phone</label>
                     <input type="text" [class.is-invalid]="setValidationFor('phone')" 
                      class="form-control" 
-                     id="validationServer02" value="Otto" formControlName="phone">
+                     id="validationServer02" formControlName="phone">
       
                     <div *ngIf="setValidationFor('phone')">
                       <div *ngIf="phone?.errors?.['required']" style="color: red;">
@@ -221,6 +221,7 @@
                        class="form-control" 
                        id="validationServer02" placeholder="$ 0.00" formControlName="cost" >
         
+
                       <div *ngIf="setValidationFor('gender')">
                         <div *ngIf="gender?.errors?.['required']" style="color: red;">
                           Please provide a valid cost for this cloth should be a number.

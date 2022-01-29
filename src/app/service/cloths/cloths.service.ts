@@ -11,12 +11,12 @@ import { environment } from "src/environments/environment";
 
  export class ClothService{
 
-     private CUSTOMERS_API: string = environment.CUSTOMERS_API
+     private USERS_ENDPOINT: string = `${environment.firebase.databaseURL}/users`
      
       constructor(private httpClient: HttpClient ){}
 
         updateCloth(customerId: string, cloth: Cloth[] ): Observable<Cloth[]>{
-           return this.httpClient.patch<Cloth[]>(`${this.CUSTOMERS_API}/${customerId}.json`, { cloth } )
+           return this.httpClient.patch<Cloth[]>(`${this.USERS_ENDPOINT}/${customerId}.json`, { cloth } )
         }
         
  }

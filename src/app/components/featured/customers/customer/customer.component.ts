@@ -35,14 +35,17 @@ export class CustomerComponent implements OnInit {
 
     this.customerService
       .findCustomerById(this.authService.getAdminId(), customerId)
-      .subscribe((customer: Customer) => {
-        this.customer = { ...customer };
-        this.customer.id = customerId;
-        this.setCustomerCloths(customer);
-        this.setCustomerRef(this.customer);
+      .subscribe({
+            next: (customer: Customer) => {
+              this.customer = { ...customer };
+              this.customer.id = customerId;
+              this.setCustomerCloths(customer);
+              this.setCustomerRef(this.customer);
+            },
+            error: (err) => console.log(err.message)
       });
   }
-
+  
   private setCustomerCloths(customer: Customer): void {
     this.customerCloths.push(...customer.cloth);
   }

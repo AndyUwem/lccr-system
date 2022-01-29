@@ -11,16 +11,16 @@ import { Customer } from "../../interface/customer.interface";
 export class CustomerService {
 
     private customerReference = new Subject<Customer>()
-    private CUSTOMERS_API: string = environment.firebase.databaseURL
+    private USERS_ENDPOINT: string = `${environment.firebase.databaseURL}/users`
 
     constructor(private http: HttpClient) { }
 
-    createCustomer(adminId: string, customer: {}): Observable<Customer>{
-        return this.http.post<Customer>(`${this.CUSTOMERS_API}/users/${adminId}customers.json`, customer)
+    public createCustomer(adminId: string, customer: {}): Observable<Customer>{
+        return this.http.post<Customer>(`${this.USERS_ENDPOINT}/${adminId}/customers.json`, customer)
     }
 
-    findAll(adminId: string): Observable<Customer[]>{
-        return this.http.get<Customer[]>(`${this.CUSTOMERS_API}/users/${adminId}customers.json`)
+    public findAll(adminId: string): Observable<Customer[]>{
+        return this.http.get<Customer[]>(`${this.USERS_ENDPOINT}/${adminId}/customers.json`)
             .pipe(map((responseData: Customer[]) => {
                 let customers = [];
 
@@ -33,24 +33,24 @@ export class CustomerService {
     }
 
 
-    findCustomerById(adminId: string, customerId: string): Observable<Customer> {
+    public findCustomerById(adminId: string, customerId: string): Observable<Customer> {
 
-        return this.http.get<Customer>(`${this.CUSTOMERS_API}/users/${adminId}customers/${customerId}.json`)
+        return this.http.get<Customer>(`${this.USERS_ENDPOINT}/${adminId}/customers/${customerId}.json`)
             .pipe(map(responseData => {
                 let customerObject = {} as Customer
-                if (responseData) { 
-                    customerObject = responseData 
-                 }
+                if (responseData)
+                   customerObject = responseData 
+                 
                 return customerObject
             }))
     }
 
 
-     setCustomerRef(customer: Customer): void {
+     public setCustomerRef(customer: Customer): void {
         this.customerReference.next(customer)
       }
 
-       getCustomerRef(): Observable<Customer>{
+     public getCustomerRef(): Observable<Customer>{
        return this.customerReference.asObservable()
     }
 }
