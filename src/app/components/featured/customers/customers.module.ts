@@ -15,6 +15,7 @@ import { CustomersComponent } from './customers.component';
 import { FilterCustomer } from 'src/app/filter-customer.pipe';
 import { PaymentsModule } from '../payments/payments.moudle';
 import { ClothsModule } from '../cloths/cloths.module';
+import { FeaturedModule } from '../featured.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ClothsModule } from '../cloths/cloths.module';
     ReactiveFormsModule,
     MatStepperModule,
     ScrollingModule,
+    FeaturedModule,
     CustomerRoutingModule,
     PaymentsModule,
     ClothsModule

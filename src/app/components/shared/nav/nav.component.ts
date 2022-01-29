@@ -28,7 +28,6 @@ export class NavComponent implements OnInit {
 
     private getUserData(): void {
       this.user = JSON.parse(this.authService.getUserRef())
-      console.log(this.user)
     }
 
 

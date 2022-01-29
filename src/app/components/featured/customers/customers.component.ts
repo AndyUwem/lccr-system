@@ -8,12 +8,14 @@ import { AuthService } from '../accounts/authentication/auth.service';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css'],
 })
+
 export class CustomersComponent implements OnInit {
   public customers: Array<Customer> = [];
   public searchTerm: string = '';
   public selectFilterBy: string = 'names';
   public searchFieldPlaceHolder: string = '';
   public isAdmin: boolean = false;
+  public isLoading: boolean = true
 
   constructor(
     private customerService: CustomerService,
@@ -26,13 +28,19 @@ export class CustomersComponent implements OnInit {
     this.isAdmin = this.getUserRole();
   }
 
-  getAllCustomers() {
-    return this.customerService
+  private getAllCustomers() {
+       this.customerService
       .findAll(this.authService.getAdminId())
-      .subscribe((response: Customer[]) => (this.customers = response));
+      .subscribe({
+        next: (response: Customer[]) => {
+          this.customers = response
+          this.isLoading = false
+        },
+        error: (err) => console.log(err.message)
+      });
   }
 
-  updateSearchPlaceholder(): void {
+  public updateSearchPlaceholder(): void {
     this.searchFieldPlaceHolder = `search customers by ${this.selectFilterBy}`;
   }
 
