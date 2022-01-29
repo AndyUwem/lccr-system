@@ -1,7 +1,7 @@
 import { LoginData } from "../interface/login-data.interface";
 
 export class User{
-     private id!: number;
+     private id!: string;
      private names!: string
      private age!: number
      private phone! : number
@@ -15,11 +15,11 @@ export class User{
     constructor(){}
 
 
-    setId(id: number){
+    setId(id: string){
        this.id = id
     }
 
-    getId(): number{
+    getId(): string{
         return this.id
     }
 

@@ -29,6 +29,10 @@
                         <b> <small>{{ currentUser.address }}</small> </b>
                     </li>
                     <li class="list-group-item">
+                      <small>Email</small> <br>
+                      <b> <small>{{ currentUser.userAccount.email }}</small> </b>
+                  </li>
+                    <li class="list-group-item">
                         <small>Company Name</small> <br>
                         <b> <small>{{ currentUser.companyName }}</small> </b>
                     </li>
@@ -110,6 +114,8 @@
                                     </div>
                             </div>
                             <div class="col-8" *ngIf="isAttendantScreenReady; else isLoading">
+                              <div *ngIf="!isAttendantArrayEmpty; else noData">
+
                               <app-profile [currentAttendant]="currentAttendant"></app-profile>
 
                               <div class="list-group-item list-group-btns">
@@ -127,6 +133,7 @@
                                  <i class="fa fa-sign-out icons">
                                  </i>Edit</button>
                                 </div>
+                              </div>
 
                             </div>
                           </div>
@@ -155,3 +162,6 @@
     <app-loading></app-loading>
   </ng-template>
   
+  <ng-template #noData>
+    <b> nothing to display!!</b>
+  </ng-template>

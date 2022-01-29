@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Attendant } from 'src/app/interface/attendant.interface';
 import { LoginData } from 'src/app/interface/login-data.interface';
 import { AdminService } from 'src/app/service/admin/admin.service';
 import { AttendantsService } from 'src/app/service/attendants/attendants.service';
@@ -13,12 +14,15 @@ import { AuthService } from '../authentication/auth.service';
   styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit, OnDestroy {
+
+  private currentUser: any;
+
   public loginForm!: FormGroup;
   public isAdmin!: boolean;
   public arrayOfLoginTypes: Array<string> = ['Administrator', 'Attendant'];
   public loginType!: string;
   public isRegisterUser: boolean = false;
-  public userRole: string = "Administrator"
+  public userRole: string = 'Administrator';
 
   constructor(
     private router: Router,
@@ -41,8 +45,12 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
   private initializeLoginForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      email: new FormControl(''.trim(), [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new FormControl(''.trim(), [Validators.required]),
+      administratorID: new FormControl(''.trim(), [Validators.required]),
     });
   }
 
@@ -66,51 +74,59 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/dashboard']);
   }
 
-  getSelectedLoginType(): void {
-
-    if(this.loginType === this.arrayOfLoginTypes[0] )
-      this.isAdmin = true
-    else 
-      this.isAdmin = false
-
+  public getSelectedLoginType(): void {
+    if (this.loginType === this.arrayOfLoginTypes[0]) this.isAdmin = true;
+    else this.isAdmin = false;
   }
 
-  navigateToRegisterPage(): void {
+  public navigateToRegisterPage(): void {
     this.isRegisterUser = true;
   }
 
-  navigateBackToLoginPage(booleanEventValue: any): void {
+  public navigateBackToLoginPage(booleanEventValue: any): void {
     this.isRegisterUser = booleanEventValue;
   }
-
-  private getUser(uId: string): any{
-     if(this.isAdmin){
-       this.adminService.getAdminFromFireBase(uId)
-       .subscribe({
-          next: (admin) =>  {
-             this.authService.setUserREf(admin)
-             this.navigateToHome();
-            },
-          error: (err) => console.log(err.message)
-       })
-     }
-     else{
-       console.log('nothing')
-     }
-
-
-  }
-
 
   private loginUser(): void {
     this.authService
       .logInUser(this.getUserInfo())
       .then((responseData: any) => {
-         const user = responseData.user.auth.currentUser;
-         this.authService.setUserToken(user.accessToken);
-         this.getUser(user.uid)
+        this.currentUser = responseData.user.auth.currentUser;
+        this.getUser();
       })
       .catch((e: Error) => console.log(e.message));
+  }
+
+  private getUser(): void {
+    if (this.isAdmin) {
+      this.adminService
+      .getAdminFromFireBase(this.currentUser.uid)
+       .subscribe({
+        next: (admin) => this.handleUserAuthorization(admin),
+        error: (err) => console.log(err.message),
+      });
+    } 
+    else if (!this.isAdmin) {
+       const adminId: string = this.loginForm.get('administratorID')?.value;
+       const attendantId: string = this.currentUser.uid
+
+        this.attendantService
+        .findAttendantById(adminId, attendantId)
+        .subscribe({
+          next: (attendant: Attendant) => this.handleUserAuthorization(attendant),
+          error: (err) => console.log(err.message)
+        })
+    }
+  }
+
+  private handleUserAuthorization(user: any): void {
+    if(user !== null){
+      this.authService.setUserToken(this.currentUser.accessToken);
+      this.authService.setUserREf(user);
+      this.navigateToHome();
+     }
+     else
+       console.log('sorry this user does not exist')
   }
 
   ngOnDestroy(): void {

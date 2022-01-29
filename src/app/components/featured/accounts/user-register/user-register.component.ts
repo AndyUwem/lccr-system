@@ -26,6 +26,7 @@ export class UserRegisterComponent implements OnInit {
   @Output('backToLoginScreen') backToLoginScreen = new EventEmitter<boolean>();
   @Input('userRole') userRole!: string;
   public userAccount!: any;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -134,7 +135,10 @@ export class UserRegisterComponent implements OnInit {
         this.userAccount = userAccount;
         this.handleUserRegistration()
       })
-      .catch(() => (this.isLoading = false));
+      .catch((err) => {
+        this.isLoading = false
+        console.log(err.message)
+      });
   }
 
   private handleUserRegistration(): void {
@@ -148,7 +152,8 @@ export class UserRegisterComponent implements OnInit {
         },
         error: (err) => console.log(err.message),
       });
-    } else if (!this.isAdmin) {
+    } 
+    else if (!this.isAdmin) {
       const attendant = this.handleUserBuilder();
       this.attendantService
         .addNewAttendant(this.authService.getAdminId(), attendant)
@@ -175,36 +180,47 @@ export class UserRegisterComponent implements OnInit {
       .catch((err) => console.log(err.code));
   }
 
+  tshoot(): void {
+    console.log(this.handleUserBuilder())
+  }
 
   private handleUserBuilder(): any {
+     const newUserId: string = this.userAccount.user.auth.currentUser.uid;
 
-    const admin = new Admin();
-    admin.setId(this.userAccount.user.auth.currentUser.uid);
-    admin.setNames(this.names?.value);
-    admin.setAge(this.age?.value);
-    admin.setPhone(this.phone?.value);
-    admin.setGender(this.gender?.value);
-    admin.setAdress(this.address?.value);
-    admin.setDateRegistered(this.dateRegistered?.value);
-    admin.setUserRole(this.role?.value);
-    admin.setCompanyName(this.companyName?.value);
-    admin.setCompanyIamge(this.companyImage?.value);
-    admin.setAttendants([]);
-    admin.setCustomers([]);
-    admin.setUserAccount(this.getUserEmailAndPassword());
+    if(this.isAdmin){
+      const admin = new Admin();
+      admin.setId(newUserId);
+      admin.setNames(this.names?.value);
+      admin.setAge(this.age?.value);
+      admin.setPhone(this.phone?.value);
+      admin.setGender(this.gender?.value);
+      admin.setAdress(this.address?.value);
+      admin.setDateRegistered(this.dateRegistered?.value);
+      admin.setUserRole(this.role?.value);
+      admin.setCompanyName(this.companyName?.value);
+      admin.setCompanyIamge(this.companyImage?.value);
+      admin.setUserAccount(this.getUserEmailAndPassword());
 
-    const attendant = new Attendant();
-    attendant.setEmployerId(this.authService.getAdminId());
-    attendant.setNames(this.names?.value);
-    attendant.setAge(this.age?.value);
-    attendant.setPhone(this.phone?.value);
-    attendant.setGender(this.gender?.value);
-    attendant.setAdress(this.address?.value);
-    attendant.setDateRegistered(this.dateRegistered?.value);
-    attendant.setUserRole(this.role?.value);
-    attendant.setUserAccount(this.getUserEmailAndPassword());
+      return admin;
+    }
+   
+    else if (!this.isAdmin) {
+      const attendant = new Attendant();
+      attendant.setId(newUserId)
+      attendant.setEmployerId(this.authService.getAdminId());
+      attendant.setNames(this.names?.value);
+      attendant.setAge(this.age?.value);
+      attendant.setPhone(this.phone?.value);
+      attendant.setGender(this.gender?.value);
+      attendant.setAdress(this.address?.value);
+      attendant.setDateRegistered(this.dateRegistered?.value);
+      attendant.setUserRole(this.role?.value);
+      attendant.setUserAccount(this.getUserEmailAndPassword()); 
+      
+      return attendant;
+    }
+   
 
-    return this.isAdmin ? admin : attendant;
   }
 
   public cancelUserRegistration(): void {
