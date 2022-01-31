@@ -90,7 +90,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
   }
 
   private getUserRole(): boolean{ 
-      return this.authService.getUserRole()
+      return this.authService.isUserAdministrator()
   }
 
   public continueToPaymentsList(): void {

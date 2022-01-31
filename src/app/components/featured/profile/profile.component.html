@@ -14,11 +14,14 @@
           <p class="card-text"><code class="text-muted"><b>Address</b>: {{ currentAttendant.address }}</code></p>
           <p class="card-text"><code class="text-muted"><b>Address</b>: {{ currentAttendant.id }}</code></p>
           <p class="card-text"><code class="text-muted"><b>DateRegistered</b>: {{ currentAttendant.dateRegistered | date }}</code></p>
-
-          <hr>
-          <h3>Accounts</h3>
-          <p class="card-text"><code class="text-muted">Email: {{ currentAttendant.userAccount.email }}</code></p>
-          <p class="card-text"><code class="text-muted">Password: {{ currentAttendant.userAccount.password }}</code></p>
+  
+          <ng-container *ngIf="isUserAdministrator">
+            <hr>
+            <h3>Accounts</h3>
+            <p class="card-text"><code class="text-muted">Email: {{ currentAttendant.userAccount.email }}</code></p>
+            <p class="card-text"><code class="text-muted">Password: {{ currentAttendant.userAccount.password }}</code></p>
+          </ng-container>
+  
         </div>
       </div>
 

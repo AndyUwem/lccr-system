@@ -45,6 +45,6 @@ export class CustomersComponent implements OnInit {
   }
 
   private getUserRole(): boolean {
-    return this.authService.getUserRole();
+    return this.authService.isUserAdministrator();
   }
 }

@@ -49,7 +49,6 @@ export class ClothsListComponent implements OnInit, OnDestroy{
   }
 
   public handleClothStatusForm(cloth: Cloth): void {
-    console.log(cloth)
     this.clothStatusEditForm.patchValue({
      deliveryStatus: cloth.deliveryStatus,
      progressStatus: cloth.clothStatus,
@@ -95,7 +94,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
   private updateCloth(customer: Customer): void {
     this.clothService.updateCloth(this.authService.getAdminId, customer.id, customer.cloth)
     .subscribe(() => {})
-  }
+}
 
 
   private initializeNewClothForm(): void {
@@ -104,7 +103,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
       clothColor: this.fb.control('', Validators.required),
       clothCategory: this.fb.control('', Validators.required),
       serviceType: this.fb.control('', Validators.required),
-      clothStatus: this.fb.control('Received', Validators.required),
+      clothStatus: this.fb.control('In Progress', Validators.required),
       deliveryStatus: this.fb.control('Not Delivered', Validators.required),
       cost: this.fb.control('', Validators.required),
       pickUpDate: this.fb.control('', Validators.required),
@@ -119,7 +118,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
   }
 
   private getUserRole(): void {
-      this.isAdmin = this.authService.getUserRole()
+      this.isAdmin = this.authService.isUserAdministrator()
   }
 
 

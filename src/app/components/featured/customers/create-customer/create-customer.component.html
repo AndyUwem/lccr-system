@@ -175,40 +175,6 @@
                     </div>
       
       
-                    <div class="col-md-4">
-                      <label for="validationServer04" class="form-label">ClothStatus</label>
-                      <select class="form-select" 
-                      id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="clothStatus">
-                        <option selected disabled value="">Choose...</option>
-                        <option>In Progress</option>
-                        <option>Completed</option>
-                      </select>
-        
-                      <div *ngIf="setValidationFor('gender')">
-                        <div *ngIf="gender?.errors?.['required']" style="color: red;" >
-                          Please select a valid status for this cloth.
-                        </div>
-                       </div>
-                    </div>
-      
-      
-                    <div class="col-md-4">
-                      <label for="validationServer04" class="form-label">DeliveryStatus</label>
-                      <select class="form-select" 
-                      id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="deliveryStatus">
-                        <option selected disabled value="">Choose...</option>
-                        <option>Delivered</option>
-                        <option>Not Delivered</option>
-                      </select>
-        
-                      <div *ngIf="setValidationFor('gender')">
-                        <div *ngIf="gender?.errors?.['required']" style="color: red;" >
-                          Please select a valid status for this cloth.
-                        </div>
-                       </div>
-                    </div>
-      
-      
                     <div class="col-md-6">
                       <label for="validationServer03" class="form-label">PickUp Date</label>
                       <input type="date" class="form-control"

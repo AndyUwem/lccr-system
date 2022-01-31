@@ -5,7 +5,7 @@ import { Payment } from 'src/app/interface/payment.interface';
 import { CustomerService } from 'src/app/service/customers/customers.service';
 import { AuthService } from '../accounts/authentication/auth.service';
 
-interface StatusCardData {
+type StatusCardData = {
   payments: Array<number>;
   totalSales: number;
   totalCloths: number;
@@ -19,7 +19,7 @@ interface StatusCardData {
 export class StatusCardsComponent implements OnInit {
   public statusCards: Array<{ header: string; value: string }> = [];
   public isLoading: boolean = true;
-  public completedCloths = { completed: 0, cloths: 0 };
+  public completedCloths = { clothsCompleted: 0, totalCloths: 0 };
 
   constructor(
     private customerService: CustomerService,
@@ -32,8 +32,8 @@ export class StatusCardsComponent implements OnInit {
 
   private updateStatusCards(): void {
     this.handleStatusCardUpdate()
-      .then((statusCard: StatusCardData) => {
-        const { totalSales, totalCloths, inProgress } = statusCard;
+      .then((statusCardData: StatusCardData) => {
+        const { totalSales, totalCloths, inProgress } = statusCardData;
         this.customerService
           .findAll(this.authService.getAdminId)
           .subscribe((customer: Array<Customer>) => {
@@ -51,8 +51,8 @@ export class StatusCardsComponent implements OnInit {
             ];
 
             this.statusCards.push(...statusCards);
-            this.completedCloths.cloths = totalCloths;
-            this.completedCloths.completed = totalCloths - inProgress;
+            this.completedCloths.totalCloths = totalCloths;
+            this.completedCloths.clothsCompleted = totalCloths - inProgress;
           });
       })
       .catch((err: Error) => console.log(err.message));

@@ -17,19 +17,19 @@ export class AuthService {
       private htttp: HttpClient
       ) {}
 
-  setUserToken(token: string) {
+ public setUserToken(token: string) {
     localStorage.setItem('myToken', token);
   }
 
-  getUserToken(): string | null {
+  public getUserToken(): string | null {
     return localStorage.getItem('myToken');
   }
 
-  isUserLoggedIn(): boolean {
+  public isUserLoggedIn(): boolean {
     return this.getUserToken() !== null;
   }
 
-  logInUser(loginData: LoginData): Promise<any> {
+  public logInUser(loginData: LoginData): Promise<any> {
     return signInWithEmailAndPassword(
       this.angularFireAuth,
       loginData.email,
@@ -37,11 +37,11 @@ export class AuthService {
     );
   }
 
-  logOutUser(): void {
+  public logOutUser(): void {
     localStorage.clear();
   }
 
-  setUserFirebaseLogin(loginData: LoginData): Promise<any> {
+  public setUserFirebaseLogin(loginData: LoginData): Promise<any> {
     return createUserWithEmailAndPassword(
       this.angularFireAuth,
       loginData.email,
@@ -50,21 +50,21 @@ export class AuthService {
   }
 
 
-  setUserREf(currentUser: any): void {
+  public setUserREf(currentUser: any): void {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
   }
 
-  getUserRef(): any {
+  public getUserRef(): any {
     return localStorage.getItem('currentUser');
   }
 
-  getUserRole(): boolean {
+  public isUserAdministrator(): boolean {
     const user = JSON.parse(this.getUserRef());
     return user.userRole === 'Administrator' ? true : false;
   }
 
   public get getAdminId(): string {
-    return this.getUserRole()
+    return this.isUserAdministrator()
       ? JSON.parse(this.getUserRef()).id
       : JSON.parse(this.getUserRef()).employerId;
   }
