@@ -14,9 +14,15 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-
+      this.getCurrentUser()
   }
 
+  private getCurrentUser(): void {
+    if(!this.currentAttendant) {
+      const user = JSON.parse(this.authService.getUserRef())
+            this.currentAttendant = user
+       }
+   }
 
 
 }
