@@ -48,7 +48,8 @@ export class ClothsListComponent implements OnInit, OnDestroy{
       })
   }
 
-  handleClothStatusForm(cloth: Cloth): void {
+  public handleClothStatusForm(cloth: Cloth): void {
+    console.log(cloth)
     this.clothStatusEditForm.patchValue({
      deliveryStatus: cloth.deliveryStatus,
      progressStatus: cloth.clothStatus,
@@ -80,7 +81,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
   }
 
 
-  updateClothArray(): void {
+  public updateClothArray(): void {
   const index: number = this.customer.cloth.indexOf(this.selectedCloth)
     const { deliveryStatus, progressStatus, pickUpDate } = this.updatedClothsStatus
     this.customer.cloth[index].deliveryStatus = deliveryStatus
@@ -92,7 +93,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 
 
   private updateCloth(customer: Customer): void {
-    this.clothService.updateCloth(customer.id, customer.cloth)
+    this.clothService.updateCloth(this.authService.getAdminId, customer.id, customer.cloth)
     .subscribe(() => {})
   }
 
@@ -103,15 +104,16 @@ export class ClothsListComponent implements OnInit, OnDestroy{
       clothColor: this.fb.control('', Validators.required),
       clothCategory: this.fb.control('', Validators.required),
       serviceType: this.fb.control('', Validators.required),
-      clothStatus: this.fb.control('', Validators.required),
-      deliveryStatus: this.fb.control('', Validators.required),
+      clothStatus: this.fb.control('Received', Validators.required),
+      deliveryStatus: this.fb.control('Not Delivered', Validators.required),
       cost: this.fb.control('', Validators.required),
       pickUpDate: this.fb.control('', Validators.required),
+      clothRegistrationDate: [new Date().toUTCString()],
       description: this.fb.control('', Validators.required)
     })
   }
 
-  saveNewCloth(): void{
+  public saveNewCloth(): void{
     this.customer.cloth.push(this.newClothForm.value)
     this.updateCloth(this.customer)
   }

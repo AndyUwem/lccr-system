@@ -34,7 +34,7 @@ export class CustomerComponent implements OnInit {
     );
 
     this.customerService
-      .findCustomerById(this.authService.getAdminId(), customerId)
+      .findCustomerById(this.authService.getAdminId, customerId)
       .subscribe({
             next: (customer: Customer) => {
               this.customer = { ...customer };

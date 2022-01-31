@@ -10,15 +10,14 @@ import { Payment } from "../../interface/payment.interface";
 
 export class PaymentService {
 
-
-    private CUSTOMERS_API: string = environment.CUSTOMERS_API;
+    private ADMINISTRATORS_API: string = `${environment.firebase.databaseURL}/users`;
 
      constructor(private httpClient: HttpClient){
 
      }
 
-     updatePayment(customerId: string, payments: Payment[]){
-          return this.httpClient.patch(`${this.CUSTOMERS_API}/${customerId}.json`, { payments } )
+     public updatePayment(adminId: string, customerId: string, payments: Payment[]){
+          return this.httpClient.patch(`${this.ADMINISTRATORS_API}/${adminId}/customers/${customerId}.json`, { payments } )
      }
     
 }

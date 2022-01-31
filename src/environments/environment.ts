@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  CUSTOMERS_API: 'https://laundry-records-system-default-rtdb.firebaseio.com/customers',
   firebase: {
   projectId: 'laundry-records-system',
   appId: '1:434956734097:web:08ac05bb32a0f6cd2c7930',

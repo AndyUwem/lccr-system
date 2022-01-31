@@ -142,7 +142,7 @@ export class CreateCustomerComponent implements OnInit {
       .build()
 
     this.customerService
-     .createCustomer( this.authService.getAdminId(), customer)
+     .createCustomer( this.authService.getAdminId, customer)
      .subscribe({
       next: (responseData) => console.log(responseData),
       error: (err) => console.log(err.message)

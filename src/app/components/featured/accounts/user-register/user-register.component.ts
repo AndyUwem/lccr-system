@@ -156,7 +156,7 @@ export class UserRegisterComponent implements OnInit {
     else if (!this.isAdmin) {
       const attendant = this.handleUserBuilder();
       this.attendantService
-        .addNewAttendant(this.authService.getAdminId(), attendant)
+        .addNewAttendant(this.authService.getAdminId, attendant)
         .subscribe({
           next: () => {
             this.isLoading = false;
@@ -207,7 +207,7 @@ export class UserRegisterComponent implements OnInit {
     else if (!this.isAdmin) {
       const attendant = new Attendant();
       attendant.setId(newUserId)
-      attendant.setEmployerId(this.authService.getAdminId());
+      attendant.setEmployerId(this.authService.getAdminId);
       attendant.setNames(this.names?.value);
       attendant.setAge(this.age?.value);
       attendant.setPhone(this.phone?.value);

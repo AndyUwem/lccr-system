@@ -35,7 +35,7 @@ export class StatusCardsComponent implements OnInit {
       .then((statusCard: StatusCardData) => {
         const { totalSales, totalCloths, inProgress } = statusCard;
         this.customerService
-          .findAll(this.authService.getAdminId())
+          .findAll(this.authService.getAdminId)
           .subscribe((customer: Array<Customer>) => {
             const statusCards = [
               { header: 'Customers', value: customer.length + '' },
@@ -68,7 +68,7 @@ export class StatusCardsComponent implements OnInit {
       };
 
       this.customerService
-        .findAll(this.authService.getAdminId())
+        .findAll(this.authService.getAdminId)
         .subscribe((customers: Array<Customer>) => {
           customers.forEach((customer: Customer) => {
             customer.payments.forEach((payment: Payment) =>

@@ -5,6 +5,7 @@ import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.se
 import { CustomerService } from 'src/app/service/customers/customers.service';
 import { SubscriptionService } from 'src/app/service/subscription/subscription.service';
 import { AuthService } from '../../accounts/authentication/auth.service';
+import { Attendant } from 'src/app/interface/attendant.interface';
 
 
 @Component({
@@ -61,7 +62,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
     })
   }
 
-  setPayment(payment: Payment): void {
+  public setPayment(payment: Payment): void {
     this.newPayment = { ...payment }
   }
 
@@ -69,12 +70,13 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
     return this.newPayment.amountPaid > 0;
   }
 
-  updatePayment(): void {
-    if (this.onAmountPaidValueCheck) {
 
+  public updatePayment(): void {
+    if (this.onAmountPaidValueCheck) {
+     
       this.customer.payments.push(this.newPayment)
       this.paymentHelperService
-        .updatePayments(this.customer.id, this.customer.payments)
+      .updatePayments(this.authService.getAdminId, this.customer.id, this.customer.payments)
     }
     this.recheckCustomerDebts()
   }
@@ -91,7 +93,7 @@ export class CustomerPaymentListComponent implements OnInit, OnDestroy {
       return this.authService.getUserRole()
   }
 
-  continueToPaymentsList(): void {
+  public continueToPaymentsList(): void {
     this.isCustomerOwing = false
     this.canMakePayment = true
   }

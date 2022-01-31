@@ -27,7 +27,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Color</th>
-            <th scope="col">Status</th>
+            <th scope="col">Progress Status</th>
             <th scope="col">Delivery Status</th>
             <th scope="col">Service Type</th>
             <th scope="col">Date Registered</th>
@@ -44,8 +44,8 @@
             <td> {{ cloth.clothStatus }}</td>
             <td> {{ cloth.deliveryStatus }}</td>
             <td> {{ cloth.serviceType }}</td>
-            <td> {{ cloth.clothRegistrationDate }}</td>
-            <td> {{ cloth.pickUpDate }}</td>
+            <td> {{ cloth.clothRegistrationDate | date }}</td>
+            <td> {{ cloth.pickUpDate | date }}</td>
             <td> {{ cloth.cost }}</td> 
             <td>
                 <button
@@ -94,6 +94,7 @@
                 <select class="form-select" formControlName="progressStatus"
                 id="validationServer04" aria-describedby="validationServer04Feedback" >
                   <option selected disabled value="">Choose...</option>
+                  <option>Received</option>
                   <option>In Progress</option>
                   <option>Completed</option>
                 </select>
@@ -196,40 +197,6 @@
                   <div>
                     <div style="color: red;" >
                       Please select a valid serviceType.
-                    </div>
-                   </div>
-                </div>
-  
-  
-                <div class="col-md-4">
-                  <label for="validationServer04" class="form-label">ClothStatus</label>
-                  <select class="form-select" formControlName="clothStatus"
-                  id="validationServer04" aria-describedby="validationServer04Feedback" >
-                    <option selected disabled value="">Choose...</option>
-                    <option>In Progress</option>
-                    <option>Completed</option>
-                  </select>
-    
-                  <div>
-                    <div style="color: red;" >
-                      Please select a valid status for this cloth.
-                    </div>
-                   </div>
-                </div>
-  
-  
-                <div class="col-md-4">
-                  <label for="validationServer04" class="form-label">DeliveryStatus</label>
-                  <select class="form-select" formControlName="deliveryStatus"
-                  id="validationServer04" aria-describedby="validationServer04Feedback" >
-                    <option selected disabled value="">Choose...</option>
-                    <option>Delivered</option>
-                    <option>Not Delivered</option>
-                  </select>
-    
-                  <div >
-                    <div style="color: red;" >
-                      Please select a valid status for this cloth.
                     </div>
                    </div>
                 </div>

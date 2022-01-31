@@ -63,7 +63,7 @@ export class AuthService {
     return user.userRole === 'Administrator' ? true : false;
   }
 
-  getAdminId(): string {
+  public get getAdminId(): string {
     return this.getUserRole()
       ? JSON.parse(this.getUserRef()).id
       : JSON.parse(this.getUserRef()).employerId;

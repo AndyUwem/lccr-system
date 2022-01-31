@@ -30,7 +30,7 @@ export class CustomersComponent implements OnInit {
 
   private getAllCustomers() {
        this.customerService
-      .findAll(this.authService.getAdminId())
+      .findAll(this.authService.getAdminId)
       .subscribe({
         next: (response: Customer[]) => {
           this.customers = response

@@ -25,8 +25,8 @@ export class PaymentHelperService {
 
     }
 
-    updatePayments(customerId: string, payments: Payment[]): Subscription {
-        return this.paymentService.updatePayment(customerId, payments).subscribe(() => { })
+    updatePayments(adminId: string, customerId: string, payments: Payment[]): Subscription {
+        return this.paymentService.updatePayment(adminId, customerId, payments).subscribe(() => { })
     }
 
     validateBalanceOfPayment(
