@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   public isRegisterUser: boolean = false;
   public isAttendantScreenReady: boolean = false
   public isAttendantArrayEmpty: boolean = true
+  public hasInternetConnectionError!: boolean;
   public userRole: string = 'Attendant'
   public attendants!: Array<Attendant>
   public currentAttendant!: Attendant
@@ -42,12 +43,11 @@ export class AdminComponent implements OnInit {
             if(attendants.length > 0){
               this.attendants = attendants
               this.setCurrentAttendant(attendants[0])
-              this.isAttendantArrayEmpty = false
-              
+              this.isAttendantArrayEmpty = false       
             }
             else this.isAttendantArrayEmpty = true
           },
-         error: (err) => console.log(err.message)
+         error: (err) => this.hasInternetConnectionError = true
        })
   }
 

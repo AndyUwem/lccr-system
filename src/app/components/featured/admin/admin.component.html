@@ -159,7 +159,7 @@
   </ng-template>
 
   <ng-template #isLoading>
-    <app-loading></app-loading>
+    <app-loading [isInternetError]="hasInternetConnectionError"></app-loading>
   </ng-template>
   
   <ng-template #noData>

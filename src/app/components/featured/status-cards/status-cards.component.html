@@ -1,6 +1,6 @@
 
 <div *ngIf="isLoading; else statusCardsComponent">
- <app-loading></app-loading>
+ <app-loading [isInternetError]="hasInternetConnectionError"></app-loading>
 </div>
 
 <ng-template #statusCardsComponent>

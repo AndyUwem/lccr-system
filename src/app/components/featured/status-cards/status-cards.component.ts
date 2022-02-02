@@ -17,8 +17,9 @@ type StatusCardData = {
   styleUrls: ['./status-cards.component.css'],
 })
 export class StatusCardsComponent implements OnInit {
-  public statusCards: Array<{ header: string; value: string }> = [];
   public isLoading: boolean = true;
+  public hasInternetConnectionError!: boolean;
+  public statusCards: Array<{ header: string; value: string }> = [];
   public completedCloths = { clothsCompleted: 0, totalCloths: 0 };
 
   constructor(
@@ -36,26 +37,29 @@ export class StatusCardsComponent implements OnInit {
         const { totalSales, totalCloths, inProgress } = statusCardData;
         this.customerService
           .findAll(this.authService.getAdminId)
-          .subscribe((customer: Array<Customer>) => {
-            const statusCards = [
-              { header: 'Customers', value: customer.length + '' },
-              { header: 'Total Cloths', value: totalCloths + '' },
-              {
-                header: 'In Progress',
-                value: `${inProgress + ''} / ${totalCloths + ''}`,
-              },
-              {
-                header: 'Total Sales',
-                value: this.formatNumberToCurrency(totalSales),
-              },
-            ];
-
-            this.statusCards.push(...statusCards);
-            this.completedCloths.totalCloths = totalCloths;
-            this.completedCloths.clothsCompleted = totalCloths - inProgress;
+          .subscribe({
+             next: (customer: Array<Customer>) => {
+              const statusCards = [
+                { header: 'Customers', value: customer.length + '' },
+                { header: 'Total Cloths', value: totalCloths + '' },
+                {
+                  header: 'In Progress',
+                  value: `${inProgress + ''} / ${totalCloths + ''}`,
+                },
+                {
+                  header: 'Total Sales',
+                  value: this.formatNumberToCurrency(totalSales),
+                },
+              ];
+  
+              this.statusCards.push(...statusCards);
+              this.completedCloths.totalCloths = totalCloths;
+              this.completedCloths.clothsCompleted = totalCloths - inProgress;
+            },
+             error: (err) => console.log(err)
           });
       })
-      .catch((err: Error) => console.log(err.message));
+      .catch((err) => console.log(err));
   }
 
   private handleStatusCardUpdate(): Promise<StatusCardData> {
@@ -69,18 +73,22 @@ export class StatusCardsComponent implements OnInit {
 
       this.customerService
         .findAll(this.authService.getAdminId)
-        .subscribe((customers: Array<Customer>) => {
-          customers.forEach((customer: Customer) => {
-            customer.payments.forEach((payment: Payment) =>
-              statusCardData.payments.push(parseInt(payment.amountPaid + ''))
-            );
-            statusCardData.totalCloths += customer.cloth.length;
+        .subscribe({
+          next: (customers: Array<Customer>) => {
+            customers.forEach((customer: Customer) => {
+              customer.payments.forEach((payment: Payment) =>
+                statusCardData.payments.push(parseInt(payment.amountPaid + ''))
+              );
+              statusCardData.totalCloths += customer.cloth.length;
+  
+              statusCardData.inProgress += this.getInProgressCounts(
+                customer.cloth
+              );
+            });
+            getTotalSales();
+          },
 
-            statusCardData.inProgress += this.getInProgressCounts(
-              customer.cloth
-            );
-          });
-          getTotalSales();
+          error: () => this.hasInternetConnectionError = true
         });
 
       const getTotalSales = (): void => {
@@ -89,11 +97,7 @@ export class StatusCardsComponent implements OnInit {
         }
         this.isLoading = false;
         resolve(statusCardData);
-        reject(
-          new Error(
-            'handleStatusCardUpdate promise was unable to calculate resolve'
-          )
-        );
+        reject({message: 'error getting data!!'});
       };
     });
   }

@@ -10,12 +10,13 @@ import { AuthService } from '../accounts/authentication/auth.service';
 })
 
 export class CustomersComponent implements OnInit {
+  public isAdmin: boolean = false;
+  public isLoading: boolean = true;
+  public hasInternetConnectionError!: boolean;
   public customers: Array<Customer> = [];
   public searchTerm: string = '';
   public selectFilterBy: string = 'names';
   public searchFieldPlaceHolder: string = '';
-  public isAdmin: boolean = false;
-  public isLoading: boolean = true
 
   constructor(
     private customerService: CustomerService,
@@ -36,7 +37,7 @@ export class CustomersComponent implements OnInit {
           this.customers = response
           this.isLoading = false
         },
-        error: (err) => console.log(err.message)
+        error: () => this.hasInternetConnectionError = true
       });
   }
 

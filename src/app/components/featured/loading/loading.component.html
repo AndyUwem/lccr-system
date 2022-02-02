@@ -1,5 +1,12 @@
-<div class="text-center">
+<div class="text-center" *ngIf="!isInternetError; else networkErrorScreen">
     <div class="spinner-grow text-info" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
 </div>
+
+<ng-template #networkErrorScreen>
+  <h2><i class="fa fa-exclamation-triangle" style="font-size:48px;color:rgb(228, 221, 14)"></i></h2>
+  <h5 class="card-title">Check Your Connection</h5>
+  <h6 class="card-subtitle mb-2 text-muted">You don't seem to have active internet connection</h6>
+</ng-template>
+

@@ -39,7 +39,7 @@
       </thead>
       
        <tbody *ngIf="isLoading">
-        <app-loading></app-loading>
+        <app-loading [isInternetError]="hasInternetConnectionError"></app-loading>
        </tbody>
 
       <tbody
