@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admin } from 'src/app/entities/admin.entity';
@@ -26,6 +27,7 @@ export class UserRegisterComponent implements OnInit {
   @Output('backToLoginScreen') backToLoginScreen = new EventEmitter<boolean>();
   @Input('userRole') userRole!: string;
   public userAccount!: any;
+  public isFormSubmitted: boolean = false;
   
 
   constructor(
@@ -45,7 +47,11 @@ export class UserRegisterComponent implements OnInit {
     this.userRegisterForm = new FormGroup({
       names: this.fb.control('', [Validators.required]),
       age: this.fb.control('', [Validators.required]),
-      phone: this.fb.control('', [Validators.required]),
+      phone: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(11)
+      ]),
       gender: this.fb.control('', [Validators.required]),
       dateRegistered: this.fb.control({
         value: new Date().toUTCString(),
@@ -61,54 +67,18 @@ export class UserRegisterComponent implements OnInit {
     });
   }
 
-  get names(): FormControl {
-    return this.userRegisterForm.get('names') as FormControl;
+
+  public get f (): {[ key: string ]: AbstractControl} {
+    return this.userRegisterForm.controls;
   }
 
-  get age(): FormControl {
-    return this.userRegisterForm.get('age') as FormControl;
-  }
 
-  get phone(): FormControl {
-    return this.userRegisterForm.get('phone') as FormControl;
-  }
 
-  get gender(): FormControl {
-    return this.userRegisterForm.get('gender') as FormControl;
-  }
-
-  get dateRegistered(): FormControl {
-    return this.userRegisterForm.get('dateRegistered') as FormControl;
-  }
-
-  get address(): FormControl {
-    return this.userRegisterForm.get('address') as FormControl;
-  }
-
-  get role(): FormControl {
-    return this.userRegisterForm.get('role') as FormControl;
-  }
-
-  get companyName(): FormControl {
-    return this.userRegisterForm.get('companyName') as FormControl;
-  }
-
-  get companyImage(): FormControl {
-    return this.userRegisterForm.get('companyImage') as FormControl;
-  }
-
-  get email(): FormControl {
-    return this.userRegisterForm.get('email') as FormControl;
-  }
-
-  get password(): FormControl {
-    return this.userRegisterForm.get('password') as FormControl;
-  }
 
   private getUserEmailAndPassword(): LoginData {
     const userAccounts: LoginData = {
-      email: this.email?.value,
-      password: this.password?.value,
+      email: this.f['email'].value,
+      password: this.f['password'].value,
     };
     return userAccounts;
   }
@@ -126,12 +96,32 @@ export class UserRegisterComponent implements OnInit {
   }
 
 
-  registerUser(): void {
-    this.isLoading = true;
+private isFormValidated(): boolean {
+  this.isLoading = true;
+  this.isFormSubmitted = true;
 
-    this.authService
-      .setUserFirebaseLogin(this.getUserEmailAndPassword())
-      .then((userAccount: any) => {
+  if(!this.isAdmin){
+    const user = JSON.parse(this.authService.getUserRef())
+    this.userRegisterForm.patchValue({
+      companyName: user.companyName,
+      companyImage: user.companyImage,
+    })
+  }
+
+  if(this.userRegisterForm.invalid){
+    this.isLoading = false
+    return false;
+  }
+
+     return true;
+}
+
+
+  registerUser(): void {
+     if(this.isFormValidated())
+         this.authService
+        .setUserFirebaseLogin(this.getUserEmailAndPassword())
+        .then((userAccount: any) => {
         this.userAccount = userAccount;
         this.handleUserRegistration()
       })
@@ -139,8 +129,10 @@ export class UserRegisterComponent implements OnInit {
         this.isLoading = false
         console.log(err.message)
       });
+     
   }
 
+  
   private handleUserRegistration(): void {
     if (this.isAdmin) {
       const admin = this.handleUserBuilder();
@@ -180,9 +172,6 @@ export class UserRegisterComponent implements OnInit {
       .catch((err) => console.log(err.code));
   }
 
-  tshoot(): void {
-    console.log(this.handleUserBuilder())
-  }
 
   private handleUserBuilder(): any {
      const newUserId: string = this.userAccount.user.auth.currentUser.uid;
@@ -190,15 +179,15 @@ export class UserRegisterComponent implements OnInit {
     if(this.isAdmin){
       const admin = new Admin();
       admin.setId(newUserId);
-      admin.setNames(this.names?.value);
-      admin.setAge(this.age?.value);
-      admin.setPhone(this.phone?.value);
-      admin.setGender(this.gender?.value);
-      admin.setAdress(this.address?.value);
-      admin.setDateRegistered(this.dateRegistered?.value);
-      admin.setUserRole(this.role?.value);
-      admin.setCompanyName(this.companyName?.value);
-      admin.setCompanyIamge(this.companyImage?.value);
+      admin.setNames(this.f['names'].value);
+      admin.setAge(this.f['age'].value);
+      admin.setPhone(this.f['phone'].value);
+      admin.setGender(this.f['gender'].value);
+      admin.setAdress(this.f['address'].value);
+      admin.setDateRegistered(this.f['dateRegistered'].value);
+      admin.setUserRole(this.f['role'].value);
+      admin.setCompanyName(this.f['companyName'].value);
+      admin.setCompanyIamge(this.f['companyImage'].value);
       admin.setUserAccount(this.getUserEmailAndPassword());
 
       return admin;
@@ -208,13 +197,13 @@ export class UserRegisterComponent implements OnInit {
       const attendant = new Attendant();
       attendant.setId(newUserId)
       attendant.setEmployerId(this.authService.getAdminId);
-      attendant.setNames(this.names?.value);
-      attendant.setAge(this.age?.value);
-      attendant.setPhone(this.phone?.value);
-      attendant.setGender(this.gender?.value);
-      attendant.setAdress(this.address?.value);
-      attendant.setDateRegistered(this.dateRegistered?.value);
-      attendant.setUserRole(this.role?.value);
+      attendant.setNames(this.f['names'].value);
+      attendant.setAge(Number(this.f['age'].value));
+      attendant.setPhone(Number(this.f['phone'].value));
+      attendant.setGender(this.f['gender'].value);
+      attendant.setAdress(this.f['address'].value);
+      attendant.setDateRegistered(this.f['dateRegistered'].value);
+      attendant.setUserRole(this.f['role'].value);
       attendant.setUserAccount(this.getUserEmailAndPassword()); 
       
       return attendant;

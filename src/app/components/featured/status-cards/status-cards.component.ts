@@ -97,7 +97,7 @@ export class StatusCardsComponent implements OnInit {
         }
         this.isLoading = false;
         resolve(statusCardData);
-        reject({message: 'error getting data!!'});
+        reject(new Error('connot resolve promise'));
       };
     });
   }

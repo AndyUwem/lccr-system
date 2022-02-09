@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Attendant } from 'src/app/interface/attendant.interface';
@@ -13,7 +13,7 @@ import { AuthService } from '../authentication/auth.service';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css'],
 })
-export class UserLoginComponent implements OnInit, OnDestroy {
+export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private currentUser: any;
 
@@ -23,6 +23,8 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   public loginType!: string;
   public isRegisterUser: boolean = false;
   public userRole: string = 'Administrator';
+  public isLoading: boolean = false
+  @ViewChild('serverValidationFeedback') serverValidationFeedbackRef!: ElementRef;
 
   constructor(
     private router: Router,
@@ -36,7 +38,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     this.initializeLoginType();
     this.initializeLoginForm();
     this.onUserLoggedInCheck();
-    this.getSelectedLoginType();
+    this.onLoginTypeChange();
+  }
+
+  ngAfterViewInit(): void {
+      this.hideServerErrorText(true)
   }
 
   private initializeLoginType(): void {
@@ -74,27 +80,49 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/dashboard']);
   }
 
-  public getSelectedLoginType(): void {
-    if (this.loginType === this.arrayOfLoginTypes[0]) this.isAdmin = true;
-    else this.isAdmin = false;
+  private hideServerErrorText(booleanEventProperty: boolean): void{
+    this.serverValidationFeedbackRef.nativeElement.hidden = booleanEventProperty;
   }
 
+  public onLoginTypeChange(): void {
+    if (this.loginType === this.arrayOfLoginTypes[0]) {
+      this.isAdmin = true;
+      this.loginForm.patchValue({
+        administratorID: this.arrayOfLoginTypes[0]
+      })
+    }
+    else {
+      this.isAdmin = false;
+      this.loginForm.patchValue({
+        administratorID: ''
+      })
+    }
+  }
+
+  
   public navigateToRegisterPage(): void {
     this.isRegisterUser = true;
   }
 
-  public navigateBackToLoginPage(booleanEventValue: any): void {
-    this.isRegisterUser = booleanEventValue;
+  public navigateBackToLoginPage(booleanEventProperty: any): void {
+    this.isRegisterUser = booleanEventProperty;
   }
 
   private loginUser(): void {
-    this.authService
+     this.isLoading = true;
+     this.hideServerErrorText(true)
+     
+     this.authService
       .logInUser(this.getUserInfo())
       .then((responseData: any) => {
         this.currentUser = responseData.user.auth.currentUser;
         this.getUser();
       })
-      .catch((e: Error) => console.log(e.message));
+      .catch((e) => {
+        console.log(e.code)
+        this.isLoading = false
+        this.hideServerErrorText(false)
+      });
   }
 
   private getUser(): void {
@@ -123,10 +151,14 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     if(user !== null){
       this.authService.setUserToken(this.currentUser.accessToken);
       this.authService.setUserREf(user);
+      this.isLoading = false;
       this.navigateToHome();
      }
-     else
-       console.log('sorry this user does not exist')
+     else{
+       this.hideServerErrorText(false)
+       this.isLoading = false;
+     }
+       
   }
 
   ngOnDestroy(): void {

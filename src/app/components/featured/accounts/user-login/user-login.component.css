@@ -84,9 +84,9 @@ select{
   color: #e1e1e1;
 }
 
-span{
+/* span{
   margin-left: 4rem;
-}
+} */
 
 a{
   color: var(--background-color-primary);

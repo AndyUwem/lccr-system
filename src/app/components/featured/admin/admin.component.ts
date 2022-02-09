@@ -65,7 +65,7 @@ export class AdminComponent implements OnInit {
            this.getAttendants();
            console.log('deleted sucessfully!')
          },
-         error: (err) => console.log('Uncsucessfull could not delete attendant: ', err.message)
+         error: (err) => console.log('Unsucessfull could not delete attendant: ', err.message)
        })
 
        

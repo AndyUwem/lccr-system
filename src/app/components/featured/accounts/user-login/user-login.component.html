@@ -10,39 +10,22 @@
             <p class="card-title bottom-spacer" style="font-size: 20px;">Register a free Laundry records account here.</p>
             <p class="card-text bottom-spacer">
 
-              Learn Error handling in Angular 13, we will take the best approach with RxJS catchError operator and
-              HttpInterceptor to handle client-side errors gracefully.
-              
-              A proper Error handling makes an application most helpful for users from the user experience aspect, error
-              handlers report a user correctly what causing the problem. It also notifies developers in the development
-              phase about the error reason, which assists them to fix it before it goes live.
-
-              These days new technologies are growing faster than ever. This competition is all about making a piece of
-              software better for users be it a final user, product owner or a developer who is building it from
-              scratch. Due to this, user experiences became the trend.
-
-
-              Angular 12 Error Handling Example
-              There are two types of errors which might occur in an application, inside errors and outside errors.
-
-              Outside Errors: These errors often occur from the server-side and usually starts with (5xxx) status code.
-              These errors return the error message with the proper reason so identifying these errors is easy.
-
-
-              Inside Error: When something unexpected happens, then these errors are thrown. These errors occur with the
-              proper message, which contains the reason for the error occurrence.
-
-              Here is the complete List of HTTP status codes.
-
-              .</p>
+              Laundry records system is a laundry database management software that makes it easy for a dry cleaning service to monitor their attendants and customers activities,
+              it was highly designed for keeping track of customers and thier cloths information such as when a customer was registered, their orders, how much was paid and to which cloth (s)
+               was paid for. 
+               With laundry records system it is easy to record your laundry transactions instead of putting notes or records on books, as the business owner or (Administrator) you can access every activities of your busniness
+               the system aslo features a debt reminder system that reminds you of a customer's debt if that particular is owing or having any pending balance to be made,
+               it improves and establishes an excellent connection with potential customers.
+               customers datas are safe and stored for as long as eternity.
+              </p>
               <div class="col-12">
                 <button (click)="navigateToRegisterPage()"
-                class="site-primary-Button1 bottom-spacer" type="submit">Register</button>
+                class="site-primary-Button2 bottom-spacer" type="submit">Register</button>
               </div>
 
           </div>
           <div class="card-footer">
-            <small class="text-muted">Last updated today jan 23</small>
+            <!-- <small class="text-muted">Last updated today jan 23</small> -->
           </div>
 
         </div>
@@ -51,13 +34,13 @@
         <div class="card no-border site-background-green" style="width: 30%;">
           <div class="card-body">
             <div class="login-container">
-              <div class="card card-login site-background-green">
+              <div class="card card-login">
                 <div class="card-body">
 
                   <div class="row row-cols-lg-auto g-3 align-items-center bottom-spacer" style="display: flex; justify-content: flex-end;">
                     <label class="visually" for="inlineFormSelectPref">Login As: </label>
                     <div class="col-12">
-                      <select [(ngModel)]="loginType" name="loginType" (change)="getSelectedLoginType()"
+                      <select [(ngModel)]="loginType" name="loginType" (change)="onLoginTypeChange()"
                         class="form-select" id="inlineFormSelectPref">
                         <option *ngFor="let loginType of arrayOfLoginTypes"
                          [ngValue]="loginType">{{ loginType }}</option>
@@ -68,10 +51,10 @@
                 <br>
 
                 <div>
-                  <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="validateLogin()">
+                  <form class="row g-3 " [formGroup]="loginForm" (ngSubmit)="validateLogin()">
                     <h3 class="card-title">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
                     <div class="mb-3">
-                      <label for="validationServer01" class="form-label"> {{ isAdmin ? 'Administrator Email': 'Attendant Email'}}</label>
+                      <label for="validationServer01" class="form-label">Email</label>
                       <input type="text" class="form-control" id="validationServer01" formControlName='email'>
                     </div>
 
@@ -85,19 +68,27 @@
                       <input type="text" class="form-control" id="validationServer02" formControlName='administratorID'>      
                     </div>
 
+                    <p #serverValidationFeedback id="serverValidationFeedback" style="color: red;">
+                      
+                      {{ isAdmin ? 'Incorrect email or password.': 'Incorrect email, password or referenceID'}}
+                    </p>
+
                     <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" id="inlineFormCheck">
                         <label class="form-check-label" for="inlineFormCheck">
                           Remember me
                         </label>
-                        <span> <a href="javascript:void()">forget password?</a> </span>
+                        <!-- <span> <a href="javascript:void()">forget password?</a> </span> -->
                       </div>
                     </div>
 
-
                     <div class="col-12">      
-                      <button [disabled]="loginForm.invalid" class="site-primary-Button2 bottom-spacer" type="submit">Login</button>
+                      <button [disabled]="loginForm.invalid" class="site-primary-Button2" type="submit">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                       <span> {{ isLoading ? 'Processing' : 'Login'}}</span>
+                        </button>
+                         
                     </div>
                   </form>
                 </div>
@@ -108,7 +99,7 @@
 
           </div>
           <div class="card-footer">
-            <small class="site-secondary-color">have any problem tyring to login as attendant? contact your employer asap!</small>
+            <small class="site-secondary-color">having problems tyring to login as attendant? contact your employer asap!</small>
           </div>
         </div>
       </div>

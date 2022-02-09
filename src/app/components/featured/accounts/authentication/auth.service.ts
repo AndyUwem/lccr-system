@@ -7,10 +7,15 @@ import {
 } from '@angular/fire/auth';
 import { LoginData } from 'src/app/interface/login-data.interface';
 import { HttpClient } from '@angular/common/http';
+import { Attendant } from 'src/app/interface/attendant.interface';
+import { User } from 'src/app/interface/user.interface';
 
+type anyUser = Attendant | User | any;
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class AuthService {
   constructor(
       private angularFireAuth: Auth, 

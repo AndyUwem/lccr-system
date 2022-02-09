@@ -9,6 +9,7 @@
   max-width: 18rem;
  text-align: center;
  font-weight: bold;
+ color: var(--background-color-secondary) !important;
 }
 
 .clothsInprogress{

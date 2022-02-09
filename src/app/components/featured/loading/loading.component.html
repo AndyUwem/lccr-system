@@ -7,6 +7,10 @@
 <ng-template #networkErrorScreen>
   <h2><i class="fa fa-exclamation-triangle" style="font-size:48px;color:rgb(228, 221, 14)"></i></h2>
   <h5 class="card-title">Check Your Connection</h5>
-  <h6 class="card-subtitle mb-2 text-muted">You don't seem to have active internet connection</h6>
+  <h6 class="card-subtitle mb-2 text-muted">You don't seem to have active internet connection 
+  <button class="btn btn-outline-light" (click)="reload()" style="font-size: 15px; margin: 0px 4px; color: #000;">
+     <i class="fa fa-refresh icons"></i> Refresh</button>
+    
+  </h6>
 </ng-template>
 

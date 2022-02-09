@@ -5,55 +5,121 @@
         <div class="row">
     
           <div class="col-8">
-              <form class="card-body row g-3" [formGroup]="userRegisterForm">
+              <form class="card-body row g-3" 
+              (ngSubmit)="registerUser()"
+              [formGroup]="userRegisterForm">
                 
                 <!-- user register form -->
                 <div class="col-md-6">
                   <label for="validationServer01" class="form-label">Names</label>
-                  <input type="text" class="form-control"  
-                    id="validationServer01" 
+                  <input 
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['names'].errors}"
+                    type="text" class="form-control"  
+                    id="validationServer01" aria-describedby="validationServer03Feedback"
                     formControlName="names">
+
+                    <div *ngIf="this.isFormSubmitted && this.f['names'].errors">
+                    <div *ngIf="f['names'].errors['required']"
+                     id="validationServer03Feedback" 
+                     class="invalid-input">
+                      Attendant names are required.
+                    </div>
+
+                  </div>
+
                 </div>
     
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="validationServer01" class="form-label">Age</label>
-                    <input type="text" class="form-control"  
+                    <input 
+                      [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['age'].errors}"
+                      type="text" class="form-control"  
                       id="validationServer01" 
                       formControlName="age">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['age'].errors">
+                        <div *ngIf="f['age'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                          Attendant must an age.
+                        </div>
+                      </div>
+
                   </div>
 
                   <div class="col-md-6">
                     <label for="validationServer01" class="form-label">Phone</label>
-                    <input type="text" class="form-control"  
+                    <input 
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['phone'].errors}"
+                    type="text" class="form-control"  
                       id="validationServer01" 
                       formControlName="phone">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['phone'].errors">
+                        <div *ngIf="f['phone'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                           phone numbers is required.
+                        </div>
+                        <div *ngIf="f['phone'].errors['minlength']"
+                        id="validationServer03Feedback" 
+                        class="invalid-input">
+                           phone number must be mininum {{ f['phone'].errors['minlength'].requiredLength }} digits.
+                       </div>
+                       <div *ngIf="f['phone'].errors['maxLength']"
+                       id="validationServer03Feedback" 
+                       class="invalid-input">
+                          phone number must be maximum {{ f['phone'].errors['maxlength'].requiredLength }} digits.
+                      </div>
+                      </div>
+
                   </div>
 
                 <div class="col-md-6">
                   <label for="validationServerUsername" class="form-label">Address</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                    <input type="text" 
+                    <input
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['address'].errors}" 
+                    type="text" 
                      class="form-control" id="validationServerUsername" 
                      aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" formControlName="address">
     
-                  </div>
+                     <div *ngIf="this.isFormSubmitted && this.f['address'].errors">
+                      <div *ngIf="f['address'].errors['required']"
+                       id="validationServer03Feedback" 
+                       class="invalid-input">
+                         Address is required.
+                      </div>
+                    </div>
+
+                
                 </div>
     
                 <div class="col-md-6">
                   <label for="validationServer03" class="form-label">Registered Date</label>
                   <input type="button" class="form-control"
                    id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="dateRegistered">
+
                 </div>
     
                 <div class="col-md-4">
                   <label for="validationServer04" class="form-label">Gender</label>
-                  <select class="form-select"
+                  <select 
+                  [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['gender'].errors}" 
+                  class="form-select"
                   id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="gender">
                     <option selected disabled value="">Choose...</option>
                     <option>Male</option>
                     <option>Female</option>
                   </select>
+
+                  <div *ngIf="this.isFormSubmitted && this.f['gender'].errors">
+                    <div *ngIf="f['gender'].errors['required']"
+                     id="validationServer03Feedback" 
+                     class="invalid-input">
+                      Select a gender.
+                    </div>
+                  </div>
+
                 </div>
             
      
@@ -67,17 +133,39 @@
 
                   <div class="col-md-6" *ngIf="isAdmin">
                     <label for="validationServer01" class="form-label">Company Name</label>
-                    <input type="text" class="form-control"  
+                    <input
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['companyName'].errors}" 
+                     type="text" class="form-control"  
                       id="validationServer01" 
                       formControlName="companyName">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['companyName'].errors">
+                        <div *ngIf="f['companyName'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                          Enter your company name.
+                        </div>
+                      </div>
+
                   </div>
 
                   <div class="col-md-6" *ngIf="isAdmin">
                     <label for="validationServer01" class="form-label">Company Image</label>
-                    <input (change)="onImageValueChange($event)"
+                    <input
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['companyImage'].errors}" 
+                     (change)="onImageValueChange($event)"
                       type="file" class="form-control"  
                       id="validationServer01" 
                       formControlName="companyImage">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['companyImage'].errors">
+                        <div *ngIf="f['companyImage'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                          choose your company image.
+                        </div>
+                      </div>
+
                   </div>
               
 
@@ -87,20 +175,56 @@
                   
                   <div class="col-md-6">
                     <label for="validationServer01" class="form-label">Email</label>
-                    <input type="text" class="form-control"  
+                    <input
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['email'].errors}" 
+                      type="text" class="form-control"  
                       id="validationServer01" 
                       formControlName="email">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['email'].errors">
+                        <div *ngIf="f['email'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                          Email is required.
+                        </div>
+                        <div *ngIf="f['email'].errors['email']"
+                        id="validationServer03Feedback" 
+                        class="invalid-input">
+                         Enter a valid email.
+                       </div>
+
+                      </div>
+
                   </div>
 
                   <div class="col-md-6">
                     <label for="validationServer01" class="form-label">Password</label>
-                    <input type="password" class="form-control"  
+                    <input
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['password'].errors}" 
+                     type="password" class="form-control"  
                       id="validationServer01" 
                       formControlName="password">
+
+                      <div *ngIf="this.isFormSubmitted && this.f['password'].errors">
+                        <div *ngIf="f['password'].errors['required']"
+                         id="validationServer03Feedback" 
+                         class="invalid-input">
+                         Password is required.
+                        </div>
+                      </div>
                   </div>
                 <!-- user register form -->
   
-    
+                <button
+                class="site-primary-Button1" type="submit">       
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
+              </button>
+
+              <button (click)="cancelUserRegistration()"
+              class="btn btn-danger btn-sm">
+              <i class="fa fa-times-circle-o"> Cancel</i>
+             </button>
                 </form>
           
           </div>
@@ -108,20 +232,14 @@
         
           <div>
 
-           <button (click)="registerUser()"
-           class="site-primary-Button1" type="button">       
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
-          </button>
+          
 
           
-             <button (click)="cancelUserRegistration()"
-             class="btn btn-danger btn-sm fit-content-width">
-             <i class="fa fa-times-circle-o"> Cancel</i>
-            </button>
-            
-            <button (click)="tshoot()">tshoot</button>
+           
 
+            <!-- <button (click)="tshoot()">
+            <i class="fa fa-times-circle-o"> tshoot</i>
+           </button> -->
             
           </div>
     
@@ -132,23 +250,3 @@
     
 
     <!-- create new user modal -->
-    <!-- Button trigger modal -->
-
-<!-- Modal -->
-
-
-<!-- <div *ngIf="isLoading" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; margin: 40px auto;">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
- <!-- create new user modal -->
