@@ -26,6 +26,9 @@
     color: #fff;
 }
 
+.text-danger{
+    color: red;
+}
 
 .container-margin{
     margin: 10px;

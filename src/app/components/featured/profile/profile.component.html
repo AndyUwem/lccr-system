@@ -8,11 +8,11 @@
       <div class="col-md-8">
         <div class="card-body">
           <h3 class="card-title"> {{ currentAttendant.names | uppercase }}</h3>
+          <p *ngIf="isUserAdministrator" class="card-text"><code class="text-muted"><b>ID</b>: {{ currentAttendant.id }}</code></p>
           <p class="card-text"><code class="text-muted"><b>Age</b>: {{ currentAttendant.age }}</code></p>
           <p class="card-text"><code class="text-muted"><b>Gender</b>: {{ currentAttendant.gender }}</code></p>
           <p class="card-text"><code class="text-muted"><b>Phone</b>: {{ currentAttendant.phone }}</code></p>
           <p class="card-text"><code class="text-muted"><b>Address</b>: {{ currentAttendant.address }}</code></p>
-          <p class="card-text"><code class="text-muted"><b>Address</b>: {{ currentAttendant.id }}</code></p>
           <p class="card-text"><code class="text-muted"><b>DateRegistered</b>: {{ currentAttendant.dateRegistered | date }}</code></p>
   
           <ng-container *ngIf="isUserAdministrator">

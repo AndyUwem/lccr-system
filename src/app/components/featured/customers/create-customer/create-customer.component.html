@@ -20,50 +20,45 @@
                   
                   <!-- test -->
                   <div class="col-md-6">
-                    <label for="validationServer01" class="form-label">Names</label>
+                    <label for="validationServer01" class="form-label">Names</label> 
                     <input type="text" class="form-control"  
-                      [class.is-invalid]="setValidationFor('names')" 
+                      [class.is-invalid]="f['names'].invalid && f['names'].touched" 
                       id="validationServer01" value="Mark" formControlName="names">
       
-                     <div *ngIf="setValidationFor('names')">
-                      <div *ngIf="names?.errors?.['required']" style="color: red;">
-                        Please provide customer names.
-                      </div>
+                     <div *ngIf="f['names'].touched && f['names'].invalid" class="text-danger">
+                      Names is required.
                      </div>
       
                   </div>
       
                   <div class="col-md-6">
                     <label for="validationServer02" class="form-label">Phone</label>
-                    <input type="text" [class.is-invalid]="setValidationFor('phone')" 
+                    <input type="text" 
+                    [class.is-invalid]="f['phone'].invalid && f['phone'].touched"   
                      class="form-control" 
                      id="validationServer02" formControlName="phone">
       
-                    <div *ngIf="setValidationFor('phone')">
-                      <div *ngIf="phone?.errors?.['required']" style="color: red;">
-                        Please provide a valid phone number.
-                      </div>
+                      <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-danger">
+                        Phone is required.
                      </div>
       
                   </div>
       
+      
                   <div class="col-md-6">
-                    <label for="validationServerUsername" class="form-label">Address</label>
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                      <input type="text" [class.is-invalid]="setValidationFor('address')" 
-                       class="form-control" id="validationServerUsername" 
-                       aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" formControlName="address">
+                    <label for="validationServer02" class="form-label">Address</label>
+                    <input type="text" 
+                    [class.is-invalid]="f['address'].invalid && f['address'].touched"   
+                     class="form-control" 
+                     id="validationServer02" formControlName="address">
       
-                       <div *ngIf="setValidationFor('address')">
-                        <div *ngIf="address?.errors?.['required']" style="color: red;">
-                          Please provide an address for this customer.
-                        </div>
-                       </div>
+                      <div *ngIf="f['address'].touched && f['address'].invalid" class="text-danger">
+                        Address is required.
+                     </div>
       
-                    </div>
                   </div>
-      
+
+
                   <div class="col-md-6">
                     <label for="validationServer03" class="form-label">Registered Date</label>
                     <input type="button" class="form-control"
@@ -72,23 +67,27 @@
       
                   <div class="col-md-4">
                     <label for="validationServer04" class="form-label">gender</label>
-                    <select class="form-select"  [class.is-invalid]="setValidationFor('gender')" 
+                    <select class="form-select" 
+                    [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
                     id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="gender">
                       <option selected disabled value="">Choose...</option>
                       <option>Male</option>
                       <option>Female</option>
                     </select>
       
-                    <div *ngIf="setValidationFor('gender')">
-                      <div *ngIf="gender?.errors?.['required']" style="color: red;" >
+                   
+                      <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger" >
                         Please select a valid gender.
                       </div>
-                     </div>
+                
                   </div>
               
                 
                   <!-- test -->
-                  <div class="newClothBtn">
+                  <div class="newClothBtn"> 
+                    <span *ngIf="!getClothsLength"
+                     class="text-danger">Note: you must add one or more cloths to proceed..</span>
+                    <br>
                     <button class="btn btn-secondary" (click)="handleNewCloths()">
                        {{ getClothsLength ? "Add more cloths" : "New cloth" }}
                       </button>
@@ -116,92 +115,107 @@
                     <div class="col-md-6">
                       <label for="validationServer02" class="form-label">Cloth Name</label>
                       <input type="text" 
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
                        class="form-control" 
-                       id="validationServer02" value="Otto" formControlName="clothName">
+                       id="validationServer02" formControlName="clothName">
         
-                      <div *ngIf="setValidationFor('phone')">
-                        <div *ngIf="phone?.errors?.['required']" style="color: red;">
-                          Please provide a valid name for this cloth or dress.
+                     
+                        <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger">
+                          Name is required.
                         </div>
-                       </div>
+                   
                     </div>
       
-                    
+
                     <div class="col-md-6">
                       <label for="validationServer02" class="form-label">Colour</label>
                       <input type="text" 
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
                        class="form-control" 
-                       id="validationServer02" value="Otto" formControlName="clothColor">
+                       id="validationServer02" formControlName="clothColor">
         
-                      <div *ngIf="setValidationFor('phone')">
-                        <div *ngIf="phone?.errors?.['required']" style="color: red;">
-                          Please provide a valid colour for this cloth or dress.
+                    
+                        <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger">
+                          Colour is required.
                         </div>
-                       </div>
+             
                     </div>
             
                     <div class="col-md-4">
-                      <label for="validationServer04" class="form-label">ClothCategory</label>
+                      <label for="validationServer04" class="form-label">Cloth Category</label>
                       <select class="form-select" 
-                      id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="clothCategory">
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
+                      id="validationServer04" aria-describedby="validationServer04Feedback" 
+                      formControlName="clothCategory">
                         <option selected disabled value="">Choose...</option>
                         <option>Shirt</option>
                         <option>Trouser</option>
                         <option>Other</option>
                       </select>
         
-                      <div *ngIf="setValidationFor('gender')">
-                        <div *ngIf="gender?.errors?.['required']" style="color: red;" >
-                          Please select a valid category.
+                  
+                        <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger" >
+                          Cloth category is required.
                         </div>
-                       </div>
+                
                     </div>
       
       
                     <div class="col-md-4">
-                      <label for="validationServer04" class="form-label">ServiceType</label>
+                      <label for="validationServer04" class="form-label">Service Type</label>
                       <select class="form-select" 
-                      id="validationServer04" aria-describedby="validationServer04Feedback" formControlName="serviceType">
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
+                      id="validationServer04" aria-describedby="validationServer04Feedback" 
+                      formControlName="serviceType">
                         <option selected disabled value="">Choose...</option>
                         <option>Regular</option>
                         <option>Express</option>
                       </select>
         
-                      <div *ngIf="setValidationFor('gender')">
-                        <div *ngIf="gender?.errors?.['required']" style="color: red;" >
-                          Please select a valid serviceType.
+                  
+                        <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger" >
+                          Select a service Type.
                         </div>
-                       </div>
+                   
                     </div>
       
       
                     <div class="col-md-6">
                       <label for="validationServer03" class="form-label">PickUp Date</label>
                       <input type="date" class="form-control"
-                       id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="pickUpDate">
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
+                       id="validationServer03" aria-describedby="validationServer03Feedback" 
+                       formControlName="pickUpDate">
+
+                       <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger">
+                        A pick up date is required.
+                     </div>
+
                     </div>
                     
                     <div class="col-md-6">
                       <label for="validationServer02" class="form-label">Cost</label>
                       <input type="text" 
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
                        class="form-control" 
                        id="validationServer02" placeholder="$ 0.00" formControlName="cost" >
         
 
-                      <div *ngIf="setValidationFor('gender')">
-                        <div *ngIf="gender?.errors?.['required']" style="color: red;">
-                          Please provide a valid cost for this cloth should be a number.
-                        </div>
+                        <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger">
+                          Cost is required.
                        </div>
+
                     </div>
                     
                     <div class="mb-3">
                       <label for="validationTextarea" class="form-label">Description</label>
                       <textarea class="form-control" id="validationTextarea"
+                      [class.is-invalid]="f['gender'].invalid && f['gender'].touched" 
                        placeholder="describe what to do with this cloth eg washing and ironing... starhing etc ." formControlName="description"></textarea>
-                      <div class="invalid-feedback">
-                        Please enter a short description about this cloth in the textarea.
-                      </div>
+                      
+                       <div *ngIf="f['gender'].touched && f['gender'].invalid" class="text-danger">
+                        Write a description fot this cloth.
+                     </div>
                     </div>
 
       
@@ -271,7 +285,7 @@
         <img src="assets/img/confirm-payment.png" class="img-fluid rounded-start profile-pic" alt="...">
       </div>
       <div class="card-footer text-muted">
-        2 days ago
+       This customer has been registered successfully..
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CustomerBuilder } from 'src/app/entities/customer.entity';
@@ -74,16 +74,9 @@ export class CreateCustomerComponent implements OnInit {
 
 
 
-  
-  get names(): FormControl { return this.newCustomerForm.get('names') as FormControl };
-  
-  get phone(): FormControl { return this.newCustomerForm.get('phone') as FormControl };
-  
-  get address(): FormControl { return this.newCustomerForm.get('address') as FormControl };
-  
-  get gender(): FormControl { return this.newCustomerForm.get('gender') as FormControl };
-  
-  get registeredDate() { return this.newCustomerForm.get('registeredDate') as FormControl };
+  public get f(): {[ key: string ]: AbstractControl} 
+     { return this.newCustomerForm.controls; };
+
 
   get cloths(): FormArray { return (this.newCustomerForm.get('cloths') as FormArray) };
 
@@ -98,13 +91,7 @@ export class CreateCustomerComponent implements OnInit {
      return customerCloths
   }
 
-
-  public setValidationFor(formControl: string) {
-    return (this.newCustomerForm.get(formControl)?.invalid &&
-      (this.newCustomerForm.get(formControl)?.dirty || this.newCustomerForm.get(formControl)?.touched))
-  }
-
-  get getClothsLength(): boolean {
+  public get getClothsLength(): boolean {
     return this.customerCloths.length > 0;
   }
 
@@ -132,11 +119,11 @@ export class CreateCustomerComponent implements OnInit {
 
   private createNewCustomer(): void {
     let customer = new CustomerBuilder()
-      .setNames(this.names?.value)
-      .setPhone(this.phone?.value)
-      .setGender(this.gender?.value)
-      .setAdress(this.address?.value)
-      .setDateRegistered(this.registeredDate?.value)
+      .setNames(this.f['names'].value)
+      .setPhone(this.f['phone'].value)
+      .setGender(this.f['gender'].value)
+      .setAdress(this.f['address'].value)
+      .setDateRegistered(this.f['registeredDate'].value)
       .setCloth(this.customerCloths)
       .setPayments([this.newFormPayment])
       .build()
@@ -144,7 +131,7 @@ export class CreateCustomerComponent implements OnInit {
     this.customerService
      .createCustomer( this.authService.getAdminId, customer)
      .subscribe({
-      next: (responseData) => console.log(responseData),
+      next: () => console.log('customer was sucessfully registered..'),
       error: (err) => console.log(err.message)
     })
   }
