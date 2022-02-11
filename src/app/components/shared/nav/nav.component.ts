@@ -11,6 +11,7 @@ export class NavComponent implements OnInit {
 
   public user: any;
   public adminId!: string;
+  public isAdmin!: boolean;
 
   constructor(
     private router: Router,
@@ -18,7 +19,7 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-     this.getUserData()
+     this.handleUserData()
   }
 
   logOutUser(): void {
@@ -27,9 +28,10 @@ export class NavComponent implements OnInit {
   }
 
 
-    private getUserData(): void {
+    private handleUserData(): void {
       this.user = JSON.parse(this.authService.getUserRef())
       this.adminId = this.authService.getAdminId
+      this.isAdmin = this.authService.isUserAdministrator()
     }
 
 

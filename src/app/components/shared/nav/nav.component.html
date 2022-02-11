@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <a class="">
       <img src="assets/img/logo.jpg" class="avater" alt="user avater">
-      {{ user.names }} ({{ user.userRole }}) Your ReferenceID is:<b> {{ adminId }}</b>
+      {{ user.names }} ({{ user.userRole }}) <span *ngIf="isAdmin">Your ReferenceID is:<b> {{ adminId }}</b></span> 
     </a>
     <form class="d-flex">
       <button 
