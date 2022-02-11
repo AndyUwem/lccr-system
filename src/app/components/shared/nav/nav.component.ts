@@ -10,6 +10,7 @@ import { AuthService } from '../../featured/accounts/authentication/auth.service
 export class NavComponent implements OnInit {
 
   public user: any;
+  public adminId!: string;
 
   constructor(
     private router: Router,
@@ -28,6 +29,7 @@ export class NavComponent implements OnInit {
 
     private getUserData(): void {
       this.user = JSON.parse(this.authService.getUserRef())
+      this.adminId = this.authService.getAdminId
     }
 
 
