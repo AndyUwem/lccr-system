@@ -123,14 +123,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <!-- new-cloths modal -->
-          <app-new-cloth></app-new-cloth>
-          <!-- new-cloths modal -->
+          <app-new-cloth (newClothEmitter)="getNewCloth($event)"></app-new-cloth>
       </div>
-      <!-- <div class="modal-footer">
-        <button (click)="saveNewCloth()"  [disabled]="!newClothForm.valid" 
-         type="button" style="width: fit-content;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Save Cloth</button>
-      </div> -->
+      
     </div>
   </div>
 </div>

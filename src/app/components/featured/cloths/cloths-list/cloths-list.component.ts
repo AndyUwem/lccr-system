@@ -94,11 +94,8 @@ export class ClothsListComponent implements OnInit, OnDestroy{
     .subscribe(() => {})
 }
 
-
- 
-
-  public saveNewCloth(): void{
-    this.customer.cloth.push(this.newClothForm.value)
+  public getNewCloth(newCloth: Cloth): void{
+    this.customer.cloth.push(newCloth)
     this.updateCloth(this.customer)
   }
 

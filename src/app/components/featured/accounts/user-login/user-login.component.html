@@ -53,7 +53,7 @@
 
                 <div>
                   <form class="row g-3 " [formGroup]="loginForm" (ngSubmit)="validateLogin()">
-                    <h3 class="card-title">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
+                    <h3 class="card-title" style="color: #fff !important;">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
                     <div class="mb-3">
                       <label for="validationServer01" class="form-label">Email</label>
                       <input type="text" class="form-control" id="validationServer01" formControlName='email'>
@@ -69,7 +69,7 @@
                       <input type="text" class="form-control" id="validationServer02" formControlName='administratorID'>      
                     </div>
 
-                    <p #serverValidationFeedback id="serverValidationFeedback" style="color: red;">
+                    <p #serverValidationFeedback id="serverValidationFeedback" style="color: red !important;">
                       
                       {{ isAdmin ? 'Incorrect email or password.': 'Incorrect email, password or referenceID'}}
                     </p>

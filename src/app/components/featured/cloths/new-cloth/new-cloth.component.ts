@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Cloth } from 'src/app/interface/cloth.interface';
 
 @Component({
   selector: 'app-new-cloth',
@@ -9,13 +10,13 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class NewClothComponent implements OnInit {
 
   public newClothForm!: FormGroup;
+  @Output('newClothEmitter') newClothEmitter = new EventEmitter<Cloth>()
   
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeNewClothForm()
   }
-
 
   private initializeNewClothForm(): void {
     this.newClothForm = this.fb.group({
@@ -36,5 +37,13 @@ export class NewClothComponent implements OnInit {
     return this.newClothForm.controls;
   }
 
+  private sendNewClothToParent(): void {
+    this.newClothEmitter.emit(this.newClothForm.value)
+  }
+
+  public saveNewCloth(): void{
+    if(this.newClothForm.valid)
+      this.sendNewClothToParent()
+  }
 
 }

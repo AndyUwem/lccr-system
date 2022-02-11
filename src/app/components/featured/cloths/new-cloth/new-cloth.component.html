@@ -1,5 +1,6 @@
 
-    <form  style="margin: 0px auto;"
+    <form  (ngSubmit)="saveNewCloth()"
+    style="margin: 0px auto;"
     class="card-body col-6 row"
      [formGroup]="newClothForm">
         <!-- fill Cloth -->
@@ -120,7 +121,10 @@
 
         </div>
         
-        
+        <div class="modal-footer">
+        <button [disabled]="newClothForm.invalid"
+         type="submit" style="width: fit-content;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Save Cloth</button>
+      </div>
 
    <!-- fill Cloth -->
    
