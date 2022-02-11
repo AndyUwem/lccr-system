@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClothStatus } from 'src/app/interface/cloth-status.interface';
 import { Cloth } from 'src/app/interface/cloth.interface';
 import { Customer } from 'src/app/interface/customer.interface';
@@ -28,14 +28,12 @@ export class ClothsListComponent implements OnInit, OnDestroy{
     private clothService: ClothService,
     private customerService: CustomerService,
     private subscriptionService: SubscriptionService,
-    private fb: FormBuilder,
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.getCustomer()
     this.initializeClothStatusForm()
-    this.initializeNewClothForm()
     this.handleOnClothStatusChange()
     this.getUserRole()
   }
@@ -59,10 +57,10 @@ export class ClothsListComponent implements OnInit, OnDestroy{
  }
 
   private initializeClothStatusForm(): void {
-    this.clothStatusEditForm = this.fb.group({
-      deliveryStatus: this.fb.control('', Validators.required),
-      progressStatus: this.fb.control('', Validators.required),
-      pickUpDate: this.fb.control('', Validators.required)
+    this.clothStatusEditForm = new FormGroup({
+      deliveryStatus: new FormControl('', Validators.required),
+      progressStatus: new FormControl('', Validators.required),
+      pickUpDate: new FormControl('', Validators.required)
     })
   }
 
@@ -97,20 +95,7 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 }
 
 
-  private initializeNewClothForm(): void {
-    this.newClothForm = this.fb.group({
-      clothName: this.fb.control('', Validators.required),
-      clothColor: this.fb.control('', Validators.required),
-      clothCategory: this.fb.control('', Validators.required),
-      serviceType: this.fb.control('', Validators.required),
-      clothStatus: this.fb.control('In Progress', Validators.required),
-      deliveryStatus: this.fb.control('Not Delivered', Validators.required),
-      cost: this.fb.control('', Validators.required),
-      pickUpDate: this.fb.control('', Validators.required),
-      clothRegistrationDate: [new Date().toUTCString()],
-      description: this.fb.control('', Validators.required)
-    })
-  }
+ 
 
   public saveNewCloth(): void{
     this.customer.cloth.push(this.newClothForm.value)

@@ -1,9 +1,13 @@
 .profile{
-    padding: 20px;
-    background-color: #e1e1e1;
+    padding: 10px;
+    background-color: var(--background-color-primary);
 }
 .profile-pic{
-  border-radius: 10px;
+  border-radius: 6rem;
+  width: 6rem;
+  height: 6rem;
+  padding: 4px;
+  background-color: var(--background-color-black);
 }
 
 .activity-container{
@@ -21,11 +25,12 @@
 }
 
 b{
-    color: rgb(199, 34, 34);
+    font-size: 15px;
 }
 
-code{
-    color: blue !important;
+
+code,
+h3{
+    color: var(--background-color-secondary) !important;
     font-weight: bold;
 }
-

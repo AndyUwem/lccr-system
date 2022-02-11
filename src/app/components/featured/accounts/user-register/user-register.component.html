@@ -1,10 +1,8 @@
 
- <div class="row g-3">
+ <div
+  style="margin: 0px auto;"
+ class="card-body row col-6">
 
-    <div class="container">
-        <div class="row">
-    
-          <div class="col-8">
               <form class="card-body row g-3" 
               (ngSubmit)="registerUser()"
               [formGroup]="userRegisterForm">
@@ -29,23 +27,7 @@
 
                 </div>
     
-                <div class="col-md-3">
-                    <label for="validationServer01" class="form-label">Age</label>
-                    <input 
-                      [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['age'].errors}"
-                      type="text" class="form-control"  
-                      id="validationServer01" 
-                      formControlName="age">
-
-                      <div *ngIf="this.isFormSubmitted && this.f['age'].errors">
-                        <div *ngIf="f['age'].errors['required']"
-                         id="validationServer03Feedback" 
-                         class="invalid-input">
-                          Attendant must an age.
-                        </div>
-                      </div>
-
-                  </div>
+               
 
                   <div class="col-md-6">
                     <label for="validationServer01" class="form-label">Phone</label>
@@ -75,6 +57,16 @@
 
                   </div>
 
+                  <div class="col-md-6">
+                    <label for="validationServer03" class="form-label">Registered Date</label>
+                    <input type="button" class="form-control"
+                     id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="dateRegistered">
+  
+                  </div>
+
+              
+
+
                 <div class="col-md-6">
                   <label for="validationServerUsername" class="form-label">Address</label>
                     <input
@@ -94,14 +86,25 @@
                 
                 </div>
     
-                <div class="col-md-6">
-                  <label for="validationServer03" class="form-label">Registered Date</label>
-                  <input type="button" class="form-control"
-                   id="validationServer03" aria-describedby="validationServer03Feedback" formControlName="dateRegistered">
+                <div class="col-md-3">
+                  <label for="validationServer01" class="form-label">Age</label>
+                  <input 
+                    [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['age'].errors}"
+                    type="text" class="form-control"  
+                    id="validationServer01" 
+                    formControlName="age">
+
+                    <div *ngIf="this.isFormSubmitted && this.f['age'].errors">
+                      <div *ngIf="f['age'].errors['required']"
+                       id="validationServer03Feedback" 
+                       class="invalid-input">
+                        Attendant must an age.
+                      </div>
+                    </div>
 
                 </div>
     
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="validationServer04" class="form-label">Gender</label>
                   <select 
                   [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['gender'].errors}" 
@@ -123,7 +126,7 @@
                 </div>
             
      
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="validationServer01" class="form-label">Role</label>
                     <input type="text" class="form-control"
                       id="validationServer01"
@@ -177,7 +180,7 @@
                     <label for="validationServer01" class="form-label">Email</label>
                     <input
                     [ngClass]="{'is-invalid': this.isFormSubmitted && this.f['email'].errors}" 
-                      type="text" class="form-control"  
+                      type="email" class="form-control"  
                       id="validationServer01" 
                       formControlName="email">
 
@@ -216,7 +219,7 @@
                 <!-- user register form -->
   
                 <button
-                class="site-primary-Button1" type="submit">       
+                class="site-primary-Button2" type="submit">       
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
               </button>
@@ -227,7 +230,6 @@
              </button>
                 </form>
           
-          </div>
   
         
           <div>
@@ -243,9 +245,7 @@
             
           </div>
     
-        </div>
-    
-      </div>
+     
     </div>
     
 

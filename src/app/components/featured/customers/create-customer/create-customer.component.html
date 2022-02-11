@@ -50,7 +50,8 @@
                     <input type="text" 
                     [class.is-invalid]="f['address'].invalid && f['address'].touched"   
                      class="form-control" 
-                     id="validationServer02" formControlName="address">
+                     id="validationServer02"
+                     formControlName="address">
       
                       <div *ngIf="f['address'].touched && f['address'].invalid" class="text-danger">
                         Address is required.

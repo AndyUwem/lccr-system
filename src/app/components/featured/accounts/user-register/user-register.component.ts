@@ -214,5 +214,6 @@ private isFormValidated(): boolean {
 
   public cancelUserRegistration(): void {
     this.backToLoginScreen.emit(false);
+    this.userRegisterForm.reset()
   }
 }

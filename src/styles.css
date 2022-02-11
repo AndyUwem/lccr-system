@@ -3,7 +3,10 @@
     --background-color-primary: rgb(14, 14, 133);
     --background-color-secondary: rgb(119, 213, 220);
     --background-color-green: rgb(42, 145, 97);
+    --background-color-black: #000;
 }
+
+
 
 .site-background-color{
     background-color: var(--background-color-primary)
@@ -78,7 +81,8 @@ body {
     padding: 8px;
     font-weight: bold;
     font-size: 110%;
-    border: none;
+    border: 2px solid var(--background-color-black);
+    box-sizing: border-box;
     background-color: #f0eaea;
     color: var(--background-color-green);
 
@@ -86,7 +90,9 @@ body {
 
 .site-primary-Button2:hover{
     color: rgb(30, 56, 44);
-    background-color: var(--background-color-secondary)
+    background-color: var(--background-color-secondary);
+    border: 2px solid var(--background-color-black);
+    box-sizing: border-box;
 }
 
 .site-primary-Button2:disabled{
@@ -103,4 +109,8 @@ body {
   .invalid-input{
     color: rgb(194, 27, 27);
     margin: 7px 0px 0px 0px;
+}
+
+.bottom-spacer{
+    margin-bottom: 24px;
 }

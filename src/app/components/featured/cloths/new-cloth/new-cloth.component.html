@@ -1,0 +1,127 @@
+
+    <form  style="margin: 0px auto;"
+    class="card-body col-6 row"
+     [formGroup]="newClothForm">
+        <!-- fill Cloth -->
+             
+             <h3 class="form-title">Fill in Cloth Infomation</h3>
+             
+             <div class="col-md-6 bottom-spacer">
+                 <label for="validationServer02" class="form-label">Cloth Name</label>
+             <input type="text" 
+             [class.is-invalid]="f['clothName'].invalid && f['clothName'].touched" 
+             class="form-control" 
+             id="validationServer02" formControlName="clothName">
+                
+                <div 
+                *ngIf="f['clothName'].touched && f['clothName'].invalid"
+                 class="text-danger">
+                    A name is required.
+                 </div>
+
+            </div>
+            
+           
+            <div class="col-md-6 bottom-spacer">
+                <label for="validationServer02" class="form-label">Colour</label>
+                <input type="text" 
+                [class.is-invalid]="f['clothColor'].invalid && f['clothColor'].touched" 
+                class="form-control" 
+                id="validationServer02" formControlName="clothColor">
+                
+                <div 
+                *ngIf="f['clothColor'].touched && f['clothColor'].invalid"
+                 class="text-danger">
+                    A colour is required.
+                 </div>
+
+            </div>
+            
+            <div class="col-md-4 bottom-spacer">
+             <label for="validationServer04" class="form-label">Cloth Category</label>
+             <select class="form-select"
+             [class.is-invalid]="f['clothCategory'].invalid && f['clothCategory'].touched" 
+               formControlName="clothCategory"
+             id="validationServer04" aria-describedby="validationServer04Feedback">
+             <option selected disabled value="">Choose...</option>
+             <option>Shirt</option>
+             <option>Trouser</option>
+             <option>Other</option>
+            </select>
+            
+            <div 
+            *ngIf="f['clothCategory'].touched && f['clothCategory'].invalid"
+             class="text-danger">
+                Select a category.
+             </div>
+
+        </div>
+         
+
+           
+           <div class="col-md-4 bottom-spacer">
+               <label for="validationServer04" class="form-label">Service Type</label>
+               <select [class.is-invalid]="f['serviceType'].invalid && f['serviceType'].touched" 
+               class="form-select" formControlName="serviceType"
+             id="validationServer04" aria-describedby="validationServer04Feedback" >
+               <option selected disabled value="">Choose...</option>
+               <option>Regular</option>
+               <option>Express</option>
+            </select>
+            
+              <div 
+                *ngIf="f['serviceType'].touched && f['serviceType'].invalid"
+                 class="text-danger">
+                    Select a service Type.
+                 </div>
+            </div>
+        
+        
+        <div class="col-md-6 bottom-spacer">
+             <label for="validationServer03" class="form-label">PickUp Date</label>
+             <input type="date" class="form-control"
+             [class.is-invalid]="f['pickUpDate'].invalid && f['pickUpDate'].touched" 
+              formControlName="pickUpDate"
+              id="validationServer03" aria-describedby="validationServer03Feedback" >
+
+              <div 
+              *ngIf="f['pickUpDate'].touched && f['pickUpDate'].invalid"
+               class="text-danger">
+                  A pick up date is required.
+               </div>
+            </div>
+           
+            <div class="col-md-6 bottom-spacer">
+                <label for="validationServer02" class="form-label">Cost</label>
+                <input [class.is-invalid]="f['cost'].invalid && f['cost'].touched" 
+                type="text"  formControlName="cost"
+                class="form-control" 
+                id="validationServer02" placeholder="$ 0.00"  >
+                
+                <div 
+                *ngIf="f['cost'].touched && f['cost'].invalid"
+                 class="text-danger">
+                    Cost is required.
+                 </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="validationTextarea" class="form-label">Description</label>
+             <textarea
+             [class.is-invalid]="f['description'].invalid && f['description'].touched" 
+              class="form-control" id="validationTextarea" formControlName="description"
+             placeholder="describe what to do with this cloth eg washing and ironing... starhing etc ." ></textarea>
+            
+             <div 
+             *ngIf="f['description'].touched && f['description'].invalid"
+              class="text-danger">
+                 Write a description for this cloth.
+              </div>
+
+        </div>
+        
+        
+
+   <!-- fill Cloth -->
+   
+</form>
