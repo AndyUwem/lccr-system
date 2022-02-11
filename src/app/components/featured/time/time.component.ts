@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { AuthService } from '../accounts/authentication/auth.service';
 
 @Component({
   selector: 'app-time',
@@ -9,24 +10,17 @@ import { interval, Subscription } from 'rxjs';
 export class TimeComponent implements OnInit, OnDestroy{
 
   clock: string = '';
-  attendantName: string = 'BobCat';
-   private timeInterval!: Subscription;
+  private timeInterval!: Subscription;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.timeInterval =  interval(1000).subscribe((t: number) => {
-      this.handleTime();
-    });
+    this.timeInterval =  interval(1000)
+    .subscribe(() => this.handleTime());
   
   }
 
-
-ngOnDestroy(): void{
-  this.timeInterval.unsubscribe()
-}
-
-handleTime() {
+private handleTime() {
   let currentClock = new Date(),
     hours = currentClock.getHours(),
     clockWeather = '',
@@ -35,21 +29,29 @@ handleTime() {
   if (currentClock.toLocaleString().endsWith('PM')) {
 
     clockWeather = 'PM';
-      if(hours <= 12 || hours < 5) 
-         greetings = `Good Afternoon! ${this.attendantName}`;
-      else
-         greetings = `Good Evening! ${this.attendantName}`;
+      if(hours <= 12 || hours < 5) greetings = this.greetUser('Good Afternoon!');
+      
+        greetings = this.greetUser('Good Evening!');
     
-
    } else {
     clockWeather = 'AM';
-    if(hours < 11) greetings = `Good Afternoon! ${this.attendantName}`;
-    greetings = `Good Morning! ${this.attendantName}`;
+    if(hours < 11) greetings = this.greetUser('Good Afternoon!');
+     
+       greetings = this.greetUser('Good Morning!');
   };
 
-  return (this.clock = `${greetings},   ${currentClock.toLocaleString()}`);
+  return (this.clock = `${greetings}, ${currentClock.toLocaleString()}`);
 }
 
 
+private greetUser(message: string): string {
+  const user = JSON.parse(this.authService.getUserRef())
+  return `${message} ${user.names}`;
+}
+
+
+ngOnDestroy(): void{
+  this.timeInterval.unsubscribe()
+}
 
 }
