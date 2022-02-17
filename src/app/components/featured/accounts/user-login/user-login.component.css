@@ -1,10 +1,4 @@
-h2,
-h3,
-p,
-small,
-select{
-  color: var(--background-color-secondary) !important;
-}
+
 .cards-group-container{
   width: fit-content;
   height: fit-content;
@@ -16,14 +10,11 @@ select{
   margin-bottom: 4rem;
 }
 
-.no-border{
-  border: none;
-  border-radius: 0;
-}
 
 .card-register{
   width: 50% !important;
-  background-color: #000 !important;
+  background-color: var(--color-navy) !important;
+  color: var(--color-white);
   font-size: 80%;
   padding: 12px;
   box-sizing: border-box;
@@ -33,9 +24,6 @@ select{
  font-size: 40px;
 }
 
-.card-register p{
-  opacity: 0.6;
- }
 
  .login-cover{
   width: 100%;
@@ -44,6 +32,7 @@ select{
   padding-top: 2%;
   justify-content: center;
   box-sizing: border-box;
+  
 }
 
 
@@ -53,32 +42,24 @@ select{
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+ 
 }
 
  .card-login{
    border: none;
    border-radius: 0 !important;
-   color: #fff;
    padding: 8px 50px;
    box-sizing: border-box;
-   opacity: 0.9;
+   background-color: var(--color-navy) !important;
+   color: var(--color-white);
  }
-
-
-input{
-  border-bottom: 2px solid #e1e1e1;
-}
 
 h3{
   font-weight: bold;
 }
 
-select{
-  background-color: var(--background-color-black);
-}
 
 a{
-  color: var(--background-color-primary);
   text-decoration: none;
 }
 
@@ -86,9 +67,5 @@ img{
   width: 5rem;
   height: 5rem;
   padding: 10px;
-  opacity: 0.8;
 }
 
-.checkbox{
-  background-color: var(--background-color-black) !important;
-}

@@ -90,7 +90,8 @@ export class ClothsListComponent implements OnInit, OnDestroy{
 
 
   private updateCloth(customer: Customer): void {
-    this.clothService.updateCloth(this.authService.getAdminId, customer.id, customer.cloth)
+    this.clothService
+    .updateCloth(this.authService.getAdminId, customer.id, customer.cloth)
     .subscribe(() => {})
 }
 

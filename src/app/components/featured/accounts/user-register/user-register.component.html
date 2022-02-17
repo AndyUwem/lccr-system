@@ -1,7 +1,7 @@
 
  <div
   style="margin: 0px auto;"
- class="card-body row col-6">
+ class="card-body row col-6 site-color-navy">
 
               <form class="card-body row g-3" 
               (ngSubmit)="registerUser()"
@@ -219,13 +219,13 @@
                 <!-- user register form -->
   
                 <button
-                class="site-primary-Button2" type="submit">       
+                class="site-primary-button2" type="submit">       
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span> {{ isLoading ? 'Processing' : 'SignUp'}} </span>
               </button>
 
               <button (click)="cancelUserRegistration()"
-              class="btn btn-danger btn-sm">
+              class="site-danger-button">
               <i class="fa fa-times-circle-o"> Cancel</i>
              </button>
                 </form>

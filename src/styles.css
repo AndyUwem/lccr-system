@@ -1,36 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
-    --background-color-primary: rgb(14, 14, 133);
-    --background-color-secondary: rgb(119, 213, 220);
-    --background-color-green: rgb(42, 145, 97);
-    --background-color-black: #000;
+    --color-navy: #093545;
+    --color-green: #20df7f;
+    --color-white: #e5e5e5;
+    --color-red: #aa0909;
 }
 
-
-
-.site-background-color{
-    background-color: var(--background-color-primary)
+html, body {
+    height: 100%;
 }
 
-.site-background-color2{
-    background-color: var(--background-color-secondary)
+body {
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.site-background-green{
-    background-color: var(--background-color-green) !important;
+input{
+   background-color: var(--color-navy) !important;
+   color: var(--color-white) !important;
+   font-weight: bold;
+ }
+
+.site-color-navy{
+    background-color: var(--color-navy) !important;
+    color: var(--color-white) !important;
 }
 
-
-.site-primary-color{
-    color: rgb(14, 14, 133);
+.site-color-green{
+    background-color: var(--color-green)
 }
 
-.site-secondary-color{
-    color: #fff;
+.site-color-white{
+    background-color: var(--color-white) !important;
 }
 
 .text-danger{
-    color: red;
+    color: var(--color-red);
 }
 
 .container-margin{
@@ -46,18 +50,12 @@
 }
 
 .current a{
-    background-color: var(--background-color-secondary);
-    color: var(--background-color-secondary);
-}
-html, body {
-     height: 100%;
- }
-
-body {
-     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: var(--color-green);
+    color: var(--color-green);
 }
 
-.site-primary-Button1{
+
+.site-primary-button1{
     width: 8rem;
     height: fit-content;
     text-align: center;
@@ -65,46 +63,58 @@ body {
     font-weight: bold;
     font-size: 120%;
     border: none;
-    color: #f0eaea;
-    background-color: var(--background-color-green);
+    color: var(--color-white);
+    background-color: var(--color-green);
 
 }
 
-.site-primary-Button1:hover{
-    background-color: rgb(48, 95, 73);
+.site-primary-button1:hover{
+    background-color: var(--color-navy)
 }
 
-.site-primary-Button2{
+.site-primary-button2{
     width: 8rem;
     height: fit-content;
     text-align: center;
     padding: 8px;
     font-weight: bold;
     font-size: 110%;
-    border: 2px solid var(--background-color-black);
+    border: none;
     box-sizing: border-box;
-    background-color: #f0eaea;
-    color: var(--background-color-green);
-
+    background-color: var(--color-green);
+    color: var(--color-white);
 }
 
-.site-primary-Button2:hover{
-    color: rgb(30, 56, 44);
-    background-color: var(--background-color-secondary);
-    border: 2px solid var(--background-color-black);
+.site-primary-button2:hover{
+    color: var(--color-navy);
+    background-color: var(--color-white);
+    border: none;
     box-sizing: border-box;
 }
 
-.site-primary-Button2:disabled{
-    background-color: #f0eaea;
-    opacity: .5;
+.site-primary-button2:disabled{
+    background-color: var(--color-green);
+    opacity: .3;
   }
   
-  .site-primary-Button2:disabled:hover{
-   background-color: #f0eaea;
-   color: rgb(42, 145, 97);
+  .site-primary-button2:disabled:hover{
+   background-color: var(--color-green);
+   color: var(--color-white);
   }
   
+  .site-danger-button{
+    width: 8rem;
+    height: fit-content;
+    text-align: center;
+    padding: 8px;
+    margin-left: 7px;
+    font-weight: bold;
+    font-size: 110%;
+    border: none;
+    box-sizing: border-box;
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
   /* forms validation  */
   .invalid-input{
     color: rgb(194, 27, 27);
@@ -113,4 +123,8 @@ body {
 
 .bottom-spacer{
     margin-bottom: 24px;
+}
+
+.left-spacer{
+    margin-left: 4px;
 }

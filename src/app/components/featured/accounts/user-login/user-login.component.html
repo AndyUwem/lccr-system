@@ -20,7 +20,7 @@
               </p>
               <div class="col-12">
                 <button (click)="navigateToRegisterPage()"
-                class="site-primary-Button2 bottom-spacer" type="submit">Register</button>
+                class="site-primary-button2 bottom-spacer" type="submit">Register</button>
               </div>
 
           </div>
@@ -31,11 +31,11 @@
         </div>
 
 
-        <div class="card no-border" 
-        style="width: 30%; background-color: #000;">
+        <div class="card left-spacer site-color-navy" 
+        style="width: 30%;">
           <div class="card-body">
             <div class="login-container">
-              <div class="card card-login site-background-color2">
+              <div class="card card-login">
                 <div class="card-body">
 
                   <div class="row row-cols-lg-auto g-3 align-items-center bottom-spacer" style="display: flex; justify-content: flex-end;">
@@ -53,7 +53,7 @@
 
                 <div>
                   <form class="row g-3 " [formGroup]="loginForm" (ngSubmit)="validateLogin()">
-                    <h3 class="card-title" style="color: #fff !important;">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
+                    <h3 class="card-title">{{ isAdmin ? 'Enter administrator info': 'Enter attendant info'}}</h3>
                     <div class="mb-3">
                       <label for="validationServer01" class="form-label">Email</label>
                       <input type="text" class="form-control" id="validationServer01" formControlName='email'>
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="col-12">      
-                      <button [disabled]="loginForm.invalid" class="site-primary-Button2" type="submit">
+                      <button [disabled]="loginForm.invalid" class="site-primary-button2" type="submit">
                         <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                        <span> {{ isLoading ? 'Processing' : 'Login'}}</span>
                         </button>
@@ -100,7 +100,7 @@
 
           </div>
           <div class="card-footer">
-            <small class="site-secondary-color">having problems tyring to login as attendant? contact your employer asap!</small>
+            <small>having problems tyring to login as attendant? contact your employer asap!</small>
           </div>
         </div>
       </div>
