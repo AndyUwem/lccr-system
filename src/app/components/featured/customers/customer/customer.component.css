@@ -1,3 +1,10 @@
+*{
+    font-weight: bold;
+}
+
+p > span {
+    color: var(--color-green);
+}
 .right-spacer{
     margin-right: 35%;
 }
@@ -13,16 +20,14 @@
     margin-right: 7px;
 }
 .details{
-    color: #a7a0a0;
-    font-family: inherit;
+    color: var(--color-white);
     font-weight: bold;
     font-size: small;
 }
-button:hover{
-  color: #fff;
-}
+
 
 .accordion-body.details,span{
     margin-right: 10px;
 }
+
 

@@ -1,5 +1,5 @@
 <div class="card card-margin-bottom">
-    <div class="card-header site-background-color site-secondary-color">
+    <div class="card-header site-color-navy">
         Customer Record
       </div>
   </div>
@@ -7,29 +7,29 @@
 
 
   <div class="card card-margin-bottom">
-    <div class="card-header site-background-color2 site-secondary-color">
+    <div class="card-header site-color-navy">
      
       <span style="margin-right: 80%;"> Customer details</span>
       <a (click)="cancelButton()"
-       type="button" class="btn btn-danger btn-sm"> <i class="fa fa-times"></i></a>
+       type="button" class="btn btn-sm cancel-btn"> <i class="fa fa-times"></i></a>
     </div>
     <div class="card-body">
   
 
       <div class="box-container">
-        <div class="card">
+        <div class="card site-color-navy">
           <div class="card-header">
-            <span style="font-weight: bold;">Names / Address</span>
+            <span>Names / Address</span>
           </div>
           <div class="card-body">  
             
                 <div>
-                  <div class="accordion-body">
-                    <p class="details"><span>Names:</span> <b style="color: #000;">{{ customer.names }}</b></p>
-                    <p class="details"><span>Phone:</span> <b style="color: #000;"> {{ customer.phone }}</b></p>
-                    <p class="details"><span>Address:</span> <b style="color: #000;">{{ customer.address }}</b></p>
-                    <p class="details"><span>Gender:</span> <b style="color: #000;">{{ customer.gender }}</b></p>
-                    <p class="details"><span>Registered Date:</span> <b style="color: #000;">{{ customer.dateRegistered }}</b></p>
+                  <div class="accordion-body site-color-navy">
+                    <p><span>Names:</span>{{ customer.names }}</p>
+                    <p><span>Phone:</span> {{ customer.phone }}</p>
+                    <p><span>Address:</span>{{ customer.address }}</p>
+                    <p><span>Gender:</span>{{ customer.gender }}</p>
+                    <p><span>Registered Date:</span>{{ customer.dateRegistered }}</p>
                   </div>
                 </div>
 

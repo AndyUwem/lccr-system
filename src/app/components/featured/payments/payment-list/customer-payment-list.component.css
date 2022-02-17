@@ -4,3 +4,8 @@
     border: none;
   }
   
+  .reminder-text{
+    color: var(--color-green);
+  }
+
+ 

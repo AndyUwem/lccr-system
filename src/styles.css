@@ -55,7 +55,9 @@ input{
 }
 
 
-.site-primary-button1{
+/* site buttons configurations */
+
+.site-secondary-button{
     width: 8rem;
     height: fit-content;
     text-align: center;
@@ -64,12 +66,12 @@ input{
     font-size: 120%;
     border: none;
     color: var(--color-white);
-    background-color: var(--color-green);
+    background-color: var(--color-navy);
 
 }
 
-.site-primary-button1:hover{
-    background-color: var(--color-navy)
+.site-secondary-button:hover{
+    background-color: var(--color-green)
 }
 
 .site-primary-button2{
@@ -115,6 +117,26 @@ input{
     background-color: var(--color-red);
     color: var(--color-white);
 }
+
+.action-button{
+    color: var(--color-green);
+    background-color: var(--color-navy);
+    border:  1px solid var(--color-green);
+  }
+
+  .action-button:hover{
+    color: var(--color-white);
+    background-color: var(--color-green);
+    border:  1px solid var(--color-green);
+  }
+
+  .cancel-btn{
+    color: var(--color-navy);
+    background-color: var(--color-green);
+}
+
+
+
 
   /* forms validation  */
   .invalid-input{

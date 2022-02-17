@@ -12,7 +12,7 @@
 
 <div *ngIf="isCustomerOwing; else paymentsTable">
  
-    <div class="card">
+    <div class="card site-color-navy">
       <div class="card-header">
         <span style="margin-right: 30%; font-weight: bold;"> payments</span>
       </div>
@@ -21,19 +21,18 @@
 
           <div class="accordion-body">
 
-              <div class="card">
-                  <div class="card-header" style="color: red;">
+              <div class="card site-color-navy">
+                  <div class="card-header reminder-text">
                     Reminder!!
                   </div>
                   <div class="card-body">
-                    <p class="card-text" style="color: red;">Please note that <b>{{ customer.names }}</b> still has outstanding payments to be made, try contacting or informing them as a reminder about their payments. </p>
+                    <p class="card-text reminder-text">Please note that <b>{{ customer.names }}</b> still has outstanding payments to be made, try contacting or informing them as a reminder about their payments. </p>
 
                    
                       <button
-                       class="btn site-background-color2 site-secondary-color" (click)="continueToPaymentsList()"
+                       class="btn action-button" (click)="continueToPaymentsList()"
                         >Continue <i class="fa fa-arrow-circle-right" ></i>
                       </button>
-           
 
                   </div>
                 </div>
@@ -56,7 +55,7 @@
 
               <!-- Button trigger modal -->
           <button *ngIf="canMakePayment"
-           type="button" class="btn btn-sm site-background-color site-secondary-color"  [hidden]="isAdmin"
+           type="button" class="btn action-button"  [hidden]="isAdmin"
            data-bs-toggle="modal" data-bs-target="#staticBackdrop">Balance Payment
           </button>
         </div>
@@ -95,17 +94,17 @@
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content site-color-navy">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">New Payment</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close cancel-btn" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <app-new-payment [payments]="customer.payments" (payment)="setPayment($event)"></app-new-payment>
         </div>
         <div class="modal-footer">
           <button (click)="updatePayment()"  [disabled]="!onAmountPaidValueCheck" 
-          type="button" style="width: 80px;" class="btn site-background-color site-secondary-color"  data-bs-dismiss="modal">Update</button>
+          type="button" style="width: 80px;" class="btn action-button"  data-bs-dismiss="modal">Update</button>
         </div>
       </div>
     </div>

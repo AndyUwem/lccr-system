@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card site-color-navy">
     <div class="card-body">
 
       <div *ngIf="isLoading; else paymentScreen">
@@ -22,7 +22,7 @@
                id="validationServer05Feedback" class="invalid-feedback">{{ paymentError.errorMassage }}</div>
             </div>
             <div class="col-md-6">
-              <label for="inputPassword4" class="form-label">BalanceOfPayment</label>
+              <label for="inputPassword4" class="form-label">Balance Of Payment</label>
                
               <div class="input-group mb-3">
                 <span class="input-group-text">
@@ -30,18 +30,17 @@
                 </span>
                 <input  [(ngModel)]="newPayment.balanceOfPayment" name="balanceOfPayment" 
                 required disabled 
-                type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                type="text" class="form-control">
                 <span class="input-group-text">.00</span>
               </div>
 
             </div>
             <div class="col-12">
               <label for="inputAddress" class="form-label">Date</label>
-              <input [(ngModel)]="newPayment.date" name="date" disabled
-              type="text" class="form-control" id="inputAddress">
+              <p class="form-control site-color-navy">{{ newPayment.date | date }} </p>
             </div>
             <div class="col-md-6">
-              <label for="inputCity" class="form-label">TotalPayment</label>
+              <label for="inputCity" class="form-label">Total Payment</label>
 
                <div class="input-group mb-3">
                 <span class="input-group-text">
