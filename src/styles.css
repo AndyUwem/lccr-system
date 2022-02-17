@@ -115,6 +115,7 @@ input{
     background-color: var(--color-red);
     color: var(--color-white);
 }
+
   /* forms validation  */
   .invalid-input{
     color: rgb(194, 27, 27);
