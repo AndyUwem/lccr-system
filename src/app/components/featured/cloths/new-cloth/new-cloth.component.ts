@@ -44,6 +44,13 @@ export class NewClothComponent implements OnInit {
   public saveNewCloth(): void{
     if(this.newClothForm.valid)
       this.sendNewClothToParent()
+
+      this.newClothForm.reset();
   }
 
+  public cancelNewClothForm() : void {
+    this.newClothForm.reset();
+  }
+
+  
 }
