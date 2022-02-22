@@ -28,6 +28,7 @@ export class UserRegisterComponent implements OnInit {
   @Input('userRole') userRole!: string;
   public userAccount!: any;
   public isFormSubmitted: boolean = false;
+  public isRegisterUser!: boolean;
   
 
   constructor(
@@ -39,8 +40,15 @@ export class UserRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isAdmin = this.getRoleType();
+    this.getRoleType();
     this.initializeUserRegisterForm();
+    this.handleRegistserWelcomeScreen()
+  }
+
+
+  private handleRegistserWelcomeScreen(): void {
+       if(!this.isAdmin)
+        this.isRegisterUser = true
   }
 
   private initializeUserRegisterForm(): void {
@@ -73,8 +81,6 @@ export class UserRegisterComponent implements OnInit {
   }
 
 
-
-
   private getUserEmailAndPassword(): LoginData {
     const userAccounts: LoginData = {
       email: this.f['email'].value,
@@ -87,8 +93,9 @@ export class UserRegisterComponent implements OnInit {
     event.stopPropagation();
   }
 
-  private getRoleType(): boolean {
-    return this.userRole === 'Administrator' ? true : false;
+  private getRoleType(): void {
+     this.userRole === 'Administrator' ?
+     this.isAdmin = true : this.isAdmin = false;
   }
 
   private navigateToHome():void{
@@ -209,10 +216,15 @@ private isFormValidated(): boolean {
       return attendant;
     }
    
-
   }
 
+  public navigateToRegisterForm(): void {
+    this.isRegisterUser = true;
+  }
+  
   public cancelUserRegistration(): void {
+    this.isRegisterUser = false;
+    if(!this.isAdmin)
     this.backToLoginScreen.emit(false);
     this.userRegisterForm.reset()
   }

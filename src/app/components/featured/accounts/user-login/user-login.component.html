@@ -1,39 +1,18 @@
 
-      <div class="cards-group-container" *ngIf="!isRegisterUser; else registerPage">
-        <div class="card no-border card-register">
-          <img src="assets/img/cloth-icon.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h2 class="card-title">Welcome</h2>
-            <p class="card-title bottom-spacer" style="font-size: 20px;">Register a free laundry records account here.
-            </p>
-             
-            <p class="card-text bottom-spacer">
+      <div class="cards-group-container">
 
-              Laundry records system is a laundry database management software that makes it easy for a dry cleaning service to monitor their attendants and customers activities,
-              it was highly designed for keeping track of customers and thier cloths information such as when a customer was registered, their orders, how much was paid and to which cloth (s)
-               was paid for. 
-               With laundry records system it is easy to record your laundry transactions instead of putting notes or records on books, as the business owner or (Administrator) you can access every activities of your busniness
-               the system aslo features a debt reminder system that reminds you of a customer's debt if that particular is owing or having any pending balance to be made,
-               it improves and establishes an excellent connection with potential customers.
-               customers datas are safe and stored for as long as eternity.
-              </p>
-              <div class="col-12">
-                <button (click)="navigateToRegisterPage()"
-                class="site-primary-button2 bottom-spacer" type="submit">Register</button>
-              </div>
-             <p>
-              <small>Already have an account ? click to login.
-              </small>
-             </p>
-          </div>
-          <div class="card-footer">
-            <!-- <small class="text-muted">Last updated today jan 23</small> -->
-          </div>
+        <div class="card no-border card-register" #card_register>
+          <app-user-register [userRole]="userRole"></app-user-register>
+
+          <p (click)="switchToLoginView()">
+            <small>Already have an account ? click to login.
+            </small>
+           </p>
 
         </div>
 
-
-        <div class="card left-spacer site-color-navy login-container-cover">
+        <div #login_container_cover
+         class="card left-spacer site-color-navy login-container-cover">
           <div class="card-body">
             <div class="login-container">
               <div class="card card-login">
@@ -109,6 +88,3 @@
         </div>
       </div>
 
-<ng-template #registerPage>
-  <app-user-register [userRole]="userRole" (backToLoginScreen)="navigateBackToLoginPage($event)"></app-user-register>
-</ng-template>

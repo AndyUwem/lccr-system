@@ -1,7 +1,38 @@
+<div class="card-body" *ngIf="!isRegisterUser; else registerForm">
+  <img src="assets/img/cloth-icon.png" alt="...">
+
+  <h2 class="card-title">Welcome</h2>
+  <p class="card-title bottom-spacer" style="font-size: 20px;">Register a free laundry records account here.
+  </p>
+   
+  <p class="card-text bottom-spacer">
+
+    Laundry records system is a laundry database management software that makes it easy for a dry cleaning service to monitor their attendants and customers activities,
+    it was highly designed for keeping track of customers and thier cloths information such as when a customer was registered, their orders, how much was paid and to which cloth (s)
+     was paid for. 
+     With laundry records system it is easy to record your laundry transactions instead of putting notes or records on books, as the business owner or (Administrator) you can access every activities of your busniness
+     the system aslo features a debt reminder system that reminds you of a customer's debt if that particular is owing or having any pending balance to be made,
+     it improves and establishes an excellent connection with potential customers.
+     customers datas are safe and stored for as long as eternity.
+    </p>
+    <div class="col-12">
+      <button (click)="navigateToRegisterForm()"
+      class="site-primary-button2 bottom-spacer" type="submit">Register</button>
+    </div>
+
+    <p>
+      <!-- demo text information for quick login.. -->
+    </p>
+</div>
+
+
+
+
+<ng-template #registerForm>
 
  <div
   style="margin: 0px auto;"
- class="card-body row col-6 site-color-navy">
+ class="card-body row col-7 site-color-navy">
 
               <form class="card-body row g-3" 
               (ngSubmit)="registerUser()"
@@ -234,6 +265,6 @@
           </div>
      
     </div>
-    
+  </ng-template>
 
     <!-- create new user modal -->

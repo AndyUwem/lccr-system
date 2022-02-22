@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Attendant } from 'src/app/interface/attendant.interface';
@@ -21,17 +21,19 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
   public isAdmin!: boolean;
   public arrayOfLoginTypes: Array<string> = ['Administrator', 'Attendant'];
   public loginType!: string;
-  public isRegisterUser: boolean = false;
   public userRole: string = 'Administrator';
   public isLoading: boolean = false
   @ViewChild('serverValidationFeedback') serverValidationFeedbackRef!: ElementRef;
+  @ViewChild('card_register') card_register!: ElementRef;
+  @ViewChild('login_container_cover') login_container_cover!: ElementRef;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private adminService: AdminService,
-    private attendantService: AttendantsService
+    private attendantService: AttendantsService,
+    private render2: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -76,9 +78,15 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.loginForm.valid) this.loginUser();
   }
 
-  private navigateToHome(): void {
+  public navigateToHome(): void {
     this.router.navigate(['home/dashboard']);
   }
+
+  public switchToLoginView() : void {
+      this.render2.setStyle(this.card_register.nativeElement, 'display', 'none');
+      this.render2.setStyle(this.login_container_cover.nativeElement, 'display', 'flex');
+  }
+
 
   private hideServerErrorText(booleanEventProperty: boolean): void{
     this.serverValidationFeedbackRef.nativeElement.hidden = booleanEventProperty;
@@ -99,14 +107,6 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  
-  public navigateToRegisterPage(): void {
-    this.isRegisterUser = true;
-  }
-
-  public navigateBackToLoginPage(booleanEventProperty: any): void {
-    this.isRegisterUser = booleanEventProperty;
-  }
 
   private loginUser(): void {
      this.isLoading = true;
