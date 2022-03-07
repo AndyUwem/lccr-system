@@ -13,6 +13,8 @@ import { AuthService } from '../authentication/auth.service';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css'],
 })
+
+
 export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private currentUser: any;
@@ -74,7 +76,8 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
     return loginInfo;
   }
 
-  validateLogin(): void {
+
+   validateLogin(): void {
     if (this.loginForm.valid) this.loginUser();
   }
 
@@ -164,4 +167,6 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.subscriptionService.remove();
   }
+
+
 }
