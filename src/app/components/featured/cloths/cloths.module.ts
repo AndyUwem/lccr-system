@@ -5,13 +5,16 @@ import { ClothsListComponent } from "./cloths-list/cloths-list.component";
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NewClothComponent } from './new-cloth/new-cloth.component';
+import { CustomPipesModule } from "src/app/pipes/pipes.module";
 
 @NgModule({
     declarations: [ClothsListComponent, NewClothComponent],
     imports: [
         CommonModule, 
         ReactiveFormsModule,
-        ScrollingModule
+        ScrollingModule,
+
+        CustomPipesModule
     ],
     exports: [ClothsListComponent, ClothsListComponent]
 })

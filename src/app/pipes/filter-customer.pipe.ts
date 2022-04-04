@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 
 
-export class FilterCustomer implements PipeTransform {
+export class FilterCustomerPipe implements PipeTransform {
 
     transform(customers: any[], enteredValue: string, propertyToFilter: any): any[]{
         if (!customers || !enteredValue) { return customers }

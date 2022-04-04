@@ -78,11 +78,12 @@ export class PaymentHelperService {
         return $payment;
     }
 
-    public formatNumberToCurrency(numberToFormat: number): string {
-        return new Intl.NumberFormat('en-us', {
-          style: 'currency',
-          currency: 'NGN',
-        }).format(numberToFormat);
-      }
-
+ 
 }
+
+export const formatNumberToCurrency = ( numberToFormat: number, currency: string ) => {
+    return new Intl.NumberFormat('en-us', {
+      style: 'currency',
+      currency: currency,
+    }).format(numberToFormat);
+  }

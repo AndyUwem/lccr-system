@@ -46,7 +46,7 @@
             <td> {{ cloth.serviceType }}</td>
             <td> {{ cloth.clothRegistrationDate | date }}</td>
             <td> {{ cloth.pickUpDate | date }}</td>
-            <td> {{ cloth.cost }}</td> 
+            <td> {{ cloth.cost | customCurrency: 'NGN' }}</td> 
             <td>
                 <button
                  [hidden]="isAdmin"

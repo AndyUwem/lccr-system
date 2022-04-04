@@ -75,9 +75,9 @@
                   <tr  *ngFor="let payment of customer.payments; let i = index">
                     <th scope="row">{{ i + 1}}</th>
                     <td> {{ payment.date | date:'medium' }}</td>
-                    <td> {{ payment.amountPaid | currency:'USD' }}</td>
-                    <td> {{ payment.balanceOfPayment  | currency:'USD' }}</td>
-                    <td> {{ payment.totalPayment | currency:'USD' }}</td>
+                    <td> {{ payment.amountPaid | customCurrency:'NGN' }}</td>
+                    <td> {{ payment.balanceOfPayment  | customCurrency:'NGN' }}</td>
+                    <td> {{ payment.totalPayment | customCurrency:'NGN' }}</td>
                   </tr>
                 </tbody>
               </table>

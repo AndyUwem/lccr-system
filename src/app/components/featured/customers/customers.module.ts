@@ -16,15 +16,15 @@ import { CustomersComponent } from './customers.component';
 import { PaymentsModule } from '../payments/payments.moudle';
 import { ClothsModule } from '../cloths/cloths.module';
 import { FeaturedModule } from '../featured.module';
-import { FilterCustomer } from 'src/app/pipes/filter-customer.pipe';
+import { CustomPipesModule } from 'src/app/pipes/pipes.module';
 
 
 @NgModule({
   declarations: [
     CustomersComponent, 
     CustomerComponent,
-    CreateCustomerComponent,
-    FilterCustomer
+    CreateCustomerComponent
+    
   ],
   imports: [
     CommonModule,
@@ -36,7 +36,8 @@ import { FilterCustomer } from 'src/app/pipes/filter-customer.pipe';
     FeaturedModule,
     CustomerRoutingModule,
     PaymentsModule,
-    ClothsModule
+    ClothsModule,
+    CustomPipesModule
   ],
   exports: [CustomersComponent,
      CustomerComponent,

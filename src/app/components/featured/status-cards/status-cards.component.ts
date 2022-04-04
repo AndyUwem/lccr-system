@@ -3,7 +3,7 @@ import { Cloth } from 'src/app/interface/cloth.interface';
 import { Customer } from 'src/app/interface/customer.interface';
 import { Payment } from 'src/app/interface/payment.interface';
 import { CustomerService } from 'src/app/service/customers/customers.service';
-import { PaymentHelperService } from 'src/app/service/payments/paymentsHelper.service';
+import { formatNumberToCurrency } from 'src/app/service/payments/paymentsHelper.service';
 import { AuthService } from '../accounts/authentication/auth.service';
 
 type StatusCardData = {
@@ -25,8 +25,7 @@ export class StatusCardsComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private authService: AuthService,
-    private paymentHelperService: PaymentHelperService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +49,7 @@ export class StatusCardsComponent implements OnInit {
                 },
                 {
                   header: 'Total Sales',
-                  value: this.paymentHelperService.formatNumberToCurrency(totalSales),
+                  value: formatNumberToCurrency(totalSales, 'NGN'),
                 },
               ];
   
