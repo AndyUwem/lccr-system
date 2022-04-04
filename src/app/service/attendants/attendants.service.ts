@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { Attendant } from "src/app/interface/attendant.interface";
+import { UserOnlineStatus } from "src/app/interface/user-online-status.interface";
 import { User } from "src/app/interface/user.interface";
 import { environment } from "src/environments/environment";
 
@@ -38,6 +39,11 @@ export class AttendantsService{
 
     public findAttendantById(adminId: string, attendantId: string): Observable<Attendant>{
         return this.httpClient.get<Attendant>(`${this.USERS_ENDPOINT}/${adminId}/attendants/${attendantId}.json`)
+    }
+
+    public updateAttendantOnlineStatus(adminId: string, attendantId: string, onlineStatus: UserOnlineStatus): Observable<Attendant> {
+        return this.httpClient
+           .patch<Attendant>(`${this.USERS_ENDPOINT}/${adminId}/attendants/${attendantId}.json`, onlineStatus )
     }
 
     public deleteAttendant(adminId: string, attendantId: string): Observable<any>{

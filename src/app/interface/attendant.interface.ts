@@ -9,6 +9,7 @@ export interface Attendant{
      gender : string
      dateRegistered: Date
      address: string
+     onlineStatus: string
      userRole: string 
-     userAccount: LoginData 
+     userAccount: LoginData
 }

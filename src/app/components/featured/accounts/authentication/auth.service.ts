@@ -14,15 +14,10 @@ type anyUser = Attendant | User | any;
 @Injectable({
   providedIn: 'root',
 })
-
-
 export class AuthService {
-  constructor(
-      private angularFireAuth: Auth, 
-      private htttp: HttpClient
-      ) {}
+  constructor(private angularFireAuth: Auth, private htttp: HttpClient) {}
 
- public setUserToken(token: string) {
+  public setUserToken(token: string) {
     localStorage.setItem('myToken', token);
   }
 
@@ -54,7 +49,6 @@ export class AuthService {
     );
   }
 
-
   public setUserREf(currentUser: any): void {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
   }
@@ -74,6 +68,18 @@ export class AuthService {
       : JSON.parse(this.getUserRef()).employerId;
   }
 
+  public setIsUserOnline(isOnline: boolean) {
+    let userOnlineStatus!: string;
+    if (isOnline == true) userOnlineStatus = 'true';
+    else userOnlineStatus = 'false';
 
+    JSON.stringify(sessionStorage.setItem('userOnline?', userOnlineStatus));
+  }
+
+  public getIsUserOnline(): boolean {
+    const userOnlineStatus: string | null = sessionStorage.getItem('userOnline?');
+    if (userOnlineStatus == 'true') return true;
+    else return false;
+  }
 
 }

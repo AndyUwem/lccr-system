@@ -69,7 +69,7 @@ export class PaymentHelperService {
     }
 
 
-    getTotalAndBalance(payments: Payment[]): { total: number, balance: number } {
+   public getTotalAndBalance(payments: Payment[]): { total: number, balance: number } {
         let $payment = { total: 0, balance: 0 };
         payments.forEach((payment: Payment) => {
             $payment.total = payment.totalPayment;
@@ -78,6 +78,11 @@ export class PaymentHelperService {
         return $payment;
     }
 
-
+    public formatNumberToCurrency(numberToFormat: number): string {
+        return new Intl.NumberFormat('en-us', {
+          style: 'currency',
+          currency: 'NGN',
+        }).format(numberToFormat);
+      }
 
 }

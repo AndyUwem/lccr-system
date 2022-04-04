@@ -65,7 +65,9 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private onUserLoggedInCheck(): void {
-    if (this.authService.isUserLoggedIn()) this.navigateToHome();
+    if (this.authService.isUserLoggedIn()){
+      this.navigateToHome();
+    } 
   }
 
   private getUserInfo(): LoginData {
@@ -144,7 +146,11 @@ export class UserLoginComponent implements OnInit, OnDestroy, AfterViewInit {
         this.attendantService
         .findAttendantById(adminId, attendantId)
         .subscribe({
-          next: (attendant: Attendant) => this.handleUserAuthorization(attendant),
+          next: (attendant: Attendant) => {
+            this.handleUserAuthorization(attendant);
+            this.attendantService.updateAttendantOnlineStatus(adminId, attendantId, { onlineStatus: 'online' })
+            .subscribe(() => {})
+          },
           error: (err) => console.log(err.message)
         })
     }

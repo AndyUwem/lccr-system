@@ -15,8 +15,8 @@ import { environment } from "src/environments/environment";
      
       constructor(private httpClient: HttpClient ){}
 
-        updateCloth(adminId: string, customerId: string, cloth: Cloth[] ): Observable<Cloth[]>{
+        public updateCloth(adminId: string, customerId: string, cloth: Cloth[] ): Observable<Cloth[]>{
            return this.httpClient.patch<Cloth[]>(`${this.ADMINISTRATORS_API}/${adminId}/customers/${customerId}.json`, { cloth } )
         }
-        
+            
  }

@@ -104,6 +104,9 @@
                                          class="list-group-item list-group-item-action list-group-item-light">
                                           <div class="d-flex w-100 justify-content-between attendant-list-stripe">
                                             <b> <code>{{i + 1}}</code>. <small> {{ attendant.names }}</small> </b>
+                                            <small #onlineStatusText> {{ attendant.onlineStatus }} now
+                                              <span #onlineStatusIcon class="position-absolute top-0 start-100 translate-middle p-2 border border-light rounded-circle"> </span>
+                                            </small>
                                           </div>
                                       </button>
 
